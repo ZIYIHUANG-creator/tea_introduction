@@ -1,4 +1,4 @@
-// 分类标签功能
+﻿// 分类标签功能
 function initCategoryTags() {
     const categoryTags = document.querySelectorAll('.category-tag');
     
@@ -3758,5 +3758,4 @@ function addSpeedControls(heroCarousel) {
             this.style.background = 'rgba(255,255,255,0.4)';
         });
     });
-    //重新进行编码
 }
