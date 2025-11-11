@@ -27,6 +27,7 @@
 }
 
 body {
+    font-family:"Microsoft YaHei","SimSun",sans-serif;
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
@@ -3495,3 +3496,4 @@ canvas {
 .hero .hero-content p {
     color: #e6f1ff !important;
 }
+/*重新编码*/
