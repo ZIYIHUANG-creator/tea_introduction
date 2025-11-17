@@ -91,8 +91,8 @@ const locationData = {
     mountain: {
         1: {
             title: "🌴乔木型：原始茶树",
-            image: "images/daqiaomuxing/1.jpg",
-            description: "多分布在我国热带或亚热带，和茶树原产地自然条件接近。植株高大，从基部到上部有明显主干，总状分枝，分枝高、枝叶稀；栅栏组织通常一层。",
+            image: "images/daqiaomuxing/5.jpg",
+            description: "多分布在我国热带或亚热带，和茶树原产地自然条件接近。",
             details: `
                 <h3>详细信息</h3>
                 <ul>
@@ -100,12 +100,12 @@ const locationData = {
                     <li><strong> 多为野生型古茶树，树干粗壮，多人拉手才能环抱住</li>
                     <li><strong>普洱茶历史上基本为乔木型</li>
                 </ul>
-                <p>黄山被誉为"天下第一奇山"，其雄伟壮观的自然景观和深厚的文化底蕴吸引了无数游客和文人墨客。</p>
+                <p>多分布在我国热带或亚热带，和茶树原产地自然条件接近。</p>
             `
         },
         2: {
-            title: "泰山",
-            image: "images/taishan/1.jpg",
+            title: "🌿小乔木型：进化之选",
+            image: "images/xiaoqiaomuxing/5.jpg",
             description: "泰山位于山东省中部，有'五岳之首'、'天下第一山'之称。",
             details: `
                 <h3>详细信息</h3>
