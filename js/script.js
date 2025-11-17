@@ -3054,18 +3054,18 @@ class MountainRiverQuiz {
         const wrongCount = document.getElementById('wrongCount');
         const scoreMessage = document.getElementById('scoreMessage');
         
-        finalScore.textContent = this.score;
+        finalScore.textContent = `${this.score}/${this.currentQuestions.length}`;
         correctCount.textContent = this.score;
         wrongCount.textContent = this.currentQuestions.length - this.score;
         
-        if (this.score >= 8) {
+        if (this.score === this.currentQuestions.length) {
             scoreMessage.textContent = '🎉 太棒了！你是茶叶知识小能手！';
             scoreMessage.style.color = '#4caf50';
-        } else if (this.score >= 5) {
-            scoreMessage.textContent = '👍 不错！要继续学习茶叶知识哦！';
+        } else if (this.score >= 4) {
+            scoreMessage.textContent = '👍 不错哦！要继续学习茶叶知识！';
             scoreMessage.style.color = '#ff9800';
         } else {
-            scoreMessage.textContent = '💪 加油学习，了解更多茶叶知识！';
+            scoreMessage.textContent = '💪 要加油，了解更多茶叶知识！';
             scoreMessage.style.color = '#f44336';
         }
         
