@@ -2886,7 +2886,7 @@ function initMainModal() {
     });
 }
 
-// ========== 山河知识问答功能 ==========
+// ========== 茶叶知识问答功能 ==========
 class MountainRiverQuiz {
     constructor() {
         this.questions = [
@@ -3059,13 +3059,13 @@ class MountainRiverQuiz {
         wrongCount.textContent = this.currentQuestions.length - this.score;
         
         if (this.score >= 8) {
-            scoreMessage.textContent = '🎉 太棒了！你是环保小卫士！';
+            scoreMessage.textContent = '🎉 太棒了！你是茶叶知识小能手！';
             scoreMessage.style.color = '#4caf50';
         } else if (this.score >= 5) {
-            scoreMessage.textContent = '👍 不错！要继续保护山河哦！';
+            scoreMessage.textContent = '👍 不错！要继续学习茶叶知识哦！';
             scoreMessage.style.color = '#ff9800';
         } else {
-            scoreMessage.textContent = '💪 加油学习，共同守护美丽中国！';
+            scoreMessage.textContent = '💪 加油学习，了解更多茶叶知识！';
             scoreMessage.style.color = '#f44336';
         }
         
