@@ -90,17 +90,15 @@ function initTheme() {
 const locationData = {
     mountain: {
         1: {
-            title: "黄山",
-            image: "images/huangshan/1.jpg",
-            description: "黄山位于安徽省南部，以奇松、怪石、云海、温泉'四绝'著称。",
+            title: "🌴乔木型：原始茶树",
+            image: "images/daqiaomuxing/1.jpg",
+            description: "多分布在我国热带或亚热带，和茶树原产地自然条件接近。植株高大，从基部到上部有明显主干，总状分枝，分枝高、枝叶稀；栅栏组织通常一层。",
             details: `
                 <h3>详细信息</h3>
                 <ul>
-                    <li><strong>海拔：</strong>1864.8米（莲花峰）</li>
-                    <li><strong>位置：</strong>安徽省黄山市</li>
-                    <li><strong>特色景点：</strong>迎客松、光明顶、天都峰、西海大峡谷</li>
-                    <li><strong>最佳游览时间：</strong>春季和秋季</li>
-                    <li><strong>文化遗产：</strong>世界文化与自然双重遗产</li>
+                    <li><strong>有明显的主干，分枝部位高，能长到几米到几十米,树高3m-5m，或者更高</li>
+                    <li><strong> 多为野生型古茶树，树干粗壮，多人拉手才能环抱住</li>
+                    <li><strong>普洱茶历史上基本为乔木型</li>
                 </ul>
                 <p>黄山被誉为"天下第一奇山"，其雄伟壮观的自然景观和深厚的文化底蕴吸引了无数游客和文人墨客。</p>
             `
