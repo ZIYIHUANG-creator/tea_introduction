@@ -2805,7 +2805,102 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScroll();
     initNavbarEffect();
     initExploreMore();
+    initDataInsights();
 });
+
+function initDataInsights() {
+    const cards = document.querySelectorAll('.data-card');
+    const modal = document.getElementById('dataModal');
+    if (!cards.length || !modal) return;
+
+    const modalImage = document.getElementById('dataModalImage');
+    const modalTitle = document.getElementById('dataModalTitle');
+    const modalDescription = document.getElementById('dataModalDescription');
+    const modalTags = document.getElementById('dataModalTags');
+    const modalHighlights = document.getElementById('dataModalHighlights');
+    const closeBtn = modal.querySelector('.close-btn');
+
+    const parseList = (value) => (value || '')
+        .split('|')
+        .map(item => item.trim())
+        .filter(Boolean);
+
+    const openModal = (card) => {
+        modalImage.style.backgroundImage = `url('${card.dataset.image}')`;
+        modalTitle.textContent = card.dataset.title || '';
+        modalDescription.textContent = card.dataset.description || '';
+
+        modalTags.innerHTML = '';
+        parseList(card.dataset.tags).forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'data-modal-tag';
+            tagElement.textContent = tag;
+            modalTags.appendChild(tagElement);
+        });
+
+        modalHighlights.innerHTML = '';
+        const highlights = parseList(card.dataset.highlights);
+        if (highlights.length) {
+            highlights.forEach(text => {
+                const li = document.createElement('li');
+                li.textContent = text;
+                modalHighlights.appendChild(li);
+            });
+        } else {
+            const li = document.createElement('li');
+            li.textContent = '暂无更多解读';
+            modalHighlights.appendChild(li);
+        }
+
+        modal.style.display = 'block';
+        document.body.classList.add('modal-open');
+    };
+
+    const closeModal = () => {
+        modal.style.display = 'none';
+        document.body.classList.remove('modal-open');
+    };
+
+    cards.forEach(card => {
+        const button = card.querySelector('.data-card-btn');
+
+        card.addEventListener('click', (event) => {
+            if (event.target.closest('.data-card-btn')) return;
+            openModal(card);
+        });
+
+        if (button) {
+            button.addEventListener('click', (event) => {
+                event.stopPropagation();
+                openModal(card);
+            });
+        }
+
+        card.addEventListener('mousemove', (event) => {
+            const rect = card.getBoundingClientRect();
+            const rotateX = ((event.clientY - rect.top) / rect.height - 0.5) * 8;
+            const rotateY = ((event.clientX - rect.left) / rect.width - 0.5) * -8;
+            card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+        });
+    });
+
+    closeBtn?.addEventListener('click', closeModal);
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.style.display === 'block') {
+            closeModal();
+        }
+    });
+}
 
 // 添加缺失的初始化函数
 function initMainModal() {
