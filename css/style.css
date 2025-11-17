@@ -588,8 +588,8 @@ h2::after {
 
 /* 区域特色展示 */
 .regions {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 2rem;
 }
 
@@ -631,6 +631,18 @@ h2::after {
     font-family: var(--font-family-primary);
     font-weight: 400;
     line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+    .regions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .regions {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* ========== 模态框样式 ========== */
