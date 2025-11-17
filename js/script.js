@@ -90,9 +90,9 @@ function initTheme() {
 const locationData = {
     mountain: {
         1: {
-            title: "🌴乔木型：原始茶树",
+            title: "🌴大乔木型：原始茶树",
             image: "images/daqiaomuxing/5.jpg",
-            description: "多分布在我国热带或亚热带，和茶树原产地自然条件接近。",
+            description: "Arborescent Type of Camellia Sinensis",
             details: `
                 <h3>详细信息</h3>
                 <ul>
@@ -100,39 +100,33 @@ const locationData = {
                     <li><strong> 多为野生型古茶树，树干粗壮，多人拉手才能环抱住</li>
                     <li><strong>普洱茶历史上基本为乔木型</li>
                 </ul>
-                <p>多分布在我国热带或亚热带，和茶树原产地自然条件接近。</p>
+                <p>无论是灌木、小乔木还是乔木型茶树，它们各自都有独特的魅力和价值。希望大家能够更加了解和喜爱茶树，品味它们带来的美好生活！</p>
             `
         },
         2: {
             title: "🌿小乔木型：进化之选",
             image: "images/xiaoqiaomuxing/5.jpg",
-            description: "泰山位于山东省中部，有'五岳之首'、'天下第一山'之称。",
+            description: "Semi-Arborescent Type of Camellia Sinensis",
             details: `
                 <h3>详细信息</h3>
                 <ul>
-                    <li><strong>海拔：</strong>1545米</li>
-                    <li><strong>位置：</strong>山东省泰安市</li>
-                    <li><strong>特色景点：</strong>南天门、日观峰、玉皇顶、十八盘</li>
-                    <li><strong>文化意义：</strong>古代帝王封禅之地</li>
-                    <li><strong>文化遗产：</strong>世界文化与自然双重遗产</li>
+                    <li><strong>植株较高大，植株上部主干不明显，分枝较稀树高1.5m-3m</li>
+                    <li><strong>属于人工驯化过程中，进化类型</li>
                 </ul>
-                <p>泰山是中华民族的象征，是东方文化的缩影，是"天人合一"思想的寄托之地。</p>
+                <p>无论是灌木、小乔木还是乔木型茶树，它们各自都有独特的魅力和价值。希望大家能够更加了解和喜爱茶树，品味它们带来的美好生活！</p>
             `
         },
         3: {
-            title: "珠穆朗玛峰",
-            image: "images/zumulangma/8.jpg",
-            description: "珠穆朗玛峰是世界海拔最高的山峰，被誉为'地球之巅'。",
+            title: "🌱灌木型：品种繁多",
+            image: "images/guanmuxing/5.jpg",
+            description: "Shrub Type of Camellia Sinensis",
             details: `
                 <h3>详细信息</h3>
                 <ul>
-                    <li><strong>海拔：</strong>8848.86米</li>
-                    <li><strong>位置：</strong>中国与尼泊尔边界</li>
-                    <li><strong>首次登顶：</strong>1953年</li>
-                    <li><strong>登山季节：</strong>4月-5月，9月-10月</li>
-                    <li><strong>特色：</strong>世界最高峰</li>
+                    <li><strong>没有明显主干，分枝较密，多近地面处，树冠短小树高1.5m以下是我国栽培最广的茶树类型之一</li>
+                    <li><strong>适合人工大面积种植，江南茶区是我国灌木茶的主</li>
                 </ul>
-                <p>珠穆朗玛峰是无数登山者向往的圣地，其壮丽的景色和严峻的挑战吸引着世界各地的探险家。</p>
+                <p>无论是灌木、小乔木还是乔木型茶树，它们各自都有独特的魅力和价值。希望大家能够更加了解和喜爱茶树，品味它们带来的美好生活！</p>
             `
         }
     },
