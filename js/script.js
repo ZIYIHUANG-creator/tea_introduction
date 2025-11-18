@@ -219,7 +219,7 @@ const locationData = {
                 </ul>
                 <p>每个茶区都有其独特的地理环境和茶文化，丰富多样的茶类和品种让我们在品茶时拥有不同的体验。</p>
             `
-        }
+        },
          4: {
             title: "江北茶区",
             image: "images/jiangbei/3.jpg",
