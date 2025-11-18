@@ -1594,6 +1594,39 @@ input:checked + .slider:before {
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
 }
 
+.data-card-iframe {
+    cursor: default;
+    min-height: auto;
+    gap: 0;
+}
+
+.data-gallery-embed {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.data-card-embed {
+    padding: 0 1.8rem 1.8rem;
+}
+
+.data-card-embed iframe {
+    width: 100%;
+    min-height: 420px;
+    border: none;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+}
+
+.data-card-iframe::after,
+.data-card-iframe:hover::after {
+    opacity: 0;
+}
+
+.data-card-iframe:hover {
+    transform: none;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+}
+
 .data-card:hover::after {
     opacity: 1;
 }

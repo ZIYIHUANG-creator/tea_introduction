@@ -434,61 +434,38 @@
             <!-- 茶叶数据洞察模块 -->
             <section id="data-visualization">
                 <h2>茶叶数据洞察</h2>
-                <p class="data-visualization-intro">结合产业研究报告，将四组权威图解转为可交互的数字看板，点击任意卡片即可放大查看细节。</p>
-                <div class="data-gallery">
-                    <article class="data-card" data-image="images/data/1.jpg" data-title="2019-2025年全球茶叶市场规模及预测" data-description="跟踪全球茶叶市场的规模变化与未来预测，展示消费升级与健康需求带来的增长势能。" data-tags="全球市场|预测|2019-2025" data-highlights="2019-2023年保持稳健增长|疫情后健康饮品消费回升|2025年预计突破580亿美元|亚太和中东成为增速主力">
-                        <div class="data-card-image" style="background-image: url('images/data/1.jpg');"></div>
+                <p class="data-visualization-intro">结合产业研究报告，将数据看板升级为在线互动版本，直接嵌入实时 HTML 报告。</p>
+                <div class="data-gallery data-gallery-embed">
+                    <article class="data-card data-card-iframe">
                         <div class="data-card-content">
-                            <span class="data-card-type">全球市场</span>
-                            <h3>2019-2025年全球茶叶市场规模及预测</h3>
-                            <p>全球茶叶市场规模持续扩张，健康属性与品质升级带动复合增长。</p>
-                            <div class="data-card-meta">
-                                <span>复合增速 4.8%</span>
-                                <span>2025 预测 580亿美元</span>
-                            </div>
-                            <button type="button" class="btn data-card-btn">查看详情</button>
+                            <span class="data-card-type">产量概览</span>
+                            <h3>六大茶类产量</h3>
+                            <p>基于产业统计制作的动态图表，展示绿茶、红茶、乌龙茶等主要茶类的产量趋势对比。</p>
+                        </div>
+                        <div class="data-card-embed">
+                            <iframe src="images/data/六大茶类产量.html" title="六大茶类产量数据" loading="lazy"></iframe>
                         </div>
                     </article>
 
-                    <article class="data-card" data-image="images/data/2.jpg" data-title="中国六大茶类产业对比" data-description="聚焦绿茶、红茶、乌龙茶、白茶、黑茶、黄茶六大茶类，比较产量、产值与品牌化程度。" data-tags="六大茶类|产业对比|国内市场" data-highlights="绿茶产量与消费占比双领先|乌龙茶、红茶品牌溢价显著|白茶黑茶呈现高成长性|黄茶规模虽小但附加值高">
-                        <div class="data-card-image" style="background-image: url('images/data/2.jpg');"></div>
+                    <article class="data-card data-card-iframe">
                         <div class="data-card-content">
-                            <span class="data-card-type">茶类对比</span>
-                            <h3>中国六大茶类产业对比</h3>
-                            <p>一图梳理六大茶类的规模、结构与价值表现，洞察品类机会。</p>
-                            <div class="data-card-meta">
-                                <span>绿茶 占比 55%</span>
-                                <span>特色茶 持续放量</span>
-                            </div>
-                            <button type="button" class="btn data-card-btn">查看详情</button>
+                            <span class="data-card-type">市场规模</span>
+                            <h3>茶叶市场规模</h3>
+                            <p>聚焦全球茶叶市场的规模变化，通过互动图解呈现多年度预测曲线与关键增量来源。</p>
+                        </div>
+                        <div class="data-card-embed">
+                            <iframe src="images/data/茶叶市场规模.html" title="茶叶市场规模数据" loading="lazy"></iframe>
                         </div>
                     </article>
 
-                    <article class="data-card" data-image="images/data/3.jpg" data-title="中国茶叶进出口数据分析" data-description="从出口额、进口量与贸易结构出发，解读中国茶叶的国际化路径与竞争优势。" data-tags="进出口|贸易|国际化" data-highlights="出口额稳步提升 创汇超22亿美元|绿茶与红茶是出口主力|进口以高端拼配茶与花草茶为主|RCEP 生效后关税红利加速释放">
-                        <div class="data-card-image" style="background-image: url('images/data/3.jpg');"></div>
+                    <article class="data-card data-card-iframe">
                         <div class="data-card-content">
-                            <span class="data-card-type">贸易数据</span>
-                            <h3>中国茶叶进出口数据分析</h3>
-                            <p>跟踪出口目的地与进口结构，洞察中国茶的全球化竞争力。</p>
-                            <div class="data-card-meta">
-                                <span>出口额 22 亿美元</span>
-                                <span>RCEP 贸易红利</span>
-                            </div>
-                            <button type="button" class="btn data-card-btn">查看详情</button>
+                            <span class="data-card-type">营养成分</span>
+                            <h3>茶叶成分含量图</h3>
+                            <p>拆解茶多酚、氨基酸等营养指标，配合互动说明帮助理解不同冲泡方式的营养释放。</p>
                         </div>
-                    </article>
-
-                    <article class="data-card" data-image="images/data/4.jpg" data-title="茶叶营养物质含量图" data-description="从茶多酚、儿茶素、氨基酸到矿物质，拆解茶叶多维营养价值及冲泡建议。" data-tags="营养成分|健康|科学冲泡" data-highlights="茶多酚与儿茶素提供抗氧化力|氨基酸决定鲜爽度|适宜温度更利于营养释放|搭配饮食有助于控糖控脂">
-                        <div class="data-card-image" style="background-image: url('images/data/4.jpg');"></div>
-                        <div class="data-card-content">
-                            <span class="data-card-type">营养图谱</span>
-                            <h3>茶叶营养物质含量图</h3>
-                            <p>纵览主要营养成分含量与功效，科学冲泡更懂茶。</p>
-                            <div class="data-card-meta">
-                                <span>茶多酚 30%+</span>
-                                <span>氨基酸 4-6%</span>
-                            </div>
-                            <button type="button" class="btn data-card-btn">查看详情</button>
+                        <div class="data-card-embed">
+                            <iframe src="images/data/茶叶成分含量图.html" title="茶叶营养成分" loading="lazy"></iframe>
                         </div>
                     </article>
                 </div>

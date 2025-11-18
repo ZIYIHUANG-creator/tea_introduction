@@ -2796,8 +2796,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initDataInsights() {
     const cards = document.querySelectorAll('.data-card');
+    const interactiveCards = Array.from(cards).filter(card => !card.classList.contains('data-card-iframe'));
     const modal = document.getElementById('dataModal');
-    if (!cards.length || !modal) return;
+    if (!interactiveCards.length || !modal) return;
 
     const modalImage = document.getElementById('dataModalImage');
     const modalTitle = document.getElementById('dataModalTitle');
@@ -2847,7 +2848,7 @@ function initDataInsights() {
         document.body.classList.remove('modal-open');
     };
 
-    cards.forEach(card => {
+    interactiveCards.forEach(card => {
         const button = card.querySelector('.data-card-btn');
 
         card.addEventListener('click', (event) => {
