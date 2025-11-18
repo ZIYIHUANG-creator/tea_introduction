@@ -179,51 +179,59 @@ const locationData = {
     },
     region: {
         1: {
-            title: "北国风光",
-            image: "images/beiguofengguang/1.jpg",
+            title: "西南茶区",
+            image: "images/xinan/1.jpg",
             description: "北国风光以冰雪景观著称，展现了北国特有的雄浑壮美。",
             details: `
                 <h3>详细信息</h3>
                 <ul>
-                    <li><strong>代表地区：</strong>黑龙江、吉林、辽宁、内蒙古</li>
-                    <li><strong>气候特点：</strong>温带季风气候，冬季寒冷漫长</li>
-                    <li><strong>特色文化：</strong>冰雪文化、东北二人转</li>
-                    <li><strong>著名景点：</strong>哈尔滨冰雕、长白山天池</li>
-                    <li><strong>最佳游览时间：</strong>冬季（冰雪景观）和夏季（避暑）</li>
+                    <li><strong>地理位置：</strong>位于我国西南部，包括云南、贵州、四川和西藏东南部。这里是茶树的原产地，也是我国最古老的茶区。</li>
+                    <li><strong>生产茶类：</strong>这里的茶类丰富多样，包括红茶、绿茶、沱茶和紧压茶等。</li>
+                    <li><strong>茶树品种：</strong>西南茶区的茶树品种资源非常丰富，既有小乔木、灌木型品种，也有乔木型品种，适合各种茶友的口味。</li>
                 </ul>
-                <p>北国风光展现了北方地区独特的自然景观和人文风情，冬季的冰雪世界尤为壮观。</p>
+                <p>每个茶区都有其独特的地理环境和茶文化，丰富多样的茶类和品种让我们在品茶时拥有不同的体验。</p>
             `
         },
         2: {
-            title: "江南水乡",
-            image: "images/jiangnanshuixiang/2.jpg",
+            title: "江南茶区",
+            image: "images/jiangnan/3.jpg",
             description: "江南水乡以小桥流水、古镇园林为特色。",
             details: `
                 <h3>详细信息</h3>
                 <ul>
-                    <li><strong>代表地区：</strong>江苏、浙江、上海、安徽南部</li>
-                    <li><strong>气候特点：</strong>亚热带季风气候，四季分明</li>
-                    <li><strong>特色文化：</strong>吴越文化、江南园林</li>
-                    <li><strong>著名景点：</strong>苏州园林、周庄、乌镇</li>
-                    <li><strong>最佳游览时间：</strong>春季和秋季</li>
+                    <li><strong>地理位置：</strong>长江以南，是我国茶叶的主产区，年产量约占全国总产量的2/3，涵盖浙江、湖南、江西、安徽南部、江苏南部和湖北南部。
+                    生产茶类：这里的茶类繁多，包括绿茶、红茶、黑茶、黄茶、白茶以及各种特种名茶。</li>
+                    <li><strong>茶树品种：</strong>江南茶区的茶树大多为灌木型中叶种和小叶种，还有少量小乔木中叶种和大叶种，茶叶的品质和风味都非常优秀。</li>
                 </ul>
-                <p>江南水乡以其温婉秀丽的自然风光和精致典雅的人文景观闻名于世。</p>
+                <p>每个茶区都有其独特的地理环境和茶文化，丰富多样的茶类和品种让我们在品茶时拥有不同的体验。</p>
             `
         },
         3: {
-            title: "西部高原",
-            image: "images/xibugaoyuan/2.jpg",
+            title: "华南茶区",
+            image: "images/huanan/4.jpg",
             description: "西部高原以壮丽的高原风光、独特的民族文化为特色。",
             details: `
                 <h3>详细信息</h3>
                 <ul>
-                    <li><strong>代表地区：</strong>西藏、青海、新疆、四川西部</li>
-                    <li><strong>气候特点：</strong>高原气候，昼夜温差大</li>
-                    <li><strong>特色文化：</strong>藏族文化、伊斯兰文化</li>
-                    <li><strong>著名景点：</strong>布达拉宫、青海湖、喀纳斯</li>
-                    <li><strong>最佳游览时间：</strong>5月-10月</li>
+                    <li><strong>地理位置：</strong>我国最南部的茶区，包括广东、广西、福建、台湾和海南等省区。这里的气候条件非常适合茶树生长。</li>
+                    <li><strong>生产茶类：</strong>以普洱茶、乌龙茶、红茶和花茶为主。</li>
+                    <li><strong>茶树品种：</strong>华南茶区拥有乔木型大叶种、小乔木和灌木型中叶种，甚至还有小叶种的分布，茶叶的风味各具特色。</li>
                 </ul>
-                <p>西部高原展现了中国的辽阔与多元，是体验独特民族文化和壮丽自然风光的绝佳之地。</p>
+                <p>每个茶区都有其独特的地理环境和茶文化，丰富多样的茶类和品种让我们在品茶时拥有不同的体验。</p>
+            `
+        }
+         4: {
+            title: "江北茶区",
+            image: "images/jiangbei/3.jpg",
+            description: "西部高原以壮丽的高原风光、独特的民族文化为特色。",
+            details: `
+                <h3>详细信息</h3>
+                <ul>
+                    <li><strong>地理位置：</strong>长江中、下游以北，是我国最北的茶区，包括安徽北部、江苏北部、湖北北部、河南、陕西、山东和甘肃等地。</li>
+                    <li><strong>生产茶类：</strong>主要生产绿茶。</li>
+                    <li><strong>茶树品种：</strong>江北茶区的茶树以灌木型中小叶群体种为主，具有较强的抗寒性，适应北方的气候条件。</li>
+                </ul>
+                <p>每个茶区都有其独特的地理环境和茶文化，丰富多样的茶类和品种让我们在品茶时拥有不同的体验。</p>
             `
         }
     }
