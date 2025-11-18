@@ -163,7 +163,7 @@ const locationData = {
         },
         3: {
             title: "绿茶",
-            image: "images/nanhai/1.jpg",
+            image: "images/lvcha/5.jpg",
             description: "南海是中国三大边缘海之一，海域辽阔，资源丰富。",
             details: `
                 <h3>详细信息</h3>
