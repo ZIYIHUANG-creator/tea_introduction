@@ -1598,10 +1598,27 @@ input:checked + .slider:before {
     cursor: default;
     min-height: auto;
     gap: 0;
+    background: #0b2e1d;
+    border-color: rgba(16, 255, 170, 0.25);
+}
+
+.data-card-iframe .data-card-content {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.data-card-iframe .data-card-type,
+.data-card-iframe h3,
+.data-card-iframe p {
+    color: #c8f5dc;
+}
+
+.data-card-iframe .data-card-type {
+    letter-spacing: 0.3rem;
+    color: #9ff0c5;
 }
 
 .data-gallery-embed {
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: 1fr;
 }
 
 .data-card-embed {
