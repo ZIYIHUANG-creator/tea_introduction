@@ -690,227 +690,227 @@ function getLocationData(type, id) {
 // 游戏数据
 const gameData = {
     mountain: {
-        // 1: { 
-        //     title: "黄山拼图挑战",
-        //     description: "通过拼图游戏了解黄山的奇松怪石",
-        //     gameHtml: `
-        //         <div class="game-section">
-        //             <h3>黄山拼图挑战</h3>
-        //             <p>点击下方按钮，开始黄山拼图挑战！体验黄山的奇松怪石美景</p>
-        //             <div class="external-game-link">
-        //                 <!-- 预览图和跳转按钮 -->
-        //                 <a href="huangshan-puzzle.html" class="btn btn-primary">🎮开始拼图挑战</a>
-        //             </div>
-        //         </div>
-        //     `
-        // },
-        // 2: {  // 泰山 - 山水合成游戏
-        //     title: "泰山山水合成",
-        //     description: "通过合成游戏体验泰山的雄伟壮丽",
-        //     gameHtml: `
-        //         <div class="game-section">
-        //             <h3>泰山山水合成游戏</h3>
-        //             <p>合成山峰，感受泰山"会当凌绝顶，一览众山小"的雄伟气势</p>
-        //             <div class="external-game-link">
-        //                 <div class="game-preview">
-        //                     <div class="preview-image" style="background: linear-gradient(135deg, #0a192f, #112240); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
-        //                         山水合成
-        //                     </div>
-        //                     <div class="preview-overlay">
-        //                         <span class="play-icon">▶</span>
-        //                     </div>
-        //                 </div>
+        1: { 
+            title: "黄山拼图挑战",
+            description: "通过拼图游戏了解黄山的奇松怪石",
+            gameHtml: `
+                <div class="game-section">
+                    <h3>黄山拼图挑战</h3>
+                    <p>点击下方按钮，开始黄山拼图挑战！体验黄山的奇松怪石美景</p>
+                    <div class="external-game-link">
+                        <!-- 预览图和跳转按钮 -->
+                        <a href="huangshan-puzzle.html" class="btn btn-primary">🎮开始拼图挑战</a>
+                    </div>
+                </div>
+            `
+        },
+        2: {  // 泰山 - 山水合成游戏
+            title: "泰山山水合成",
+            description: "通过合成游戏体验泰山的雄伟壮丽",
+            gameHtml: `
+                <div class="game-section">
+                    <h3>泰山山水合成游戏</h3>
+                    <p>合成山峰，感受泰山"会当凌绝顶，一览众山小"的雄伟气势</p>
+                    <div class="external-game-link">
+                        <div class="game-preview">
+                            <div class="preview-image" style="background: linear-gradient(135deg, #0a192f, #112240); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
+                                山水合成
+                            </div>
+                            <div class="preview-overlay">
+                                <span class="play-icon">▶</span>
+                            </div>
+                        </div>
                         
-        //                 <div class="game-info">
-        //                     <h4>泰山山水合成</h4>
-        //                     <p>通过合成不同等级的山峰，最终合成雄伟的泰山</p>
-        //                     <a href="sml.html" class="btn btn-primary">
-        //                         🎮 开始游戏
-        //                     </a>
-        //                 </div>
-        //             </div>
+                        <div class="game-info">
+                            <h4>泰山山水合成</h4>
+                            <p>通过合成不同等级的山峰，最终合成雄伟的泰山</p>
+                            <a href="sml.html" class="btn btn-primary">
+                                🎮 开始游戏
+                            </a>
+                        </div>
+                    </div>
                     
-        //             <div class="game-tips">
-        //                 <p>💡 <strong>游戏提示：</strong>放下相同等级的山峰进行合成，小心不要让山峰堆得太高！</p>
-        //             </div>
-        //         </div>
-        //     `
-        // },
-        // 3: {  // 珠穆朗玛峰的ID
-        //     title: "珠穆朗玛峰2048挑战",
-        //     description: "攀登数字高峰，体验珠穆朗玛峰的壮丽", 
-        //     gameHtml: `
-        //         <div class="game-section">
-        //             <h3>珠穆朗玛峰2048挑战</h3>
-        //             <p>点击下方按钮，开始攀登数字高峰！</p>
+                    <div class="game-tips">
+                        <p>💡 <strong>游戏提示：</strong>放下相同等级的山峰进行合成，小心不要让山峰堆得太高！</p>
+                    </div>
+                </div>
+            `
+        },
+        3: {  // 珠穆朗玛峰的ID
+            title: "珠穆朗玛峰2048挑战",
+            description: "攀登数字高峰，体验珠穆朗玛峰的壮丽", 
+            gameHtml: `
+                <div class="game-section">
+                    <h3>珠穆朗玛峰2048挑战</h3>
+                    <p>点击下方按钮，开始攀登数字高峰！</p>
                     
-        //             <div class="external-game-link">
-        //                 <div class="game-preview">
-        //                     <div class="preview-image" style="background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
-        //                         2048
-        //                     </div>
-        //                     <div class="preview-overlay">
-        //                         <span class="play-icon">▶</span>
-        //                     </div>
-        //                 </div>
+                    <div class="external-game-link">
+                        <div class="game-preview">
+                            <div class="preview-image" style="background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
+                                2048
+                            </div>
+                            <div class="preview-overlay">
+                                <span class="play-icon">▶</span>
+                            </div>
+                        </div>
                         
-        //                 <div class="game-info">
-        //                     <h4>珠穆朗玛峰2048</h4>
-        //                     <p>专为山河主题定制的2048游戏，体验数字攀登的乐趣</p>
-        //                     <a href="zhumulangma.html" class="btn btn-primary">
-        //                         🎮 开始挑战
-        //                     </a>
-        //                 </div>
-        //             </div>
+                        <div class="game-info">
+                            <h4>珠穆朗玛峰2048</h4>
+                            <p>专为山河主题定制的2048游戏，体验数字攀登的乐趣</p>
+                            <a href="zhumulangma.html" class="btn btn-primary">
+                                🎮 开始挑战
+                            </a>
+                        </div>
+                    </div>
                     
-        //             <div class="game-tips">
-        //                 <p>💡 <strong>游戏提示：</strong>使用方向键移动方块，相同数字会合并，目标是合成2048！</p>
-        //             </div>
-        //         </div>
-        //     `
-        // }
+                    <div class="game-tips">
+                        <p>💡 <strong>游戏提示：</strong>使用方向键移动方块，相同数字会合并，目标是合成2048！</p>
+                    </div>
+                </div>
+            `
+        }
     },
     river: {
-    // 1: {  // 黄河
-    //     title: "黄河漂流记",
-    //     description: "沿着黄河漂流，收集沿岸风景", 
-    //     gameHtml: `
-    //         <div class="game-section">
-    //             <h3>黄河漂流记</h3>
-    //             <p>点击下方按钮，开始黄河漂流冒险！</p>
-    //             <div class="external-game-link">
-    //                 <!-- 预览图和跳转按钮 -->
-    //                 <a href="huanghe-river.html" class="btn btn-primary">🎮 开始漂流冒险</a>
-    //             </div>
-    //         </div>
-    //     `
-    // },
-    // 2: {  // 长江 - 长江守护者游戏
-    //     title: "长江守护者",
-    //     description: "保护长江生态环境，清理污染物",
-    //     gameHtml: `
-    //         <div class="game-section">
-    //             <h3>长江守护者</h3>
-    //             <p>驾驶江南小船，清理长江污染物，保护水乡生态环境</p>
-    //             <div class="external-game-link">
-    //                 <div class="game-preview">
-    //                     <div class="preview-image" style="background: linear-gradient(135deg, #0a192f, #112240); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
-    //                         长江守护
-    //                     </div>
-    //                     <div class="preview-overlay">
-    //                         <span class="play-icon">▶</span>
-    //                     </div>
-    //                 </div>
+    1: {  // 黄河
+        title: "黄河漂流记",
+        description: "沿着黄河漂流，收集沿岸风景", 
+        gameHtml: `
+            <div class="game-section">
+                <h3>黄河漂流记</h3>
+                <p>点击下方按钮，开始黄河漂流冒险！</p>
+                <div class="external-game-link">
+                    <!-- 预览图和跳转按钮 -->
+                    <a href="huanghe-river.html" class="btn btn-primary">🎮 开始漂流冒险</a>
+                </div>
+            </div>
+        `
+    },
+    2: {  // 长江 - 长江守护者游戏
+        title: "长江守护者",
+        description: "保护长江生态环境，清理污染物",
+        gameHtml: `
+            <div class="game-section">
+                <h3>长江守护者</h3>
+                <p>驾驶江南小船，清理长江污染物，保护水乡生态环境</p>
+                <div class="external-game-link">
+                    <div class="game-preview">
+                        <div class="preview-image" style="background: linear-gradient(135deg, #0a192f, #112240); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
+                            长江守护
+                        </div>
+                        <div class="preview-overlay">
+                            <span class="play-icon">▶</span>
+                        </div>
+                    </div>
                     
-    //                 <div class="game-info">
-    //                     <h4>长江守护者</h4>
-    //                     <p>射击游戏，保护长江生态环境，清理污染物</p>
-    //                     <a href="changjiang-guardian.html" class="btn btn-primary">
-    //                         🎮 开始守护
-    //                     </a>
-    //                 </div>
-    //             </div>
+                    <div class="game-info">
+                        <h4>长江守护者</h4>
+                        <p>射击游戏，保护长江生态环境，清理污染物</p>
+                        <a href="changjiang-guardian.html" class="btn btn-primary">
+                            🎮 开始守护
+                        </a>
+                    </div>
+                </div>
                 
-    //             <div class="game-tips">
-    //                 <p>💡 <strong>游戏提示：</strong>使用WASD移动，鼠标瞄准射击，收集氧气罐补充氧气！</p>
-    //             </div>
-    //         </div>
-    //     `
-    // },
-    // 3: {  // 南海 - 大鱼吃小鱼
-    //     title: "南海大鱼吃小鱼",
-    //     description: "在南海深海中生存成长，体验海洋生态",
-    //     gameHtml: `
-    //         <div class="game-section">
-    //             <h3>南海大鱼吃小鱼</h3>
-    //             <p>在南海的深海中，你是一条小鱼，需要不断成长，躲避大鱼，吃掉小鱼和虾蟹！</p>
-    //             <div class="external-game-link">
-    //                 <div class="game-preview">
-    //                     <div class="preview-image" style="background: linear-gradient(135deg, #0a192f, #112240); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
-    //                         南海冒险
-    //                     </div>
-    //                     <div class="preview-overlay">
-    //                         <span class="play-icon">▶</span>
-    //                     </div>
-    //                 </div>
+                <div class="game-tips">
+                    <p>💡 <strong>游戏提示：</strong>使用WASD移动，鼠标瞄准射击，收集氧气罐补充氧气！</p>
+                </div>
+            </div>
+        `
+    },
+    3: {  // 南海 - 大鱼吃小鱼
+        title: "南海大鱼吃小鱼",
+        description: "在南海深海中生存成长，体验海洋生态",
+        gameHtml: `
+            <div class="game-section">
+                <h3>南海大鱼吃小鱼</h3>
+                <p>在南海的深海中，你是一条小鱼，需要不断成长，躲避大鱼，吃掉小鱼和虾蟹！</p>
+                <div class="external-game-link">
+                    <div class="game-preview">
+                        <div class="preview-image" style="background: linear-gradient(135deg, #0a192f, #112240); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
+                            南海冒险
+                        </div>
+                        <div class="preview-overlay">
+                            <span class="play-icon">▶</span>
+                        </div>
+                    </div>
                     
-    //                 <div class="game-info">
-    //                     <h4>南海大鱼吃小鱼</h4>
-    //                     <p>生存游戏，吃掉小鱼躲避大鱼，不断成长壮大</p>
-    //                     <a href="nanhai-game.html" class="btn btn-primary">
-    //                         🎮 开始冒险
-    //                     </a>
-    //                 </div>
-    //             </div>
+                    <div class="game-info">
+                        <h4>南海大鱼吃小鱼</h4>
+                        <p>生存游戏，吃掉小鱼躲避大鱼，不断成长壮大</p>
+                        <a href="nanhai-game.html" class="btn btn-primary">
+                            🎮 开始冒险
+                        </a>
+                    </div>
+                </div>
                 
-    //             <div class="game-tips">
-    //                 <p>💡 <strong>游戏提示：</strong>使用WASD或鼠标移动，吃掉比你小的鱼，躲避比你大的鱼！</p>
-    //                 <p>🐟 <strong>鱼类种类：</strong>虾米、螃蟹、小鱼、热带鱼、鲨鱼、海龟、鲸鱼等15+种海洋生物</p>
-    //             </div>
-    //         </div>
-    //     `
-    // }
+                <div class="game-tips">
+                    <p>💡 <strong>游戏提示：</strong>使用WASD或鼠标移动，吃掉比你小的鱼，躲避比你大的鱼！</p>
+                    <p>🐟 <strong>鱼类种类：</strong>虾米、螃蟹、小鱼、热带鱼、鲨鱼、海龟、鲸鱼等15+种海洋生物</p>
+                </div>
+            </div>
+        `
+    }
 },
 region: {
-  // 1: {  // 北国风光
-  //   title: "北国风光华容道", 
-  //   description: "滑动拼图，还原北国冰雪美景",
-  //   gameHtml: `
-  //     <div class="game-section">
-  //       <h3>北国风光华容道</h3>
-  //       <p>点击下方按钮，开始北国风光华容道挑战！</p>
-  //       <div class="external-game-link">
-  //         <a href="beiguo-sliding.html" class="btn btn-primary">🎮 开始华容道挑战</a>
-  //       </div>
-  //     </div>
-  //   `
-  // },
-  // 2: {  // 江南水乡消消乐
-  //           title: "江南水乡消消乐",
-  //           description: "消除相同图案，体验江南水乡的温婉韵味", 
-  //           gameHtml: `
-  //               <div class="game-section">
-  //                   <h3>江南水乡消消乐</h3>
-  //                   <p>点击下方按钮，开始江南水乡消消乐挑战！</p>
-  //                   <div class="external-game-link">
-  //                       <a href="jiangnanshuixiang.html" class="btn btn-primary">🎮 开始消消乐挑战</a>
-  //                   </div>
-  //               </div>
-  //           `
-  //       },
-  //       3: {  // 高原牦牛骑手
-  //           title: "高原牦牛骑手",
-  //           description: "在辽阔高原上骑行牦牛，体验西部探险的刺激",
-  //           gameHtml: `
-  //               <div class="game-section">
-  //                   <h3>高原牦牛骑手</h3>
-  //                   <p>驾驭牦牛穿越高原，收集经幡和酥油，避开障碍物</p>
-  //                   <div class="external-game-link">
-  //                       <div class="game-preview">
-  //                           <div class="preview-image" style="background: linear-gradient(135deg, #0a192f, #112240); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
-  //                               牦牛骑行
-  //                           </div>
-  //                           <div class="preview-overlay">
-  //                               <span class="play-icon">▶</span>
-  //                           </div>
-  //                       </div>
+  1: {  // 北国风光
+    title: "北国风光华容道", 
+    description: "滑动拼图，还原北国冰雪美景",
+    gameHtml: `
+      <div class="game-section">
+        <h3>北国风光华容道</h3>
+        <p>点击下方按钮，开始北国风光华容道挑战！</p>
+        <div class="external-game-link">
+          <a href="beiguo-sliding.html" class="btn btn-primary">🎮 开始华容道挑战</a>
+        </div>
+      </div>
+    `
+  },
+  2: {  // 江南水乡消消乐
+            title: "江南水乡消消乐",
+            description: "消除相同图案，体验江南水乡的温婉韵味", 
+            gameHtml: `
+                <div class="game-section">
+                    <h3>江南水乡消消乐</h3>
+                    <p>点击下方按钮，开始江南水乡消消乐挑战！</p>
+                    <div class="external-game-link">
+                        <a href="jiangnanshuixiang.html" class="btn btn-primary">🎮 开始消消乐挑战</a>
+                    </div>
+                </div>
+            `
+        },
+        3: {  // 高原牦牛骑手
+            title: "高原牦牛骑手",
+            description: "在辽阔高原上骑行牦牛，体验西部探险的刺激",
+            gameHtml: `
+                <div class="game-section">
+                    <h3>高原牦牛骑手</h3>
+                    <p>驾驭牦牛穿越高原，收集经幡和酥油，避开障碍物</p>
+                    <div class="external-game-link">
+                        <div class="game-preview">
+                            <div class="preview-image" style="background: linear-gradient(135deg, #0a192f, #112240); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
+                                牦牛骑行
+                            </div>
+                            <div class="preview-overlay">
+                                <span class="play-icon">▶</span>
+                            </div>
+                        </div>
                         
-  //                       <div class="game-info">
-  //                           <h4>高原牦牛骑手</h4>
-  //                           <p>在辽阔的西部高原上骑行牦牛，随着时间推移速度会越来越快！</p>
-  //                           <a href="plateau-game.html" class="btn btn-primary">
-  //                               🎮 开始探险
-  //                           </a>
-  //                       </div>
-  //                   </div>
+                        <div class="game-info">
+                            <h4>高原牦牛骑手</h4>
+                            <p>在辽阔的西部高原上骑行牦牛，随着时间推移速度会越来越快！</p>
+                            <a href="plateau-game.html" class="btn btn-primary">
+                                🎮 开始探险
+                            </a>
+                        </div>
+                    </div>
                     
-  //                   <div class="game-tips">
-  //                       <p>💡 <strong>游戏提示：</strong>使用方向键移动，空格键跳跃，避开岩石和河流！</p>
-  //                   </div>
-  //               </div>
-  //           `
-  //       }
-  //   }
+                    <div class="game-tips">
+                        <p>💡 <strong>游戏提示：</strong>使用方向键移动，空格键跳跃，避开岩石和河流！</p>
+                    </div>
+                </div>
+            `
+        }
+    }
 };
 
 // 页面加载完成后执行
