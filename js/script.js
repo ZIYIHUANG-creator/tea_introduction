@@ -132,49 +132,46 @@ const locationData = {
     },
     river: {
         1: {
-            title: "黄河",
-            image: "images/huanghe/1.jpg",
+            title: "乌龙茶",
+            image: "images/wulongcha/5.jpg",
             description: "黄河是中华民族的母亲河，发源于青藏高原，流经九个省区。",
             details: `
                 <h3>详细信息</h3>
                 <ul>
-                    <li><strong>长度：</strong>5464公里</li>
-                    <li><strong>发源地：</strong>青海省巴颜喀拉山脉</li>
-                    <li><strong>流经省份：</strong>青海、四川、甘肃、宁夏、内蒙古、陕西、山西、河南、山东</li>
-                    <li><strong>特色：</strong>中华文明的主要发源地</li>
-                    <li><strong>著名景观：</strong>壶口瀑布、黄河石林</li>
+                    <li><strong>特点：</strong>青绿金黄，清香醇厚</li>
+                    <li><strong>功效：</strong>具有温胃清肺、提神益思、消除疲劳、解热防暑、消食去腻、减肥等功效</li>
+                    <li><strong>适宜人群：</strong>适宜人群很广，尤其适合需要减肥、吃得过饱、心情急躁的人</li>
+                    <li><strong>冲泡方式：</strong>泡乌龙茶宜选用容易茶水分离的器皿（盖碗、一壶一杯或者飘逸杯），用100°C的沸水，冲泡后要加盖</li>
                 </ul>
                 <p>黄河承载着中华民族五千年的文明历史，是中华文化的摇篮和象征。</p>
             `
         },
         2: {
-            title: "长江",
-            image: "images/changjiang/1.jpg",
+            title: "红茶",
+            image: "images/hongcha/5.jpg",
             description: "长江是中国第一大河，世界第三长河，全长6300余公里。",
             details: `
                 <h3>详细信息</h3>
                 <ul>
-                    <li><strong>长度：</strong>6300余公里</li>
-                    <li><strong>发源地：</strong>青海省唐古拉山脉</li>
-                    <li><strong>流经省份：</strong>青海、西藏、四川、云南、重庆、湖北、湖南、江西、安徽、江苏、上海</li>
-                    <li><strong>特色：</strong>中国最重要的内河航道</li>
-                    <li><strong>著名景观：</strong>三峡、武汉长江大桥</li>
+                    <li><strong>特点：</strong>香高色艳味浓，叶红汤红，浓厚甘醇</li>
+                    <li><strong>功效：</strong>养胃护胃、生津解渴、促进食欲，可利尿、消除水肿</li>
+                    <li><strong>适宜人群：</strong>适合身体较虚、脾胃功能差、手脚发凉者饮用</li>
+                    <li><strong>冲泡方式：</strong>烧水壶水温降到95~90度之间时，直接用来冲泡红茶。冲水后要快速出汤，十秒以后要把茶汤取出来，不然会让茶汤口感变差，会让它出现明显的苦涩味。另外冲泡红茶的时候一定要知道红茶不适合长时间闷泡，在充水以后尽量不要盖上茶杯</li>
                 </ul>
                 <p>长江流域是中国经济最发达的地区之一，孕育了灿烂的长江文明。</p>
             `
         },
         3: {
-            title: "南海",
+            title: "绿茶",
             image: "images/nanhai/1.jpg",
             description: "南海是中国三大边缘海之一，海域辽阔，资源丰富。",
             details: `
                 <h3>详细信息</h3>
                 <ul>
-                    <li><strong>面积：</strong>约350万平方公里</li>
-                    <li><strong>位置：</strong>中国南部</li>
-                    <li><strong>主要岛屿：</strong>西沙群岛、南沙群岛、中沙群岛</li>
-                    <li><strong>资源：</strong>丰富的石油、天然气和渔业资源</li>
-                    <li><strong>战略地位：</strong>海上丝绸之路的重要通道</li>
+                    <li><strong>特点：</strong>叶绿汤清，清香、醇美、鲜爽</li>
+                    <li><strong>功效：</strong>防辐射、杀菌、消炎、生津解渴，清热去火，提神醒脑，去腻消食，减肥等功效</li>
+                    <li><strong>适宜人群：</strong>适合工作忙碌、用电脑较多的年轻人；体质偏热、胃火旺、精力充沛的人也可多饮用</li>
+                    <li><strong>冲泡方式：</strong>绿茶一般冲泡水温以85C为宜。冲泡时间以2~3分钟为好。绿茶与水的比例以1：50为宜。在茶具方面，可以选用瓷杯或透明玻璃杯，冲泡时不要盖盖子。</li>
                 </ul>
                 <p>南海是中国重要的海洋国土，具有重要的战略地位和经济价值。</p>
             `
