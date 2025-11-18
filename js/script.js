@@ -222,7 +222,7 @@ const locationData = {
         },
          4: {
             title: "江北茶区",
-            image: "images/jiangbei/3.jpg",
+            image: "images/jiangbei/2.jpg",
             description: "西部高原以壮丽的高原风光、独特的民族文化为特色。",
             details: `
                 <h3>详细信息</h3>
