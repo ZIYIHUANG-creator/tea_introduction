@@ -134,7 +134,7 @@ const locationData = {
         1: {
             title: "乌龙茶",
             image: "images/wulongcha/5.jpg",
-            description: "Oolong Tea",
+            description: "黄河是中华民族的母亲河，发源于青藏高原，流经九个省区。",
             details: `
                 <h3>详细信息</h3>
                 <ul>
@@ -143,13 +143,13 @@ const locationData = {
                     <li><strong>适宜人群：</strong>适宜人群很广，尤其适合需要减肥、吃得过饱、心情急躁的人</li>
                     <li><strong>冲泡方式：</strong>泡乌龙茶宜选用容易茶水分离的器皿（盖碗、一壶一杯或者飘逸杯），用100°C的沸水，冲泡后要加盖</li>
                 </ul>
-                <p>在茶香氤氲里，茶是纽带，串联起每一个中国人的命运小让这片土地上的众多民族，世世代代，于此繁衍生息。</p>
+                <p>黄河承载着中华民族五千年的文明历史，是中华文化的摇篮和象征。</p>
             `
         },
         2: {
             title: "红茶",
             image: "images/hongcha/5.jpg",
-            description: "Black Tea",
+            description: "长江是中国第一大河，世界第三长河，全长6300余公里。",
             details: `
                 <h3>详细信息</h3>
                 <ul>
@@ -158,13 +158,13 @@ const locationData = {
                     <li><strong>适宜人群：</strong>适合身体较虚、脾胃功能差、手脚发凉者饮用</li>
                     <li><strong>冲泡方式：</strong>烧水壶水温降到95~90度之间时，直接用来冲泡红茶。冲水后要快速出汤，十秒以后要把茶汤取出来，不然会让茶汤口感变差，会让它出现明显的苦涩味。另外冲泡红茶的时候一定要知道红茶不适合长时间闷泡，在充水以后尽量不要盖上茶杯</li>
                 </ul>
-                <p>在茶香氤氲里，茶是纽带，串联起每一个中国人的命运小让这片土地上的众多民族，世世代代，于此繁衍生息。</p>
+                <p>长江流域是中国经济最发达的地区之一，孕育了灿烂的长江文明。</p>
             `
         },
         3: {
             title: "绿茶",
             image: "images/lvcha/5.jpg",
-            description: "Green Tea",
+            description: "南海是中国三大边缘海之一，海域辽阔，资源丰富。",
             details: `
                 <h3>详细信息</h3>
                 <ul>
@@ -173,7 +173,7 @@ const locationData = {
                     <li><strong>适宜人群：</strong>适合工作忙碌、用电脑较多的年轻人；体质偏热、胃火旺、精力充沛的人也可多饮用</li>
                     <li><strong>冲泡方式：</strong>绿茶一般冲泡水温以85C为宜。冲泡时间以2~3分钟为好。绿茶与水的比例以1：50为宜。在茶具方面，可以选用瓷杯或透明玻璃杯，冲泡时不要盖盖子。</li>
                 </ul>
-                <p>在茶香氤氲里，茶是纽带，串联起每一个中国人的命运小让这片土地上的众多民族，世世代代，于此繁衍生息。</p>
+                <p>南海是中国重要的海洋国土，具有重要的战略地位和经济价值。</p>
             `
         }
     },
@@ -181,7 +181,7 @@ const locationData = {
         1: {
             title: "西南茶区",
             image: "images/xinan/1.jpg",
-            description: "Southwest China Tea Region",
+            description: "北国风光以冰雪景观著称，展现了北国特有的雄浑壮美。",
             details: `
                 <h3>详细信息</h3>
                 <ul>
@@ -195,7 +195,7 @@ const locationData = {
         2: {
             title: "江南茶区",
             image: "images/jiangnan/3.jpg",
-            description: "Jiangnan Tea Region",
+            description: "江南水乡以小桥流水、古镇园林为特色。",
             details: `
                 <h3>详细信息</h3>
                 <ul>
@@ -209,7 +209,7 @@ const locationData = {
         3: {
             title: "华南茶区",
             image: "images/huanan/4.jpg",
-            description: "South China Tea Region",
+            description: "西部高原以壮丽的高原风光、独特的民族文化为特色。",
             details: `
                 <h3>详细信息</h3>
                 <ul>
@@ -222,8 +222,8 @@ const locationData = {
         },
          4: {
             title: "江北茶区",
-            image: "images/jiangbei/2.jpg",
-            description: "Jiangbei Tea Region",
+            image: "images/jiangbei/3.jpg",
+            description: "西部高原以壮丽的高原风光、独特的民族文化为特色。",
             details: `
                 <h3>详细信息</h3>
                 <ul>
@@ -690,7 +690,7 @@ function getLocationData(type, id) {
 // 游戏数据
 const gameData = {
     mountain: {
-        1: { 
+        1: {  // 黄山
             title: "黄山拼图挑战",
             description: "通过拼图游戏了解黄山的奇松怪石",
             gameHtml: `
@@ -913,6 +913,15 @@ region: {
     }
 };
 
+function getDevelopingGameHtml() {
+    return `
+        <div class="no-game developing-state">
+            <h3>互动游戏开发中</h3>
+            <p>我们正在开发新的互动体验，敬请期待。</p>
+        </div>
+    `;
+}
+
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('quiz')) {
@@ -964,16 +973,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 `;
                 
-                const gameTab = game ? `
+                const gameTab = `
                     <div class="tab-content" id="gameTab">
-                        ${game.gameHtml}
-                    </div>
-                ` : `
-                    <div class="tab-content" id="gameTab">
-                        <div class="no-game">
-                            <h3>互动游戏开发中</h3>
-                            <p>该景点的互动游戏正在开发中，敬请期待！</p>
-                        </div>
+                        ${getDevelopingGameHtml()}
                     </div>
                 `;
                 
@@ -992,20 +994,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 modal.style.display = 'block';
                 
-                // 初始化游戏（如果有）
-                if (game) {
-                    setTimeout(() => {
-                        if (type === 'mountain' && id === '1') {
-                            initPuzzle();
-                        } else if (type === 'mountain' && id === '2') {
-                            initClimbingGame();
-                        } else if (type === 'river' && id === '1') {
-                            initRiverGame();
-                        } else if (type === 'region' && id === '1') {
-                            initSlidingPuzzle();
-                        }
-                    }, 100);
-                }
+                // 互动游戏正在重构，暂不加载具体内容
             }
         });
     });
@@ -2924,16 +2913,9 @@ function initMainModal() {
                     </div>
                 `;
                 
-                const gameTab = game ? `
+                const gameTab = `
                     <div class="tab-content" id="gameTab">
-                        ${game.gameHtml}
-                    </div>
-                ` : `
-                    <div class="tab-content" id="gameTab">
-                        <div class="no-game">
-                            <h3>互动游戏开发中</h3>
-                            <p>该景点的互动游戏正在开发中，敬请期待！</p>
-                        </div>
+                        ${getDevelopingGameHtml()}
                     </div>
                 `;
                 
@@ -2952,17 +2934,7 @@ function initMainModal() {
                 
                 modal.style.display = 'block';
                 
-                if (game) {
-                    setTimeout(() => {
-                        if (type === 'mountain' && id === '1') {
-                            initPuzzle();
-                        } else if (type === 'mountain' && id === '2') {
-                            initClimbingGame();
-                        } else if (type === 'river' && id === '1') {
-                            initRiverGame();
-                        }
-                    }, 100);
-                }
+                // 互动游戏正在重构，暂不加载具体内容
             }
         });
     });
