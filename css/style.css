@@ -3981,3 +3981,42 @@ canvas {
 }
 
 }
+.highlight {
+    animation: highlight-fade 2s ease;
+    position: relative;
+}
+
+.highlight::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+    animation: border-fade 2s ease;
+}
+
+@keyframes highlight-fade {
+    0% {
+        background-color: rgba(76, 175, 80, 0.1);
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+@keyframes border-fade {
+    0% {
+        opacity: 1;
+        border-width: 4px;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        border-width: 2px;
+    }
+}
