@@ -24,24 +24,24 @@ function initCategoryTags() {
 }
 
 // 跳转到分类页面
-// function navigateToCategory(category) {
-//     const pageMap = {
-//         'mountains': 'mountains.html?from=category-tags',
-//         'rivers': 'rivers.html?from=category-tags',
-//         'regions': 'regions.html?from=category-tags'
-//     };
+function navigateToCategory(category) {
+    const pageMap = {
+        'mountains': 'mountains.html?from=category-tags',
+        'rivers': 'rivers.html?from=category-tags',
+        'regions': 'regions.html?from=category-tags'
+    };
     
-//     const page = pageMap[category];
-//     if (page) {
-//         // 添加点击反馈
-//         const tag = document.querySelector(`[data-category="${category}"]`);
-//         tag.style.transform = 'scale(0.95)';
+    const page = pageMap[category];
+    if (page) {
+        // 添加点击反馈
+        const tag = document.querySelector(`[data-category="${category}"]`);
+        tag.style.transform = 'scale(0.95)';
         
-//         setTimeout(() => {
-//             window.location.href = page;
-//         }, 150);
-//     }
-// }
+        setTimeout(() => {
+            window.location.href = page;
+        }, 150);
+    }
+}
 
 // 获取分类名称
 function getCategoryName(category) {
@@ -2939,6 +2939,18 @@ function initMainModal() {
             }
         });
     });
+
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+}
+
 // ========== 茶叶知识问答功能 ==========
 class MountainRiverQuiz {
     constructor() {
@@ -3486,7 +3498,7 @@ class HeroCarousel {
 // 初始化英雄区域轮播
 document.addEventListener('DOMContentLoaded', function() {
     const heroCarousel = new HeroCarousel();
-    initLearnMoreButtons();
+    
     // 键盘控制
     document.addEventListener('keydown', function(e) {
         if (e.code === 'Space') {
@@ -3495,85 +3507,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-function initLearnMoreButtons() {
-    const learnMoreBtns = document.querySelectorAll('.filter-btn');
-    const modal = document.getElementById('infoModal');
-    const closeBtn = modal.querySelector('.close-btn');
-    
-    console.log('找到了解更多按钮:', learnMoreBtns.length);
-    
-    // 为每个了解更多按钮添加点击事件
-    learnMoreBtns.forEach(btn => {
-        // 移除可能存在的重复事件监听器
-        btn.replaceWith(btn.cloneNode(true));
-    });
-    
-    // 重新获取按钮并绑定事件
-    const freshButtons = document.querySelectorAll('.filter-btn');
-    freshButtons.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const type = this.getAttribute('data-type');
-            const id = this.getAttribute('data-id');
-            
-            console.log('点击按钮:', type, id);
-            
-            // 检查数据是否存在
-            if (locationData[type] && locationData[type][id]) {
-                const data = locationData[type][id];
-                
-                console.log('找到数据:', data.title);
-                
-                // 填充模态框内容
-                const modalImage = document.getElementById('modalImage');
-                const modalTitle = document.getElementById('modalTitle');
-                const modalDescription = document.getElementById('modalDescription');
-                const modalDetails = document.getElementById('modalDetails');
-                
-                if (modalImage) {
-                    modalImage.style.backgroundImage = `url('${data.image}')`;
-                }
-                if (modalTitle) {
-                    modalTitle.textContent = data.title;
-                }
-                if (modalDescription) {
-                    modalDescription.textContent = data.description;
-                }
-                if (modalDetails) {
-                    modalDetails.innerHTML = data.details;
-                }
-                
-                // 显示模态框
-                modal.style.display = 'block';
-                
-                // 添加点击动画反馈
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                }, 150);
-                
-            } else {
-                console.error('未找到对应数据:', type, id);
-            }
-        });
-    });
-    
-    // 确保关闭按钮工作
-    if (closeBtn) {
-        closeBtn.onclick = function() {
-            modal.style.display = 'none';
-        };
-    }
-    
-    // 点击模态框外部关闭
-    window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    };
-}
+
 // 添加速度控制按钮（可选功能）
 function addSpeedControls(heroCarousel) {
     const controlsHtml = `
@@ -3632,125 +3566,3 @@ function addSpeedControls(heroCarousel) {
         });
     });
 }
-// 修复的滚动函数
-function scrollToSection(sectionId) {
-    const targetElement = document.getElementById(sectionId);
-    if (targetElement) {
-        // 更精确地获取导航栏高度
-        const header = document.querySelector('header');
-        const headerHeight = header ? header.offsetHeight : 100; // 默认100px
-        
-        // 使用更精确的位置计算
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20;
-        
-        console.log(`滚动调试 - 目标: ${sectionId}, 导航高度: ${headerHeight}, 最终位置: ${offsetPosition}`);
-        
-        // 平滑滚动
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-        });
-        
-        // 添加视觉反馈
-        const activeTag = document.querySelector(`[data-category="${sectionId}"]`);
-        if (activeTag) {
-            activeTag.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                activeTag.style.transform = '';
-            }, 200);
-        }
-        
-    } else {
-        console.warn('未找到ID为 "' + sectionId + '" 的元素');
-    }
-}
-
-// 修复快速分类标签的点击事件
-function initCategoryTagsScroll() {
-    const categoryTags = document.querySelectorAll('.category-tag');
-    
-    categoryTags.forEach(tag => {
-        tag.addEventListener('click', function(e) {
-            e.preventDefault();
-            const category = this.getAttribute('data-category');
-            scrollToSection(category);
-        });
-        
-        // 添加键盘可访问性
-        tag.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                const category = this.getAttribute('data-category');
-                scrollToSection(category);
-            }
-        });
-        
-        // 设置可访问性属性
-        tag.setAttribute('tabindex', '0');
-        tag.setAttribute('role', 'button');
-        tag.setAttribute('aria-label', `跳转到${getCategoryName(category)}部分`);
-    });
-}
-
-// 获取分类名称的辅助函数
-function getCategoryName(category) {
-    const names = {
-        'mountains': '茶树',
-        'rivers': '茶叶', 
-        'regions': '品种与区域'
-    };
-    return names[category] || category;
-}
-
-// 增强滚动函数，添加更精确的计算
-function enhancedScrollToSection(sectionId) {
-    const targetElement = document.getElementById(sectionId);
-    if (targetElement) {
-        // 更精确的计算导航栏高度
-        const header = document.querySelector('header');
-        const headerHeight = header ? header.offsetHeight : 80;
-        
-        // 计算目标位置
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 30;
-        
-        console.log(`滚动到: ${sectionId}, 导航栏高度: ${headerHeight}, 目标位置: ${offsetPosition}`);
-        
-        // 平滑滚动
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-        });
-        
-        // 添加视觉反馈
-        highlightActiveSection(sectionId);
-    } else {
-        console.warn('未找到ID为 "' + sectionId + '" 的元素');
-    }
-}
-
-// 高亮当前活动部分
-function highlightActiveSection(sectionId) {
-    // 移除所有活动状态
-    document.querySelectorAll('.category-tag').forEach(tag => {
-        tag.classList.remove('active');
-    });
-    
-    // 添加当前活动状态
-    const activeTag = document.querySelector(`[data-category="${sectionId}"]`);
-    if (activeTag) {
-        activeTag.classList.add('active');
-    }
-}
-
-// 在DOM加载完成后初始化
-document.addEventListener('DOMContentLoaded', function() {
-    // 其他初始化代码...
-    
-    // 初始化分类标签滚动
-    initCategoryTagsScroll();
-    
-    // 替换原有的scrollToSection为增强版本
-    window.scrollToSection = enhancedScrollToSection;
-});
