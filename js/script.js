@@ -999,51 +999,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 打开模态框
-    learnMoreBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const type = this.getAttribute('data-type');
-            const id = this.getAttribute('data-id');
-            const data = locationData[type][id];
-            const game = gameData[type] ? gameData[type][id] : null;
+   learnMoreBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        const type = this.getAttribute('data-type');
+        const id = this.getAttribute('data-id');
+        const data = locationData[type][id];
+        
+        if (data) {
+            document.getElementById('modalImage').style.backgroundImage = `url('${data.image}')`;
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalDescription').textContent = data.description;
             
-            if (data) {
-                document.getElementById('modalImage').style.backgroundImage = `url('${data.image}')`;
-                document.getElementById('modalTitle').textContent = data.title;
-                document.getElementById('modalDescription').textContent = data.description;
-                
-                // 创建标签页内容
-                const detailsTab = `
-                    <div class="tab-content active" id="detailsTab">
-                        ${data.details}
-                    </div>
-                `;
-                
-                const gameTab = `
-                    <div class="tab-content" id="gameTab">
-                        ${getDevelopingGameHtml()}
-                    </div>
-                `;
-                
-                const tabsHtml = `
-                    <div class="modal-tabs">
-                        <button class="tab-btn active" onclick="switchTab('detailsTab')">详细信息</button>
-                        <button class="tab-btn" onclick="switchTab('gameTab')">互动游戏</button>
-                    </div>
-                `;
-                
-                document.getElementById('modalDetails').innerHTML = `
-                    ${tabsHtml}
-                    ${detailsTab}
-                    ${gameTab}
-                `;
-                
-                modal.style.display = 'block';
-                
-                // 互动游戏正在重构，暂不加载具体内容
-            }
-        });
+            // 直接显示详细信息，不使用标签页
+            document.getElementById('modalDetails').innerHTML = data.details;
+            
+            modal.style.display = 'block';
+        }
     });
-
+});
     // 关闭模态框
     closeBtn.addEventListener('click', function() {
         modal.style.display = 'none';
@@ -1119,24 +1092,24 @@ document.addEventListener('click', function(e) {
 });
 });
 
-// 标签页切换函数
-function switchTab(tabName) {
-    // 隐藏所有标签内容
-    document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.remove('active');
-    });
+// // 标签页切换函数
+// function switchTab(tabName) {
+//     // 隐藏所有标签内容
+//     document.querySelectorAll('.tab-content').forEach(tab => {
+//         tab.classList.remove('active');
+//     });
     
-    // 移除所有标签按钮的active类
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
+//     // 移除所有标签按钮的active类
+//     document.querySelectorAll('.tab-btn').forEach(btn => {
+//         btn.classList.remove('active');
+//     });
     
-    // 显示选中的标签内容
-    document.getElementById(tabName).classList.add('active');
+//     // 显示选中的标签内容
+//     document.getElementById(tabName).classList.add('active');
     
-    // 激活对应的标签按钮
-    event.target.classList.add('active');
-}
+//     // 激活对应的标签按钮
+//     event.target.classList.add('active');
+// }
 
 // ========== 数据可视化功能 ==========
 class DataVisualization {
