@@ -23,25 +23,25 @@ function initCategoryTags() {
     });
 }
 
-// 跳转到分类页面
-// function navigateToCategory(category) {
-//     const pageMap = {
-//         'mountains': 'mountains.html?from=category-tags',
-//         'rivers': 'rivers.html?from=category-tags',
-//         'regions': 'regions.html?from=category-tags'
-//     };
+跳转到分类页面
+function navigateToCategory(category) {
+    const pageMap = {
+        'mountains': 'mountains.html?from=category-tags',
+        'rivers': 'rivers.html?from=category-tags',
+        'regions': 'regions.html?from=category-tags'
+    };
     
-//     const page = pageMap[category];
-//     if (page) {
-//         // 添加点击反馈
-//         const tag = document.querySelector(`[data-category="${category}"]`);
-//         tag.style.transform = 'scale(0.95)';
+    const page = pageMap[category];
+    if (page) {
+        // 添加点击反馈
+        const tag = document.querySelector(`[data-category="${category}"]`);
+        tag.style.transform = 'scale(0.95)';
         
-//         setTimeout(() => {
-//             window.location.href = page;
-//         }, 150);
-//     }
-// }
+        setTimeout(() => {
+            window.location.href = page;
+        }, 150);
+    }
+}
 
 // 获取分类名称
 function getCategoryName(category) {
