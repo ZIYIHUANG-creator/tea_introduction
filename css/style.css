@@ -3967,4 +3967,17 @@ canvas {
         padding: 10px 15px;
         font-size: 0.9rem;
     }
+    .tea-type-card {
+    transition: all 0.3s ease;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+  /* 筛选时的动画效果 */
+  .tea-type-card.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
 }
