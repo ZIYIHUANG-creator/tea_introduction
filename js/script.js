@@ -2889,6 +2889,7 @@ function initDataInsights() {
     });
 }
 
+// 添加缺失的初始化函数
 function initMainModal() {
     // 主模态框的初始化代码（原有的模态框功能）
     const modal = document.getElementById('infoModal');
@@ -2900,62 +2901,44 @@ function initMainModal() {
             const type = this.getAttribute('data-type');
             const id = this.getAttribute('data-id');
             const data = locationData[type][id];
-            // 移除游戏数据的引用（无需再获取gameData）
+            const game = gameData[type] ? gameData[type][id] : null;
             
             if (data) {
                 document.getElementById('modalImage').style.backgroundImage = `url('${data.image}')`;
                 document.getElementById('modalTitle').textContent = data.title;
                 document.getElementById('modalDescription').textContent = data.description;
                 
-                // 仅保留详细信息标签内容
                 const detailsTab = `
                     <div class="tab-content active" id="detailsTab">
                         ${data.details}
                     </div>
                 `;
                 
-                // 移除gameTab的定义（不再需要互动游戏内容）
-                
-                // 修改标签栏，只保留“详细信息”按钮
-                const tabsHtml = `
-                    <div class="modal-tabs">
-                        <button class="filter-btn active" onclick="switchTab('detailsTab')">详细信息</button>
+                const gameTab = `
+                    <div class="tab-content" id="gameTab">
+                        ${getDevelopingGameHtml()}
                     </div>
                 `;
                 
-                // 模态框内容仅渲染详细信息相关部分，移除gameTab
+                const tabsHtml = `
+                    <div class="modal-tabs">
+                        <button class="filter-btn active" onclick="switchTab('detailsTab')">详细信息</button>
+                        <button class="filter-btn" onclick="switchTab('gameTab')">互动游戏</button>
+                    </div>
+                `;
+                
                 document.getElementById('modalDetails').innerHTML = `
                     ${tabsHtml}
                     ${detailsTab}
+                    ${gameTab}
                 `;
                 
                 modal.style.display = 'block';
+                
+                // 互动游戏正在重构，暂不加载具体内容
             }
         });
     });
-
-    closeBtn.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-}
-
-    closeBtn.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-}
-
 // ========== 茶叶知识问答功能 ==========
 class MountainRiverQuiz {
     constructor() {
