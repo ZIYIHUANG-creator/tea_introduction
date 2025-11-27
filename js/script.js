@@ -3566,3 +3566,28 @@ function addSpeedControls(heroCarousel) {
         });
     });
 }
+// 平滑滚动到指定部分
+function scrollToSection(sectionId) {
+    const targetElement = document.getElementById(sectionId);
+    if (targetElement) {
+        // 计算目标位置（考虑导航栏高度）
+        const headerHeight = document.querySelector('header') ? 
+            document.querySelector('header').offsetHeight : 80;
+        
+        const targetPosition = targetElement.offsetTop - headerHeight;
+        
+        // 平滑滚动
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
+        
+        // 添加高亮效果
+        targetElement.classList.add('highlight');
+        setTimeout(() => {
+            targetElement.classList.remove('highlight');
+        }, 2000);
+    } else {
+        console.warn('未找到ID为 "' + sectionId + '" 的元素');
+    }
+}
