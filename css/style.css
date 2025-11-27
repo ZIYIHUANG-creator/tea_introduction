@@ -3968,3 +3968,13 @@ canvas {
         font-size: 0.9rem;
     }
 }
+/* 强制隐藏互动游戏标签 */
+.modal-tabs .tab-btn:nth-child(2),
+#gameTab {
+    display: none !important;
+}
+
+/* 隐藏整个标签导航（如果只有一个标签） */
+.modal-tabs {
+    display: none !important;
+}
