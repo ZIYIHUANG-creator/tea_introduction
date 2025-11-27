@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国茶叶大全 - 盏中有乾坤，茶里品春秋</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="images/item/item.jpg" type="image/jpeg">
+    <!-- 添加思源宋体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 添加马善政手写体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/item/item.jpg" alt="盏中有乾坤，茶里品春秋" class="logo-image">
+            <span class="logo-text">盏中有乾坤，茶里品春秋</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html#panorama-gallery">首页</a></li>
+                <li><a href="index.html#mountains">茶树</a></li>
+                <li><a href="index.html#rivers">茶叶</a></li>
+                <li><a href="index.html#regions">品种与区域</a></li>
+                <li><a href="index.html#data-visualization">数据</a></li>
+                <li><a href="index.html#quiz">知识问答</a></li>
+                <li><a href="message-board.html">留言</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>中国茶叶大全</h1>
+                <p>探索中国七大茶类的独特魅力，从制作工艺到品饮文化</p>
+            </div>
+        </section>
+
+        <section id="all-tea-types">
+            <h2>七大茶类详解</h2>
+            <div class="tea-filter-buttons">
+                <button class="filter-btn active" data-filter="all">全部茶叶</button>
+                <button class="filter-btn" data-filter="lvcha">绿茶</button>
+                <button class="filter-btn" data-filter="hongcha">红茶</button>
+                <button class="filter-btn" data-filter="wulongcha">乌龙茶</button>
+                <button class="filter-btn" data-filter="baicha">白茶</button>
+                <button class="filter-btn" data-filter="huangcha">黄茶</button>
+                <button class="filter-btn" data-filter="heicha">黑茶</button>
+                <button class="filter-btn" data-filter="huacha">花茶</button>
+            </div>
+
+            <div class="tea-types-container">
+                <!-- 绿茶 -->
+                <div class="tea-type-card" data-type="lvcha">
+                    <div class="tea-img" style="background-image: url('images/lvcha/1.jpg');"></div>
+                    <div class="tea-content">
+                        <h3>🍃 绿茶</h3>
+                        <p><strong>发酵程度：</strong>不发酵茶（0%）</p>
+                        <p><strong>特点：</strong>清汤绿叶，香气清新，滋味鲜爽</p>
+                        <p><strong>代表茶：</strong>龙井、碧螺春、毛峰</p>
+                        <p><strong>制作工艺：</strong>杀青→揉捻→干燥</p>
+                        <p>绿茶是中国产量最多的茶类，以其"三绿"（干茶绿、茶汤绿、叶底绿）而闻名。</p>
+                        <button class="btn tea-detail-btn" data-tea="lvcha">查看详情</button>
+                    </div>
+                </div>
+
+                <!-- 红茶 -->
+                <div class="tea-type-card" data-type="hongcha">
+                    <div class="tea-img" style="background-image: url('images/hongcha/1.jpg');"></div>
+                    <div class="tea-content">
+                        <h3>🔴 红茶</h3>
+                        <p><strong>发酵程度：</strong>全发酵茶（80-90%）</p>
+                        <p><strong>特点：</strong>红汤红叶，香气甜醇，滋味醇厚</p>
+                        <p><strong>代表茶：</strong>祁门红茶、滇红、正山小种</p>
+                        <p><strong>制作工艺：</strong>萎凋→揉捻→发酵→干燥</p>
+                        <p>红茶是世界上消费量最大的茶类，适合加奶、加糖饮用。</p>
+                        <button class="btn tea-detail-btn" data-tea="hongcha">查看详情</button>
+                    </div>
+                </div>
+
+                <!-- 乌龙茶 -->
+                <div class="tea-type-card" data-type="wulongcha">
+                    <div class="tea-img" style="background-image: url('images/wulongcha/1.jpg');"></div>
+                    <div class="tea-content">
+                        <h3>🌿 乌龙茶</h3>
+                        <p><strong>发酵程度：</strong>半发酵茶（30-70%）</p>
+                        <p><strong>特点：</strong>绿叶红边，香气馥郁，滋味醇厚</p>
+                        <p><strong>代表茶：</strong>铁观音、大红袍、凤凰单丛</p>
+                        <p><strong>制作工艺：</strong>萎凋→做青→炒青→揉捻→干燥</p>
+                        <p>乌龙茶兼具绿茶之清香和红茶之甘醇，品质特征鲜明。</p>
+                        <button class="btn tea-detail-btn" data-tea="wulongcha">查看详情</button>
+                    </div>
+                </div>
+
+                <!-- 白茶 -->
+                <div class="tea-type-card" data-type="baicha">
+                    <div class="tea-img" style="background-image: url('images/baicha/1.jpg');"></div>
+                    <div class="tea-content">
+                        <h3>⚪ 白茶</h3>
+                        <p><strong>发酵程度：</strong>微发酵茶（10-20%）</p>
+                        <p><strong>特点：</strong>白毫显露，汤色浅黄，滋味清淡</p>
+                        <p><strong>代表茶：</strong>白毫银针、白牡丹、寿眉</p>
+                        <p><strong>制作工艺：</strong>萎凋→干燥</p>
+                        <p>白茶制作工艺最简单，最大限度地保留了茶叶的天然成分。</p>
+                        <button class="btn tea-detail-btn" data-tea="baicha">查看详情</button>
+                    </div>
+                </div>
+
+                <!-- 黄茶 -->
+                <div class="tea-type-card" data-type="huangcha">
+                    <div class="tea-img" style="background-image: url('images/huangcha/1.jpg');"></div>
+                    <div class="tea-content">
+                        <h3>🟡 黄茶</h3>
+                        <p><strong>发酵程度：</strong>轻发酵茶（10-20%）</p>
+                        <p><strong>特点：</strong>黄汤黄叶，香气清悦，滋味醇和</p>
+                        <p><strong>代表茶：</strong>君山银针、蒙顶黄芽、霍山黄芽</p>
+                        <p><strong>制作工艺：</strong>杀青→揉捻→闷黄→干燥</p>
+                        <p>黄茶是中国的特有茶类，制作工艺中有独特的"闷黄"工序。</p>
+                        <button class="btn tea-detail-btn" data-tea="huangcha">查看详情</button>
+                    </div>
+                </div>
+
+                <!-- 黑茶 -->
+                <div class="tea-type-card" data-type="heicha">
+                    <div class="tea-img" style="background-image: url('images/heicha/1.jpg');"></div>
+                    <div class="tea-content">
+                        <h3>⚫ 黑茶</h3>
+                        <p><strong>发酵程度：</strong>后发酵茶（100%）</p>
+                        <p><strong>特点：</strong>色泽黑褐，陈香明显，滋味醇厚</p>
+                        <p><strong>代表茶：</strong>普洱茶、安化黑茶、六堡茶</p>
+                        <p><strong>制作工艺：</strong>杀青→揉捻→渥堆→干燥</p>
+                        <p>黑茶具有越陈越香的特点，适合长期存放。</p>
+                        <button class="btn tea-detail-btn" data-tea="heicha">查看详情</button>
+                    </div>
+                </div>
+
+                <!-- 花茶 -->
+                <div class="tea-type-card" data-type="huacha">
+                    <div class="tea-img" style="background-image: url('images/huacha/1.jpg');"></div>
+                    <div class="tea-content">
+                        <h3>🌺 花茶</h3>
+                        <p><strong>发酵程度：</strong>再加工茶</p>
+                        <p><strong>特点：</strong>花香浓郁，茶引花香，相得益彰</p>
+                        <p><strong>代表茶：</strong>茉莉花茶、玫瑰花茶、桂花龙井</p>
+                        <p><strong>制作工艺：</strong>茶坯处理→鲜花处理→窨制→干燥</p>
+                        <p>花茶是茶叶和香花拼和窨制，使茶叶吸收花香而成。</p>
+                        <button class="btn tea-detail-btn" data-tea="huacha">查看详情</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 茶叶详情模态框 -->
+    <div id="teaDetailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-img" id="teaModalImage"></div>
+            <h2 id="teaModalTitle"></h2>
+            <div class="tea-detail-content" id="teaModalContent"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>盏中有乾坤，茶里品春秋</p>
+        <p>2025武汉大学数据可视化 | <a href="message-board.html" style="color: #64ffda;">分享你的茶故事</a></p>
+    </footer>
+
+    <script src="js/teas.js"></script>
+</body>
+</html>
