@@ -3486,7 +3486,7 @@ class HeroCarousel {
 // 初始化英雄区域轮播
 document.addEventListener('DOMContentLoaded', function() {
     const heroCarousel = new HeroCarousel();
-    
+    initLearnMoreButtons();
     // 键盘控制
     document.addEventListener('keydown', function(e) {
         if (e.code === 'Space') {
@@ -3495,7 +3495,85 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
+function initLearnMoreButtons() {
+    const learnMoreBtns = document.querySelectorAll('.filter-btn');
+    const modal = document.getElementById('infoModal');
+    const closeBtn = modal.querySelector('.close-btn');
+    
+    console.log('找到了解更多按钮:', learnMoreBtns.length);
+    
+    // 为每个了解更多按钮添加点击事件
+    learnMoreBtns.forEach(btn => {
+        // 移除可能存在的重复事件监听器
+        btn.replaceWith(btn.cloneNode(true));
+    });
+    
+    // 重新获取按钮并绑定事件
+    const freshButtons = document.querySelectorAll('.filter-btn');
+    freshButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const type = this.getAttribute('data-type');
+            const id = this.getAttribute('data-id');
+            
+            console.log('点击按钮:', type, id);
+            
+            // 检查数据是否存在
+            if (locationData[type] && locationData[type][id]) {
+                const data = locationData[type][id];
+                
+                console.log('找到数据:', data.title);
+                
+                // 填充模态框内容
+                const modalImage = document.getElementById('modalImage');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalDescription = document.getElementById('modalDescription');
+                const modalDetails = document.getElementById('modalDetails');
+                
+                if (modalImage) {
+                    modalImage.style.backgroundImage = `url('${data.image}')`;
+                }
+                if (modalTitle) {
+                    modalTitle.textContent = data.title;
+                }
+                if (modalDescription) {
+                    modalDescription.textContent = data.description;
+                }
+                if (modalDetails) {
+                    modalDetails.innerHTML = data.details;
+                }
+                
+                // 显示模态框
+                modal.style.display = 'block';
+                
+                // 添加点击动画反馈
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+                
+            } else {
+                console.error('未找到对应数据:', type, id);
+            }
+        });
+    });
+    
+    // 确保关闭按钮工作
+    if (closeBtn) {
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        };
+    }
+    
+    // 点击模态框外部关闭
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    };
+}
 // 添加速度控制按钮（可选功能）
 function addSpeedControls(heroCarousel) {
     const controlsHtml = `
@@ -3554,7 +3632,7 @@ function addSpeedControls(heroCarousel) {
         });
     });
 }
-// 平滑滚动到指定部分
+// 平滑滚动到指定部分 - 修复版本
 function scrollToSection(sectionId) {
     const targetElement = document.getElementById(sectionId);
     if (targetElement) {
@@ -3562,7 +3640,9 @@ function scrollToSection(sectionId) {
         const headerHeight = document.querySelector('header') ? 
             document.querySelector('header').offsetHeight : 80;
         
-        const targetPosition = targetElement.offsetTop - headerHeight;
+        // 更精确的偏移计算
+        const offset = 20; // 额外偏移量
+        const targetPosition = targetElement.offsetTop - headerHeight - offset;
         
         // 平滑滚动
         window.scrollTo({
@@ -3570,11 +3650,7 @@ function scrollToSection(sectionId) {
             behavior: 'smooth'
         });
         
-        // 添加高亮效果
-        targetElement.classList.add('highlight');
-        setTimeout(() => {
-            targetElement.classList.remove('highlight');
-        }, 2000);
+        console.log(`滚动到: ${sectionId}, 位置: ${targetPosition}`);
     } else {
         console.warn('未找到ID为 "' + sectionId + '" 的元素');
     }
