@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -90,27 +90,27 @@
 </section>
     
     <main>
-  <!-- 分类标签 -->
-<section class="category-tags" id="category-tags">
-    <h3>快速分类查找</h3>
-    <div class="tags-container">
-        <div class="category-tag" data-category="mountains" onclick="scrollToSection('mountains')">
-            <span class="tag-icon">🌳</span>
-            <span class="tag-text">茶树</span>
-            <span class="tag-count">3种</span>
+    <!-- 分类标签 -->
+    <section class="category-tags" id="category-tags">
+        <h3>快速分类查找</h3>
+        <div class="tags-container">
+            <div class="category-tag" data-category="mountains" onclick="navigateToCategory('mountains')">
+    <span class="tag-icon">🌳</span>
+    <span class="tag-text">茶树</span>
+    <span class="tag-count">3种</span>
+</div>
+<div class="category-tag" data-category="rivers" onclick="navigateToCategory('rivers')">
+    <span class="tag-icon">🍃</span>
+    <span class="tag-text">茶叶</span>
+    <span class="tag-count">7种</span>
+</div>
+<div class="category-tag" data-category="regions" onclick="navigateToCategory('regions')">
+    <span class="tag-icon">🗺️</span>
+    <span class="tag-text">品种与区域</span>
+    <span class="tag-count">4个</span>
+</div>
         </div>
-        <div class="category-tag" data-category="rivers" onclick="scrollToSection('rivers')">
-            <span class="tag-icon">🍃</span>
-            <span class="tag-text">茶叶</span>
-            <span class="tag-count">7种</span>
-        </div>
-        <div class="category-tag" data-category="regions" onclick="scrollToSection('regions')">
-            <span class="tag-icon">🗺️</span>
-            <span class="tag-text">品种与区域</span>
-            <span class="tag-count">4个</span>
-        </div>
-    </div>
-</section>
+    </section>
         <section id="panorama-gallery">
             <h2>地形地貌</h2>
             <p class="map-hint">(请点击地图上的标记查看详情)</p>
@@ -310,38 +310,38 @@
                     </div>
                 </div>
             </div>
-    </section>     
-<section id="mountains">       
-    <h2>茶树</h2>
-    <div class="mountains">
-        <div class="mountain-card">
-            <div class="mountain-img" style="background-image: url('images/daqiaomuxing/5.jpg');"></div>
-            <div class="mountain-content">
-                <h3>🌴大乔木型：原始茶树</h3>
-                <p>多分布在我国热带或亚热带，和茶树原产地自然条件接近。植株高大，从基部到上部有明显主干，总状分枝，分枝高、枝叶稀；栅栏组织通常一层。</p>
-                <button class="filter-btn" data-type="mountain" data-id="1">了解更多</button>
-            </div>
-        </div>
+            <section id="mountains">
+                <h2>茶树</h2>
+                <div class="mountains">
+                    <!-- 原有三座山 -->
+                    <div class="mountain-card">
+                        <div class="mountain-img" style="background-image: url('images/daqiaomuxing/5.jpg');"></div>
+                        <div class="mountain-content">
+                            <h3>🌴大乔木型：原始茶树</h3>
+                            <p>多分布在我国热带或亚热带，和茶树原产地自然条件接近。植株高大，从基部到上部有明显主干，总状分枝，分枝高、枝叶稀；栅栏组织通常一层。</p>
+                            <button class="filter-btn" data-type="mountain" data-id="1">了解更多</button>
+                        </div>
+                    </div>
 
-        <div class="mountain-card">
-            <div class="mountain-img" style="background-image: url('images/xiaoqiaomuxing/5.jpg');"></div>
-            <div class="mountain-content">
-                <h3>🌿小乔木型：进化之选</h3>
-                <p>抗逆性比乔木强，分布于亚热带或热带茶区。植株较高大，基部到中部主干明显，上部不明显，栅栏组织多为两层。</p>
-                <button class="filter-btn" data-type="mountain" data-id="2">了解更多</button>
-            </div>
-        </div>
+                    <div class="mountain-card">
+                        <div class="mountain-img" style="background-image: url('images/xiaoqiaomuxing/5.jpg');"></div>
+                        <div class="mountain-content">
+                            <h3>🌿小乔木型：进化之选</h3>
+                            <p>抗逆性比乔木强，分布于亚热带或热带茶区。植株较高大，基部到中部主干明显，上部不明显，栅栏组织多为两层。</p>
+                            <button class="filter-btn" data-type="mountain" data-id="2">了解更多</button>
+                        </div>
+                    </div>
 
-        <div class="mountain-card">
-            <div class="mountain-img" style="background-image: url('images/guanmuxing/5.jpg');"></div>
-            <div class="mountain-content">
-                <h3>🌱灌木型：品种繁多</h3>
-                <p>属进化类型，品种最多，主要在亚热带茶区，我国多数茶区都有。植株低矮，无明显主干，从基部就开始分枝，分枝密。</p>
-                <button class="filter-btn" data-type="mountain" data-id="3">了解更多</button>
-            </div>
-        </div>
-    </div> 
-</section>
+                    <div class="mountain-card">
+                        <div class="mountain-img" style="background-image: url('images/guanmuxing/5.jpg');"></div>
+                        <div class="mountain-content">
+                            <h3>🌱灌木型：品种繁多</h3>
+                            <p>属进化类型，品种最多，主要在亚热带茶区，我国多数茶区都有。植株低矮，无明显主干，从基部就开始分枝，分枝密。</p>
+                            <button class="filter-btn" data-type="mountain" data-id="3">了解更多</button>
+                        </div>
+                    </div>
+            </section>
+
             <section id="rivers">
                 <h2>茶叶</h2>
                 <div class="rivers">
@@ -378,13 +378,13 @@
                         <div class="river-img more-img">
                             <div class="more-overlay">
                                 <span class="more-text">探索更多茶叶</span>
-                                <span class="more-count">+7种茶叶</span>
+                                <span class="more-count">+7个水域</span>
                             </div>
                         </div>
                         <div class="river-content">
                             <h3>更多茶叶</h3>
                             <p>探索更多中国茶叶</p>
-                            <a href="tea.html" class="btn">查看全部茶叶</a>
+                            <a href="rivers.html?from=more-rivers" class="btn">查看全部</a>
                         </div>
                     </div>
                 </div>
