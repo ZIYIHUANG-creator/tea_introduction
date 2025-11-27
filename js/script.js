@@ -3632,26 +3632,125 @@ function addSpeedControls(heroCarousel) {
         });
     });
 }
-// 平滑滚动到指定部分 - 修复版本
+// 修复的滚动函数
 function scrollToSection(sectionId) {
     const targetElement = document.getElementById(sectionId);
     if (targetElement) {
-        // 计算目标位置（考虑导航栏高度）
-        const headerHeight = document.querySelector('header') ? 
-            document.querySelector('header').offsetHeight : 80;
+        // 更精确地获取导航栏高度
+        const header = document.querySelector('header');
+        const headerHeight = header ? header.offsetHeight : 100; // 默认100px
         
-        // 更精确的偏移计算
-        const offset = 20; // 额外偏移量
-        const targetPosition = targetElement.offsetTop - headerHeight - offset;
+        // 使用更精确的位置计算
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20;
+        
+        console.log(`滚动调试 - 目标: ${sectionId}, 导航高度: ${headerHeight}, 最终位置: ${offsetPosition}`);
         
         // 平滑滚动
         window.scrollTo({
-            top: targetPosition,
+            top: offsetPosition,
             behavior: 'smooth'
         });
         
-        console.log(`滚动到: ${sectionId}, 位置: ${targetPosition}`);
+        // 添加视觉反馈
+        const activeTag = document.querySelector(`[data-category="${sectionId}"]`);
+        if (activeTag) {
+            activeTag.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                activeTag.style.transform = '';
+            }, 200);
+        }
+        
     } else {
         console.warn('未找到ID为 "' + sectionId + '" 的元素');
     }
 }
+
+// 修复快速分类标签的点击事件
+function initCategoryTagsScroll() {
+    const categoryTags = document.querySelectorAll('.category-tag');
+    
+    categoryTags.forEach(tag => {
+        tag.addEventListener('click', function(e) {
+            e.preventDefault();
+            const category = this.getAttribute('data-category');
+            scrollToSection(category);
+        });
+        
+        // 添加键盘可访问性
+        tag.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const category = this.getAttribute('data-category');
+                scrollToSection(category);
+            }
+        });
+        
+        // 设置可访问性属性
+        tag.setAttribute('tabindex', '0');
+        tag.setAttribute('role', 'button');
+        tag.setAttribute('aria-label', `跳转到${getCategoryName(category)}部分`);
+    });
+}
+
+// 获取分类名称的辅助函数
+function getCategoryName(category) {
+    const names = {
+        'mountains': '茶树',
+        'rivers': '茶叶', 
+        'regions': '品种与区域'
+    };
+    return names[category] || category;
+}
+
+// 增强滚动函数，添加更精确的计算
+function enhancedScrollToSection(sectionId) {
+    const targetElement = document.getElementById(sectionId);
+    if (targetElement) {
+        // 更精确的计算导航栏高度
+        const header = document.querySelector('header');
+        const headerHeight = header ? header.offsetHeight : 80;
+        
+        // 计算目标位置
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 30;
+        
+        console.log(`滚动到: ${sectionId}, 导航栏高度: ${headerHeight}, 目标位置: ${offsetPosition}`);
+        
+        // 平滑滚动
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+        
+        // 添加视觉反馈
+        highlightActiveSection(sectionId);
+    } else {
+        console.warn('未找到ID为 "' + sectionId + '" 的元素');
+    }
+}
+
+// 高亮当前活动部分
+function highlightActiveSection(sectionId) {
+    // 移除所有活动状态
+    document.querySelectorAll('.category-tag').forEach(tag => {
+        tag.classList.remove('active');
+    });
+    
+    // 添加当前活动状态
+    const activeTag = document.querySelector(`[data-category="${sectionId}"]`);
+    if (activeTag) {
+        activeTag.classList.add('active');
+    }
+}
+
+// 在DOM加载完成后初始化
+document.addEventListener('DOMContentLoaded', function() {
+    // 其他初始化代码...
+    
+    // 初始化分类标签滚动
+    initCategoryTagsScroll();
+    
+    // 替换原有的scrollToSection为增强版本
+    window.scrollToSection = enhancedScrollToSection;
+});
