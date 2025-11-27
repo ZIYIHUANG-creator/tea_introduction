@@ -23,23 +23,68 @@ function initCategoryTags() {
     });
 }
 
-// 跳转到分类页面
+// 跳转到分类页面 - 修改为平滑滚动到对应部分
 function navigateToCategory(category) {
-    const pageMap = {
-        'mountains': 'mountains.html?from=category-tags',
-        'rivers': 'rivers.html?from=category-tags',
-        'regions': 'regions.html?from=category-tags'
+    console.log('点击分类标签:', category);
+    
+    // 映射分类到对应的section ID
+    const sectionMap = {
+        'mountains': 'mountains',
+        'rivers': 'rivers', 
+        'regions': 'regions'
     };
     
-    const page = pageMap[category];
-    if (page) {
-        // 添加点击反馈
-        const tag = document.querySelector(`[data-category="${category}"]`);
-        tag.style.transform = 'scale(0.95)';
+    const sectionId = sectionMap[category];
+    if (!sectionId) {
+        console.error('未知的分类:', category);
+        return;
+    }
+    
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        // 计算导航栏高度
+        const navHeight = document.querySelector('header').offsetHeight;
         
-        setTimeout(() => {
-            window.location.href = page;
-        }, 150);
+        // 计算目标位置（考虑导航栏高度和额外偏移）
+        const targetPosition = targetSection.offsetTop - navHeight - 30;
+        
+        // 平滑滚动
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
+        
+        // 更新URL
+        history.pushState(null, null, `#${sectionId}`);
+        
+        // 添加点击反馈动画
+        const tag = document.querySelector(`[data-category="${category}"]`);
+        if (tag) {
+            tag.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                tag.style.transform = '';
+            }, 150);
+        }
+        
+        console.log('滚动到:', sectionId, '位置:', targetPosition);
+    } else {
+        console.warn('未找到目标部分:', sectionId);
+        
+        // 备用方案：如果section不存在，显示提示
+        alert(`即将跳转到${getCategoryName(category)}页面`);
+        // 这里可以保留原来的跳转逻辑作为备用
+        const pageMap = {
+            'mountains': 'mountains.html?from=category-tags',
+            'rivers': 'rivers.html?from=category-tags',
+            'regions': 'regions.html?from=category-tags'
+        };
+        
+        const page = pageMap[category];
+        if (page) {
+            setTimeout(() => {
+                window.location.href = page;
+            }, 500);
+        }
     }
 }
 
