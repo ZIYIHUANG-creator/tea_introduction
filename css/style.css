@@ -4020,3 +4020,29 @@ canvas {
         border-width: 2px;
     }
 }
+/* 分类标签激活状态 */
+.category-tag.active {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(100, 255, 218, 0.3);
+    border: 2px solid var(--accent-color);
+}
+
+.category-tag.active .tag-icon {
+    transform: scale(1.2);
+}
+
+/* 确保目标section有适当的间距 */
+#mountains, #rivers, #regions {
+    scroll-margin-top: 100px; /* 这个很重要，确保滚动时不会被导航栏遮挡 */
+}
+
+/* 分类标签悬停效果增强 */
+.category-tag:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(100, 255, 218, 0.2);
+    cursor: pointer;
+}
+
+.category-tag:active {
+    transform: translateY(-1px);
+}
