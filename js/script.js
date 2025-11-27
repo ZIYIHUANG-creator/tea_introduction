@@ -2926,25 +2926,24 @@ function initMainModal() {
                 document.getElementById('modalTitle').textContent = data.title;
                 document.getElementById('modalDescription').textContent = data.description;
                 
-                // const detailsTab = `
-                //     <div class="tab-content active" id="detailsTab">
-                //         ${data.details}
-                //     </div>
-                // `;
+                const detailsTab = `
+                    <div class="tab-content active" id="detailsTab">
+                        ${data.details}
+                    </div>
+                `;
                 
-                // const gameTab = `
-                //     <div class="tab-content" id="gameTab">
-                //         ${getDevelopingGameHtml()}
-                //     </div>
-                // `;
+                const gameTab = `
+                    <div class="tab-content" id="gameTab">
+                        ${getDevelopingGameHtml()}
+                    </div>
+                `;
                 
-                // const tabsHtml = `
-                //     <div class="modal-tabs">
-                //         <button class="filter-btn active" onclick="switchTab('detailsTab')">详细信息</button>
-                //         <button class="filter-btn" onclick="switchTab('gameTab')">互动游戏</button>
-                //     </div>
-                // `;
-                document.getElementById('modalDetails').innerHTML = data.details;
+                const tabsHtml = `
+                    <div class="modal-tabs">
+                        <button class="filter-btn active" onclick="switchTab('detailsTab')">详细信息</button>
+                        <button class="filter-btn" onclick="switchTab('gameTab')">互动游戏</button>
+                    </div>
+                `;
                 
                 document.getElementById('modalDetails').innerHTML = `
                     ${tabsHtml}
