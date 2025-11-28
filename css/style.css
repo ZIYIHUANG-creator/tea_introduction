@@ -4018,6 +4018,11 @@ canvas {
     transform: scale(1.05);
 }
 
+.sound-toggle-button:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+    transform: scale(1.1);
+}
+
 /* 隐藏主体内容直到视频结束 */
 body.video-playing .video-splash ~ * {
     display: none;
