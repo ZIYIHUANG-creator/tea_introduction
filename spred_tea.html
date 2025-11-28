@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>丝绸之路历史时间轴与交互地图</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 动画库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <!-- Leaflet.js 地图库 -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#D4AF37',
+                        secondary: '#8B4513',
+                        accent: '#FF6B35',
+                        background: '#FDF5E6',
+                        foreground: '#2F1B14'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* 丝绸长卷风格背景 */
+        body {
+            background: linear-gradient(135deg, #FDF5E6 0%, #F5E6D3 100%);
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+            min-height: 100vh;
+            font-family: 'serif', '宋体', 'SimSun', serif;
+        }
+        
+        /* 丝绸纹理效果 */
+        .silk-texture {
+            background: linear-gradient(45deg, 
+                rgba(212, 175, 55, 0.1) 25%, 
+                transparent 25%, 
+                transparent 75%, 
+                rgba(212, 175, 55, 0.1) 75%),
+                linear-gradient(-45deg, 
+                rgba(212, 175, 55, 0.1) 25%, 
+                transparent 25%, 
+                transparent 75%, 
+                rgba(212, 175, 55, 0.1) 75%);
+            background-size: 20px 20px;
+        }
+        
+        /* 时间轴样式 */
+        .timeline-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #D4AF37, #8B4513);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin: 60px 0;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .timeline-item.left {
+            text-align: right;
+            padding-right: calc(50% + 40px);
+        }
+        
+        .timeline-item.right {
+            text-align: left;
+            padding-left: calc(50% + 40px);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #D4AF37, #FF6B35);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            border: 4px solid #FDF5E6;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-dot:hover {
+            transform: translateX(-50%) scale(1.2);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+        }
+        
+        .timeline-dot.active {
+            background: linear-gradient(135deg, #FF6B35, #D4AF37);
+            transform: translateX(-50%) scale(1.3);
+            box-shadow: 0 0 40px rgba(255, 107, 53, 0.8);
+        }
+        
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            border-color: rgba(212, 175, 55, 0.6);
+        }
+        
+        /* 地图容器样式 */
+        .map-container {
+            position: relative;
+            background: linear-gradient(135deg, #2C1810 0%, #4A2C1A 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            overflow: hidden;
+        }
+        
+        .map-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        /* Leaflet地图样式 */
+        #realMap {
+            width: 100%;
+            height: 600px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        /* 朝代选择器样式 */
+        .dynasty-selector {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .dynasty-selector select {
+            background: linear-gradient(135deg, #D4AF37, #FF6B35);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+        }
+        
+        /* 自定义标记点样式 */
+        .custom-marker {
+            background: linear-gradient(135deg, #D4AF37, #FF6B35);
+            border: 3px solid #FDF5E6;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .custom-marker:hover {
+            transform: scale(1.2);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.8);
+        }
+        
+        /* 弹窗样式 */
+        .leaflet-popup-content-wrapper {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .leaflet-popup-content {
+            margin: 16px;
+            font-family: 'serif', '宋体', 'SimSun', serif;
+        }
+        
+        .popup-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2F1B14;
+            margin-bottom: 8px;
+        }
+        
+        .popup-description {
+            color: #8B4513;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        
+        .popup-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        
+        .popup-tag {
+            background: linear-gradient(135deg, #D4AF37, #FF6B35);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        /* 控制面板样式 */
+        .control-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .period-btn {
+            background: linear-gradient(135deg, #D4AF37, #FF6B35);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 4px;
+        }
+        
+        .period-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        .period-btn.active {
+            background: linear-gradient(135deg, #FF6B35, #D4AF37);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.5);
+        }
+        
+        /* 信息卡片样式 */
+        .info-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #D4AF37;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        
+        .info-card.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .timeline-item.left,
+            .timeline-item.right {
+                text-align: left;
+                padding-left: 60px;
+                padding-right: 20px;
+            }
+            
+            .timeline-line {
+                left: 30px;
+            }
+            
+            .timeline-dot {
+                left: 30px;
+            }
+            
+            .control-panel {
+                padding: 16px;
+            }
+            
+            .period-btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+        
+        /* 音频控制样式 */
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(212, 175, 55, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 12px 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .audio-control:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* 知识问答样式 */
+        .quiz-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            border: 3px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .quiz-question {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            border-left: 4px solid #D4AF37;
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .quiz-option {
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: #D4AF37;
+        }
+        
+        .quiz-option.selected {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #D4AF37;
+        }
+        
+        .quiz-option.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: #16a34a;
+        }
+        
+        .quiz-option.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #dc2626;
+        }
+        
+        .quiz-submit {
+            background: linear-gradient(135deg, #D4AF37, #FF6B35);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+        
+        .quiz-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        .quiz-feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid #D4AF37;
+        }
+        
+        .quiz-feedback.correct {
+            background: rgba(34, 197, 94, 0.1);
+            border-left-color: #16a34a;
+        }
+        
+        .quiz-feedback.incorrect {
+            background: rgba(239, 68, 68, 0.1);
+            border-left-color: #dc2626;
+        }
+    </style>
+</head>
+<body>
+    <!-- 音频元素 -->
+    <audio id="narratorAudio" preload="auto">
+        <!-- 音频文件链接 - 这里使用占位符，实际使用时请替换为真实链接 -->
+        <source src="#" type="audio/mpeg">
+    </audio>
+    
+    <!-- 音频控制按钮 -->
+    <div class="audio-control" onclick="toggleAudio()">
+        <span id="audioIcon">🔊</span>
+        <span class="text-white font-bold ml-2">历史解说</span>
+    </div>
+    
+    <!-- 主容器 -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- 标题区域 -->
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-foreground mb-4 silk-texture">
+                丝绸之路历史时间轴
+            </h1>
+            <p class="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
+                穿越时空，探索这条连接东西方文明的古代贸易通道，见证中华文明与世界的交流融合
+            </p>
+        </header>
+        
+        <!-- 控制面板 -->
+        <div class="control-panel mb-8">
+            <h3 class="text-2xl font-bold text-foreground mb-4">选择历史时期</h3>
+            <div class="flex flex-wrap justify-center">
+                <button class="period-btn active" onclick="showPeriod('han')" data-period="han">
+                    汉代开拓期 (前138-220年)
+                </button>
+                <button class="period-btn" onclick="showPeriod('tang')" data-period="tang">
+                    唐代鼎盛期 (618-907年)
+                </button>
+                <button class="period-btn" onclick="showPeriod('song')" data-period="song">
+                    宋元繁荣期 (960-1368年)
+                </button>
+                <button class="period-btn" onclick="showPeriod('ming')" data-period="ming">
+                    明清衰落期 (1368-1912年)
+                </button>
+            </div>
+        </div>
+        
+        <!-- 交互地图 -->
+        <div class="map-container">
+            <h3 class="text-3xl font-bold text-primary mb-6 text-center">丝绸之路交互地图</h3>
+            
+            <!-- 朝代选择器 -->
+            <div class="dynasty-selector">
+                <label class="text-foreground font-bold mr-4">选择朝代：</label>
+                <select id="dynastySelect" onchange="switchDynasty(this.value)">
+                    <option value="han">汉代 (前206-220年)</option>
+                    <option value="tang">唐代 (618-907年)</option>
+                    <option value="song">宋元 (960-1368年)</option>
+                    <option value="ming">明清 (1368-1912年)</option>
+                </select>
+            </div>
+            
+            <!-- Leaflet真实地图 -->
+            <div id="realMap"></div>
+            
+            <!-- 地图说明 -->
+            <div class="mt-6 text-center">
+                <p class="text-primary font-bold">点击地图标记点查看城市详细信息 | 切换朝代查看不同时期的丝绸之路发展状态</p>
+            </div>
+        </div>
+        
+        <!-- 城市信息卡片 -->
+        <div id="cityInfo" class="info-card">
+            <h4 class="text-2xl font-bold text-foreground mb-3">选择城市查看详细信息</h4>
+            <p class="text-secondary">点击地图上的城市节点，了解该城市在丝绸之路上的重要作用和历史故事。</p>
+        </div>
+        
+        <!-- 时间轴 -->
+        <div class="timeline-container mt-16">
+            <div class="timeline-line"></div>
+            
+            <!-- 汉代时期 -->
+            <div class="timeline-item left" data-period="han">
+                <div class="timeline-dot" onclick="focusTimelineItem(this)"></div>
+                <div class="timeline-content">
+                    <h3 class="text-2xl font-bold text-foreground mb-3">前138年 - 张骞出使西域</h3>
+                    <div class="w-full h-48 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-foreground/60 text-lg">长安古城门示意图</span>
+                    </div>
+                    <p class="text-secondary leading-relaxed">
+                        汉武帝派遣张骞出使西域，开启了中原与西域的正式外交和贸易往来。张骞历经艰险，
+                        两次出使西域，不仅带回了关于西域各国的详细情报，更重要的是开辟了后来被称为"丝绸之路"的贸易通道。
+                    </p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">政治外交</span>
+                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">贸易开拓</span>
+                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">文化交流</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-item right" data-period="han">
+                <div class="timeline-dot" onclick="focusTimelineItem(this)"></div>
+                <div class="timeline-content">
+                    <h3 class="text-2xl font-bold text-foreground mb-3">前60年 - 西域都护府设立</h3>
+                    <div class="w-full h-48 bg-gradient-to-br from-accent/20 to-primary/20 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-foreground/60 text-lg">丝绸之路商队示意图</span>
+                    </div>
+                    <p class="text-secondary leading-relaxed">
+                        汉朝在西域设立都护府，标志着丝绸之路贸易的制度化和规范化。都护府不仅负责军事防务，
+                        更重要的是保护商队安全，维护贸易秩序，使得丝绸之路成为真正意义上的国际贸易大动脉。
+                    </p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">制度建设</span>
+                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">贸易保护</span>
+                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">军事管理</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 唐代时期 -->
+            <div class="timeline-item left" data-period="tang" style="display: none;">
+                <div class="timeline-dot" onclick="focusTimelineItem(this)"></div>
+                <div class="timeline-content">
+                    <h3 class="text-2xl font-bold text-foreground mb-3">618-907年 - 唐代丝路鼎盛</h3>
+                    <div class="w-full h-48 bg-gradient-to-br from-secondary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-foreground/60 text-lg">丝绸织物纹样示意图</span>
+                    </div>
+                    <p class="text-secondary leading-relaxed">
+                        唐朝是丝绸之路的黄金时代，国力强盛，对外开放程度极高。长安成为世界性的国际大都市，
+                        各国商人、使节、学者云集。丝绸、瓷器、茶叶等中国商品远销欧洲，同时引进了胡椒、宝石等珍贵物品。
+                    </p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">文化繁荣</span>
+                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">贸易鼎盛</span>
+                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">国际交流</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-item right" data-period="tang" style="display: none;">
+                <div class="timeline-dot" onclick="focusTimelineItem(this)"></div>
+                <div class="timeline-content">
+                    <h3 class="text-2xl font-bold text-foreground mb-3">玄奘西行取经</h3>
+                    <div class="w-full h-48 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-foreground/60 text-lg">撒马尔罕古城示意图</span>
+                    </div>
+                    <p class="text-secondary leading-relaxed">
+                        唐代高僧玄奘沿丝绸之路西行求法，历时17年，行程5万里，不仅带回了大量佛经，
+                        更重要的是促进了中印文化交流，其《大唐西域记》成为研究古代中亚、南亚历史地理的珍贵资料。
+                    </p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">宗教传播</span>
+                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">文化交流</span>
+                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">学术研究</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 宋元时期 -->
+            <div class="timeline-item left" data-period="song" style="display: none;">
+                <div class="timeline-dot" onclick="focusTimelineItem(this)"></div>
+                <div class="timeline-content">
+                    <h3 class="text-2xl font-bold text-foreground mb-3">960-1368年 - 海陆并进</h3>
+                    <div class="w-full h-48 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-foreground/60 text-lg">君士坦丁堡古城示意图</span>
+                    </div>
+                    <p class="text-secondary leading-relaxed">
+                        宋代海上丝绸之路兴起，与陆上丝绸之路形成海陆并进的格局。元朝统一后，
+                        丝绸之路达到新的繁荣期，马可·波罗等欧洲商人沿此路来到中国，促进了东西方的深度交流。
+                    </p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">海上贸易</span>
+                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">技术传播</span>
+                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">商业繁荣</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 明清时期 -->
+            <div class="timeline-item right" data-period="ming" style="display: none;">
+                <div class="timeline-dot" onclick="focusTimelineItem(this)"></div>
+                <div class="timeline-content">
+                    <h3 class="text-2xl font-bold text-foreground mb-3">1368-1912年 - 逐渐衰落</h3>
+                    <div class="w-full h-48 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-foreground/60 text-lg">丝绸长卷背景示意图</span>
+                    </div>
+                    <p class="text-secondary leading-relaxed">
+                        明清时期，由于海上贸易的兴起和政治因素的影响，传统的陆上丝绸之路逐渐衰落。
+                        但其历史意义和文化价值永远不会消失，为今天的"一带一路"倡议提供了深厚的历史底蕴。
+                    </p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">历史传承</span>
+                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">文化遗产</span>
+                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">现代启示</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 知识问答区域 -->
+        <div class="quiz-section">
+            <h3 class="text-3xl font-bold text-foreground mb-6 text-center">丝绸之路知识问答</h3>
+            <p class="text-secondary text-center mb-8">通过问答加深对丝绸之路历史的理解</p>
+            
+            <!-- 单选题 -->
+            <div class="quiz-question">
+                <h4 class="text-xl font-bold text-foreground mb-4">张骞出使西域开辟丝绸之路是在哪个朝代？</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this, 0)">秦朝</div>
+                    <div class="quiz-option" onclick="selectOption(this, 1)">汉朝</div>
+                    <div class="quiz-option" onclick="selectOption(this, 2)">唐朝</div>
+                    <div class="quiz-option" onclick="selectOption(this, 3)">宋朝</div>
+                </div>
+                <button class="quiz-submit" onclick="checkAnswer(0, [1])">提交答案</button>
+                <div class="quiz-feedback" id="feedback-0" style="display: none;">
+                    <p><strong>解析：</strong>张骞出使西域发生在汉武帝时期（前138年），这标志着丝绸之路的正式开辟。</p>
+                </div>
+            </div>
+            
+            <!-- 多选题 -->
+            <div class="quiz-question">
+                <h4 class="text-xl font-bold text-foreground mb-4">丝绸之路上的主要贸易商品包括哪些？（多选）</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="toggleMultiOption(this, 0)">丝绸</div>
+                    <div class="quiz-option" onclick="toggleMultiOption(this, 1)">瓷器</div>
+                    <div class="quiz-option" onclick="toggleMultiOption(this, 2)">茶叶</div>
+                    <div class="quiz-option" onclick="toggleMultiOption(this, 3)">火药</div>
+                    <div class="quiz-option" onclick="toggleMultiOption(this, 4)">香料</div>
+                    <div class="quiz-option" onclick="toggleMultiOption(this, 5)">石油</div>
+                </div>
+                <button class="quiz-submit" onclick="checkMultiAnswer(1, [0,1,2,4])">提交答案</button>
+                <div class="quiz-feedback" id="feedback-1" style="display: none;">
+                    <p><strong>解析：</strong>丝绸之路上的主要贸易商品包括中国的丝绸、瓷器、茶叶，以及西方的香料等。火药虽然是中国发明，但主要用于军事，不是主要贸易商品。</p>
+                </div>
+            </div>
+            
+            <!-- 判断题 -->
+            <div class="quiz-question">
+                <h4 class="text-xl font-bold text-foreground mb-4">丝绸之路不仅是贸易通道，也是文化交流的桥梁。</h4>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this, 0)">正确</div>
+                    <div class="quiz-option" onclick="selectOption(this, 1)">错误</div>
+                </div>
+                <button class="quiz-submit" onclick="checkAnswer(2, [0])">提交答案</button>
+                <div class="quiz-feedback" id="feedback-2" style="display: none;">
+                    <p><strong>解析：</strong>丝绸之路确实不仅仅是贸易通道，更是促进东西方文化、宗教、技术交流的重要桥梁，对人类文明发展产生了深远影响。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 真实地图和标记点
+        let map;
+        let currentMarkers = [];
+        let currentPolylines = [];
+        
+        // 城市地理坐标数据
+        const cityCoordinates = {
+            'chang-an': [34.3416, 108.9398], // 西安
+            'dunhuang': [40.1424, 94.6624],
+            'loulan': [40.5, 89.8],
+            'kashi': [39.4704, 75.9896], // 喀什
+            'samarkand': [39.6270, 66.9750], // 撒马尔罕
+            'baghdad': [33.3152, 44.3661], // 巴格达
+            'constantinople': [41.0082, 28.9784], // 伊斯坦布尔
+            'bukhara': [39.7747, 64.4286], // 布哈拉
+            'merv': [37.6667, 62.1833], // 梅尔夫
+            'herat': [34.3482, 62.1997], // 赫拉特
+            'balkh': [36.7581, 66.8957], // 巴尔赫
+            'tashkent': [41.2995, 69.2401], // 塔什干
+            'almaty': [43.2220, 76.8512], // 阿拉木图
+            'turpan': [42.9513, 89.1898], // 吐鲁番
+            'yarkand': [38.4183, 77.2667], // 叶尔羌
+            'khotan': [37.1167, 79.9167] // 和田
+        };
+        
+        // 朝代路线数据
+        const dynastyRoutes = {
+            han: {
+                cities: ['chang-an', 'dunhuang', 'loulan', 'kashi', 'samarkand'],
+                routes: [
+                    ['chang-an', 'dunhuang', 'loulan', 'kashi', 'samarkand']
+                ],
+                policies: {
+                    'chang-an': ['张骞出使西域', '设立西域都护府', '开辟丝绸之路'],
+                    'dunhuang': ['河西走廊要塞', '佛教传播中心'],
+                    'kashi': ['西域门户', '贸易集散地']
+                }
+            },
+            tang: {
+                cities: ['chang-an', 'dunhuang', 'turpan', 'kashi', 'samarkand', 'bukhara', 'merv', 'baghdad'],
+                routes: [
+                    ['chang-an', 'dunhuang', 'turpan', 'kashi', 'samarkand', 'bukhara', 'merv', 'baghdad'],
+                    ['chang-an', 'dunhuang', 'khotan', 'yarkand', 'kashi', 'samarkand']
+                ],
+                policies: {
+                    'chang-an': ['安西都护府', '北庭都护府', '国际贸易中心'],
+                    'samarkand': ['粟特商人网络', '文化交流枢纽'],
+                    'baghdad': ['阿拉伯帝国都城', '学术文化中心']
+                }
+            },
+            song: {
+                cities: ['chang-an', 'dunhuang', 'kashi', 'samarkand', 'bukhara', 'baghdad', 'constantinople'],
+                routes: [
+                    ['chang-an', 'dunhuang', 'kashi', 'samarkand', 'bukhara', 'baghdad', 'constantinople']
+                ],
+                policies: {
+                    'chang-an': ['市舶司制度', '海陆并进贸易'],
+                    'constantinople': ['拜占庭贸易', '东西方交汇点'],
+                    'samarkand': ['帖木儿帝国', '建筑艺术中心']
+                }
+            },
+            ming: {
+                cities: ['chang-an', 'dunhuang', 'kashi', 'samarkand'],
+                routes: [
+                    ['chang-an', 'dunhuang', 'kashi', 'samarkand']
+                ],
+                policies: {
+                    'chang-an': ['海禁政策', '朝贡贸易'],
+                    'dunhuang': ['边防要塞', '文化遗存保护'],
+                    'kashi': ['边境贸易', '民族融合']
+                }
+            }
+        };
+        
+        // 城市信息数据
+        const cityData = {
+            'chang-an': {
+                name: '长安（今西安）',
+                description: '丝绸之路的起点，唐朝都城，当时世界上最大的城市之一。人口超过百万，汇聚了来自世界各地的商人、使节和学者。',
+                importance: '政治中心、贸易起点、文化枢纽',
+                period: '汉唐时期最为繁荣'
+            },
+            'dunhuang': {
+                name: '敦煌',
+                description: '河西走廊的重要节点，以莫高窟闻名。是丝绸之路上的重要补给站和文化交流中心，保存了大量珍贵的文物和壁画。',
+                importance: '文化艺术中心、宗教传播地、商队补给站',
+                period: '魏晋南北朝至唐代最为繁荣'
+            },
+            'loulan': {
+                name: '楼兰',
+                description: '古代西域重要城邦，位于塔里木盆地。曾是丝绸之路南道的重要中转站，后因环境变化而衰落，成为神秘的古城遗址。',
+                importance: '贸易中转站、军事要地',
+                period: '汉晋时期繁荣，后逐渐衰落'
+            },
+            'kashi': {
+                name: '喀什',
+                description: '位于帕米尔高原东麓，是丝绸之路上的重要枢纽。连接中亚、南亚和中国内地的交通要道，至今仍是重要的商贸城市。',
+                importance: '交通枢纽、商贸中心、文化交汇点',
+                period: '各个历史时期都很重要'
+            },
+            'samarkand': {
+                name: '撒马尔罕',
+                description: '中亚古城，丝绸之路上的璀璨明珠。曾是多个帝国的都城，以其精美的建筑和繁荣的商业而闻名于世。',
+                importance: '政治中心、商业枢纽、建筑艺术中心',
+                period: '各个历史时期都很重要，特别是帖木儿时期'
+            },
+            'baghdad': {
+                name: '巴格达',
+                description: '阿拉伯帝国的都城，伊斯兰文明的中心。在丝绸之路贸易中扮演重要角色，是东西方商品的重要集散地。',
+                importance: '政治中心、学术中心、贸易枢纽',
+                period: '阿拔斯王朝时期最为繁荣'
+            },
+            'constantinople': {
+                name: '君士坦丁堡（今伊斯坦布尔）',
+                description: '拜占庭帝国的都城，丝绸之路的西端终点之一。连接欧亚两洲，是东西方贸易的重要门户。',
+                importance: '贸易终点、文化交汇点、政治中心',
+                period: '拜占庭帝国和奥斯曼帝国时期'
+            }
+        };
+        
+        let currentPeriod = 'han';
+        let currentDynasty = 'han';
+        let audioPlaying = false;
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTimeline();
+            initializeMap();
+            showPeriod('han');
+            switchDynasty('han');
+        });
+        
+        // 初始化Leaflet地图
+        function initializeMap() {
+            // 创建地图实例，中心点设在中亚
+            map = L.map('realMap').setView([40.0, 70.0], 4);
+            
+            // 使用高德地图瓦片
+            L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
+                attribution: '© 高德地图',
+                subdomains: ['1', '2', '3', '4'],
+                maxZoom: 18
+            }).addTo(map);
+        }
+        
+        // 切换朝代
+        function switchDynasty(dynasty) {
+            currentDynasty = dynasty;
+            
+            // 清除现有标记和路线
+            currentMarkers.forEach(marker => map.removeLayer(marker));
+            currentPolylines.forEach(polyline => map.removeLayer(polyline));
+            currentMarkers = [];
+            currentPolylines = [];
+            
+            const dynastyData = dynastyRoutes[dynasty];
+            
+            // 添加城市标记点
+            dynastyData.cities.forEach(cityId => {
+                const coords = cityCoordinates[cityId];
+                const cityInfo = cityData[cityId];
+                const policies = dynastyData.policies[cityId] || [];
+                
+                if (coords && cityInfo) {
+                    // 创建自定义图标
+                    const customIcon = L.divIcon({
+                        className: 'custom-marker',
+                        html: `<div style="width: 20px; height: 20px; background: linear-gradient(135deg, #D4AF37, #FF6B35); border: 3px solid #FDF5E6; border-radius: 50%; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);"></div>`,
+                        iconSize: [20, 20],
+                        iconAnchor: [10, 10]
+                    });
+                    
+                    // 创建弹窗内容
+                    const popupContent = `
+                        <div class="popup-title">${cityInfo.name}</div>
+                        <div class="popup-description">${cityInfo.description}</div>
+                        <div style="margin: 8px 0;">
+                            <strong>重要地位：</strong>${cityInfo.importance}<br>
+                            <strong>繁荣时期：</strong>${cityInfo.period}
+                        </div>
+                        ${policies.length > 0 ? `
+                        <div style="margin-top: 12px;">
+                            <strong>相关政策：</strong>
+                            <div class="popup-tags">
+                                ${policies.map(policy => `<span class="popup-tag" onclick="showPolicyDetail('${policy}')">${policy}</span>`).join('')}
+                            </div>
+                        </div>
+                        ` : ''}
+                    `;
+                    
+                    const marker = L.marker(coords, { icon: customIcon })
+                        .bindPopup(popupContent, {
+                            maxWidth: 300,
+                            className: 'custom-popup'
+                        })
+                        .addTo(map);
+                    
+                    currentMarkers.push(marker);
+                }
+            });
+            
+            // 添加路线
+            dynastyData.routes.forEach((route, index) => {
+                const routeCoords = route.map(cityId => cityCoordinates[cityId]).filter(coord => coord);
+                
+                if (routeCoords.length > 1) {
+                    const polyline = L.polyline(routeCoords, {
+                        color: index === 0 ? '#D4AF37' : '#FF6B35',
+                        weight: 4,
+                        opacity: 0.8,
+                        dashArray: '10, 5'
+                    }).addTo(map);
+                    
+                    currentPolylines.push(polyline);
+                }
+            });
+            
+            // 更新地图视图以包含所有标记点
+            if (currentMarkers.length > 0) {
+                const group = new L.featureGroup(currentMarkers);
+                map.fitBounds(group.getBounds().pad(0.1));
+            }
+        }
+        
+        // 显示政策详情
+        function showPolicyDetail(policy) {
+            const policyDetails = {
+                '张骞出使西域': '汉武帝时期，张骞两次出使西域，开辟了中原与西域的外交和贸易通道，为丝绸之路的形成奠定了基础。',
+                '设立西域都护府': '汉朝在西域设立都护府，加强对西域的管理，保护商队安全，促进丝绸之路贸易的发展。',
+                '开辟丝绸之路': '通过张骞出使和后续的外交努力，正式开辟了连接东西方的丝绸之路贸易通道。',
+                '河西走廊要塞': '敦煌位于河西走廊西端，是中原通往西域的重要门户和军事要塞。',
+                '佛教传播中心': '敦煌莫高窟是佛教艺术的宝库，见证了佛教沿丝绸之路的传播过程。',
+                '西域门户': '喀什地处帕米尔高原东麓，是进入中亚的重要门户。',
+                '贸易集散地': '作为丝绸之路上的重要节点，各种商品在此集散交易。',
+                '安西都护府': '唐朝在西域设立的军政机构，管辖天山南路各国。',
+                '北庭都护府': '唐朝在西域设立的另一个都护府，管辖天山北路。',
+                '国际贸易中心': '唐代长安是当时世界上最大的国际贸易中心之一。',
+                '粟特商人网络': '粟特商人建立了横跨欧亚的商业网络，促进了丝绸之路贸易。',
+                '文化交流枢纽': '撒马尔罕是重要的文化交流中心，各种文明在此交汇。',
+                '阿拉伯帝国都城': '巴格达是阿拔斯王朝的都城，伊斯兰文明的中心。',
+                '学术文化中心': '巴格达的智慧宫是当时重要的学术研究中心。',
+                '市舶司制度': '宋代建立的管理海外贸易的机构。',
+                '海陆并进贸易': '宋代形成了陆上丝绸之路与海上丝绸之路并行发展的格局。',
+                '拜占庭贸易': '君士坦丁堡是拜占庭帝国的都城，是重要的贸易中心。',
+                '东西方交汇点': '君士坦丁堡连接欧亚两洲，是东西方贸易的重要枢纽。',
+                '帖木儿帝国': '14-15世纪撒马尔罕是帖木儿帝国的都城。',
+                '建筑艺术中心': '撒马尔罕以其精美的伊斯兰建筑艺术而闻名。',
+                '海禁政策': '明朝实行的限制海外贸易的政策。',
+                '朝贡贸易': '明朝与周边国家进行的以朝贡为形式的贸易。',
+                '边防要塞': '明代敦煌主要作为边防要塞存在。',
+                '文化遗存保护': '敦煌保存了大量珍贵的文化遗产。',
+                '边境贸易': '明代喀什地区的边境贸易活动。',
+                '民族融合': '多民族在丝绸之路上的交流与融合。'
+            };
+            
+            const detail = policyDetails[policy] || '暂无详细信息';
+            
+            // 创建详情弹窗
+            const detailPopup = L.popup({
+                maxWidth: 400,
+                className: 'policy-detail-popup'
+            })
+            .setLatLng(map.getCenter())
+            .setContent(`
+                <div style="padding: 16px;">
+                    <h3 style="color: #2F1B14; margin-bottom: 12px; font-size: 18px; font-weight: bold;">${policy}</h3>
+                    <p style="color: #8B4513; line-height: 1.6; margin: 0;">${detail}</p>
+                </div>
+            `)
+            .openOn(map);
+        }
+        
+        // 时间轴动画初始化
+        function initializeTimeline() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime({
+                            targets: entry.target,
+                            opacity: [0, 1],
+                            translateY: [50, 0],
+                            duration: 800,
+                            easing: 'easeOutExpo',
+                            delay: 200
+                        });
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            timelineItems.forEach(item => observer.observe(item));
+        }
+        
+        // 显示特定时期
+        function showPeriod(period) {
+            currentPeriod = period;
+            
+            // 更新按钮状态
+            document.querySelectorAll('.period-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.period === period) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // 显示/隐藏时间轴项目
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                if (item.dataset.period === period) {
+                    item.style.display = 'block';
+                    anime({
+                        targets: item,
+                        opacity: [0, 1],
+                        translateY: [30, 0],
+                        duration: 600,
+                        easing: 'easeOutExpo'
+                    });
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // 更新地图
+            updateMap(period);
+        }
+        
+        // 更新地图显示
+        function updateMap(period) {
+            // 同步更新真实地图
+            switchDynasty(period);
+            
+            // 同步下拉选择器
+            document.getElementById('dynastySelect').value = period;
+        }
+        
+        // 显示城市信息
+        function showCityInfo(cityId) {
+            const city = cityData[cityId];
+            const infoCard = document.getElementById('cityInfo');
+            
+            if (city) {
+                infoCard.innerHTML = `
+                    <h4 class="text-2xl font-bold text-foreground mb-3">${city.name}</h4>
+                    <p class="text-secondary leading-relaxed mb-4">${city.description}</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h5 class="font-bold text-foreground mb-2">重要地位</h5>
+                            <p class="text-secondary text-sm">${city.importance}</p>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-foreground mb-2">繁荣时期</h5>
+                            <p class="text-secondary text-sm">${city.period}</p>
+                        </div>
+                    </div>
+                `;
+                
+                infoCard.classList.add('show');
+            }
+        }
+        
+        // 聚焦时间轴项目
+        function focusTimelineItem(dot) {
+            // 移除其他活跃状态
+            document.querySelectorAll('.timeline-dot').forEach(d => {
+                d.classList.remove('active');
+            });
+            
+            // 添加活跃状态
+            dot.classList.add('active');
+            
+            // 滚动到该项目
+            dot.parentElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+            
+            // 添加脉冲动画
+            anime({
+                targets: dot,
+                scale: [1.3, 1.5, 1.3],
+                duration: 800,
+                easing: 'easeOutElastic(1, .8)'
+            });
+        }
+        
+        // 音频控制
+        function toggleAudio() {
+            const audio = document.getElementById('narratorAudio');
+            const icon = document.getElementById('audioIcon');
+            
+            if (audioPlaying) {
+                audio.pause();
+                icon.textContent = '🔊';
+                audioPlaying = false;
+            } else {
+                audio.play();
+                icon.textContent = '🔇';
+                audioPlaying = true;
+            }
+        }
+        
+        // 音频事件监听
+        document.getElementById('narratorAudio').addEventListener('ended', function() {
+            document.getElementById('audioIcon').textContent = '🔊';
+            audioPlaying = false;
+        });
+        
+        // 响应式处理
+        function handleResize() {
+            if (window.innerWidth <= 768) {
+                // 移动端适配
+                document.querySelectorAll('.timeline-item').forEach(item => {
+                    item.classList.remove('left', 'right');
+                    item.classList.add('left');
+                });
+            }
+        }
+        
+        window.addEventListener('resize', handleResize);
+        handleResize(); // 初始化时调用
+        
+        // 页面加载动画
+        anime.timeline({
+            easing: 'easeOutExpo',
+            duration: 750
+        })
+        .add({
+            targets: 'h1',
+            opacity: [0, 1],
+            translateY: [50, 0]
+        })
+        .add({
+            targets: '.control-panel',
+            opacity: [0, 1],
+            translateY: [30, 0]
+        }, '-=500')
+        .add({
+            targets: '.map-container',
+            opacity: [0, 1],
+            scale: [0.9, 1]
+        }, '-=300');
+        
+        // 知识问答功能
+        let currentSelections = {};
+        
+        function selectOption(element, index) {
+            // 清除同一问题中的所有选择
+            const questionElement = element.closest('.quiz-question');
+            questionElement.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // 标记当前选择
+            element.classList.add('selected');
+            
+            // 保存选择
+            const questionIndex = Array.from(document.querySelectorAll('.quiz-question')).indexOf(questionElement);
+            currentSelections[questionIndex] = [index];
+        }
+        
+        function toggleMultiOption(element, index) {
+            const questionElement = element.closest('.quiz-question');
+            const questionIndex = Array.from(document.querySelectorAll('.quiz-question')).indexOf(questionElement);
+            
+            // 初始化当前选择数组
+            if (!currentSelections[questionIndex]) {
+                currentSelections[questionIndex] = [];
+            }
+            
+            // 切换选择状态
+            if (element.classList.contains('selected')) {
+                element.classList.remove('selected');
+                currentSelections[questionIndex] = currentSelections[questionIndex].filter(i => i !== index);
+            } else {
+                element.classList.add('selected');
+                currentSelections[questionIndex].push(index);
+            }
+        }
+        
+        function checkAnswer(questionIndex, correctAnswers) {
+            const feedback = document.getElementById(`feedback-${questionIndex}`);
+            const questionElement = document.querySelectorAll('.quiz-question')[questionIndex];
+            
+            if (!currentSelections[questionIndex] || currentSelections[questionIndex].length === 0) {
+                alert('请先选择一个答案！');
+                return;
+            }
+            
+            const isCorrect = JSON.stringify(currentSelections[questionIndex]) === JSON.stringify(correctAnswers);
+            
+            // 显示正确/错误状态
+            questionElement.querySelectorAll('.quiz-option').forEach((option, index) => {
+                if (correctAnswers.includes(index)) {
+                    option.classList.add('correct');
+                } else if (currentSelections[questionIndex].includes(index) && !correctAnswers.includes(index)) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            // 显示反馈
+            feedback.style.display = 'block';
+            feedback.classList.add(isCorrect ? 'correct' : 'incorrect');
+            
+            // 禁用进一步选择
+            questionElement.querySelectorAll('.quiz-option').forEach(option => {
+                option.style.pointerEvents = 'none';
+            });
+            
+            // 禁用提交按钮
+            questionElement.querySelector('.quiz-submit').disabled = true;
+        }
+        
+        function checkMultiAnswer(questionIndex, correctAnswers) {
+            const feedback = document.getElementById(`feedback-${questionIndex}`);
+            const questionElement = document.querySelectorAll('.quiz-question')[questionIndex];
+            
+            if (!currentSelections[questionIndex] || currentSelections[questionIndex].length === 0) {
+                alert('请先选择答案！');
+                return;
+            }
+            
+            // 对多选题，我们需要检查选择的答案是否完全匹配正确答案
+            const selected = [...currentSelections[questionIndex]].sort();
+            const correct = [...correctAnswers].sort();
+            const isCorrect = JSON.stringify(selected) === JSON.stringify(correct);
+            
+            // 显示正确/错误状态
+            questionElement.querySelectorAll('.quiz-option').forEach((option, index) => {
+                if (correctAnswers.includes(index)) {
+                    option.classList.add('correct');
+                } else if (currentSelections[questionIndex].includes(index) && !correctAnswers.includes(index)) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            // 显示反馈
+            feedback.style.display = 'block';
+            feedback.classList.add(isCorrect ? 'correct' : 'incorrect');
+            
+            // 禁用进一步选择
+            questionElement.querySelectorAll('.quiz-option').forEach(option => {
+                option.style.pointerEvents = 'none';
+            });
+            
+            // 禁用提交按钮
+            questionElement.querySelector('.quiz-submit').disabled = true;
+        }
+    </script>
+</body>
+</html>
