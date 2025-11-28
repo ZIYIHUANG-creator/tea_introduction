@@ -346,118 +346,6 @@
             }
         }
         
-        /* 音频控制样式 */
-        .audio-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(58, 125, 68, 0.9);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 50px;
-            padding: 12px 20px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .audio-control:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        /* 知识问答样式 */
-        .quiz-section {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 40px 0;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-            border: 3px solid rgba(58, 125, 68, 0.3);
-        }
-        
-        .quiz-question {
-            margin-bottom: 30px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 12px;
-            border-left: 4px solid #3A7D44;
-        }
-        
-        .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .quiz-option {
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid rgba(58, 125, 68, 0.3);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .quiz-option:hover {
-            background: rgba(58, 125, 68, 0.1);
-            border-color: #3A7D44;
-        }
-        
-        .quiz-option.selected {
-            background: rgba(58, 125, 68, 0.2);
-            border-color: #3A7D44;
-        }
-        
-        .quiz-option.correct {
-            background: rgba(34, 197, 94, 0.2);
-            border-color: #16a34a;
-        }
-        
-        .quiz-option.incorrect {
-            background: rgba(239, 68, 68, 0.2);
-            border-color: #dc2626;
-        }
-        
-        .quiz-submit {
-            background: linear-gradient(135deg, #3A7D44, #8B4513);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 15px;
-        }
-        
-        .quiz-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(58, 125, 68, 0.4);
-        }
-        
-        .quiz-feedback {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 8px;
-            background: rgba(58, 125, 68, 0.1);
-            border-left: 4px solid #3A7D44;
-        }
-        
-        .quiz-feedback.correct {
-            background: rgba(34, 197, 94, 0.1);
-            border-left-color: #16a34a;
-        }
-        
-        .quiz-feedback.incorrect {
-            background: rgba(239, 68, 68, 0.1);
-            border-left-color: #dc2626;
-        }
-        
         /* 茶叶类型展示区 */
         .tea-types {
             display: grid;
@@ -503,18 +391,6 @@
     </style>
 </head>
 <body>
-    <!-- 音频元素 -->
-    <audio id="narratorAudio" preload="auto">
-        <!-- 音频文件链接 - 这里使用占位符，实际使用时请替换为真实链接 -->
-        <source src="#" type="audio/mpeg">
-    </audio>
-    
-    <!-- 音频控制按钮 -->
-    <div class="audio-control" onclick="toggleAudio()">
-        <span id="audioIcon">🔊</span>
-        <span class="text-white font-bold ml-2">茶叶传播解说</span>
-    </div>
-    
     <!-- 主容器 -->
     <div class="container mx-auto px-4 py-8">
         <!-- 标题区域 -->
@@ -728,56 +604,6 @@
                 </div>
             </div>
         </div>
-        
-        <!-- 知识问答区域 -->
-        <div class="quiz-section">
-            <h3 class="text-3xl font-bold text-foreground mb-6 text-center">茶叶传播知识问答</h3>
-            <p class="text-secondary text-center mb-8">通过问答加深对茶叶传播历史的理解</p>
-            
-            <!-- 单选题 -->
-            <div class="quiz-question">
-                <h4 class="text-xl font-bold text-foreground mb-4">世界上第一部茶叶专著《茶经》的作者是谁？</h4>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="selectOption(this, 0)">李白</div>
-                    <div class="quiz-option" onclick="selectOption(this, 1)">陆羽</div>
-                    <div class="quiz-option" onclick="selectOption(this, 2)">苏轼</div>
-                    <div class="quiz-option" onclick="selectOption(this, 3)">白居易</div>
-                </div>
-                <button class="quiz-submit" onclick="checkAnswer(0, [1])">提交答案</button>
-                <div class="quiz-feedback" id="feedback-0" style="display: none;">
-                    <p><strong>解析：</strong>陆羽是唐代著名的茶学家，被誉为"茶圣"，他撰写的《茶经》是世界上第一部关于茶的专著。</p>
-                </div>
-            </div>
-            
-            <!-- 多选题 -->
-            <div class="quiz-question">
-                <h4 class="text-xl font-bold text-foreground mb-4">下列哪些是茶叶通过丝绸之路传播的主要形式？（多选）</h4>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="toggleMultiOption(this, 0)">散茶</div>
-                    <div class="quiz-option" onclick="toggleMultiOption(this, 1)">砖茶</div>
-                    <div class="quiz-option" onclick="toggleMultiOption(this, 2)">饼茶</div>
-                    <div class="quiz-option" onclick="toggleMultiOption(this, 3)">茶粉</div>
-                    <div class="quiz-option" onclick="toggleMultiOption(this, 4)">茶膏</div>
-                </div>
-                <button class="quiz-submit" onclick="checkMultiAnswer(1, [1,2,4])">提交答案</button>
-                <div class="quiz-feedback" id="feedback-1" style="display: none;">
-                    <p><strong>解析：</strong>为了便于长途运输和保存，丝绸之路上的茶叶主要以砖茶、饼茶和茶膏等压缩形式进行贸易，散茶和茶粉容易受潮变质。</p>
-                </div>
-            </div>
-            
-            <!-- 判断题 -->
-            <div class="quiz-question">
-                <h4 class="text-xl font-bold text-foreground mb-4">茶马古道是专门用于茶叶与马匹交易的贸易路线。</h4>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="selectOption(this, 0)">正确</div>
-                    <div class="quiz-option" onclick="selectOption(this, 1)">错误</div>
-                </div>
-                <button class="quiz-submit" onclick="checkAnswer(2, [0])">提交答案</button>
-                <div class="quiz-feedback" id="feedback-2" style="display: none;">
-                    <p><strong>解析：</strong>茶马古道确实是中国西南地区以茶马互市为主要内容的商业通道，起源于唐宋，兴盛于明清，是连接中原与西藏、云南与东南亚的重要贸易网络。</p>
-                </div>
-            </div>
-        </div>
     </div>
     
     <script>
@@ -942,7 +768,6 @@
         
         let currentPeriod = 'tang';
         let currentDynasty = 'tang';
-        let audioPlaying = false;
         
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
@@ -1161,28 +986,6 @@
             });
         }
         
-        // 音频控制
-        function toggleAudio() {
-            const audio = document.getElementById('narratorAudio');
-            const icon = document.getElementById('audioIcon');
-            
-            if (audioPlaying) {
-                audio.pause();
-                icon.textContent = '🔊';
-                audioPlaying = false;
-            } else {
-                audio.play();
-                icon.textContent = '🔇';
-                audioPlaying = true;
-            }
-        }
-        
-        // 音频事件监听
-        document.getElementById('narratorAudio').addEventListener('ended', function() {
-            document.getElementById('audioIcon').textContent = '🔊';
-            audioPlaying = false;
-        });
-        
         // 响应式处理
         function handleResize() {
             if (window.innerWidth <= 768) {
@@ -1217,112 +1020,6 @@
             opacity: [0, 1],
             scale: [0.9, 1]
         }, '-=300');
-        
-        // 知识问答功能
-        let currentSelections = {};
-        
-        function selectOption(element, index) {
-            // 清除同一问题中的所有选择
-            const questionElement = element.closest('.quiz-question');
-            questionElement.querySelectorAll('.quiz-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            
-            // 标记当前选择
-            element.classList.add('selected');
-            
-            // 保存选择
-            const questionIndex = Array.from(document.querySelectorAll('.quiz-question')).indexOf(questionElement);
-            currentSelections[questionIndex] = [index];
-        }
-        
-        function toggleMultiOption(element, index) {
-            const questionElement = element.closest('.quiz-question');
-            const questionIndex = Array.from(document.querySelectorAll('.quiz-question')).indexOf(questionElement);
-            
-            // 初始化当前选择数组
-            if (!currentSelections[questionIndex]) {
-                currentSelections[questionIndex] = [];
-            }
-            
-            // 切换选择状态
-            if (element.classList.contains('selected')) {
-                element.classList.remove('selected');
-                currentSelections[questionIndex] = currentSelections[questionIndex].filter(i => i !== index);
-            } else {
-                element.classList.add('selected');
-                currentSelections[questionIndex].push(index);
-            }
-        }
-        
-        function checkAnswer(questionIndex, correctAnswers) {
-            const feedback = document.getElementById(`feedback-${questionIndex}`);
-            const questionElement = document.querySelectorAll('.quiz-question')[questionIndex];
-            
-            if (!currentSelections[questionIndex] || currentSelections[questionIndex].length === 0) {
-                alert('请先选择一个答案！');
-                return;
-            }
-            
-            const isCorrect = JSON.stringify(currentSelections[questionIndex]) === JSON.stringify(correctAnswers);
-            
-            // 显示正确/错误状态
-            questionElement.querySelectorAll('.quiz-option').forEach((option, index) => {
-                if (correctAnswers.includes(index)) {
-                    option.classList.add('correct');
-                } else if (currentSelections[questionIndex].includes(index) && !correctAnswers.includes(index)) {
-                    option.classList.add('incorrect');
-                }
-            });
-            
-            // 显示反馈
-            feedback.style.display = 'block';
-            feedback.classList.add(isCorrect ? 'correct' : 'incorrect');
-            
-            // 禁用进一步选择
-            questionElement.querySelectorAll('.quiz-option').forEach(option => {
-                option.style.pointerEvents = 'none';
-            });
-            
-            // 禁用提交按钮
-            questionElement.querySelector('.quiz-submit').disabled = true;
-        }
-        
-        function checkMultiAnswer(questionIndex, correctAnswers) {
-            const feedback = document.getElementById(`feedback-${questionIndex}`);
-            const questionElement = document.querySelectorAll('.quiz-question')[questionIndex];
-            
-            if (!currentSelections[questionIndex] || currentSelections[questionIndex].length === 0) {
-                alert('请先选择答案！');
-                return;
-            }
-            
-            // 对多选题，我们需要检查选择的答案是否完全匹配正确答案
-            const selected = [...currentSelections[questionIndex]].sort();
-            const correct = [...correctAnswers].sort();
-            const isCorrect = JSON.stringify(selected) === JSON.stringify(correct);
-            
-            // 显示正确/错误状态
-            questionElement.querySelectorAll('.quiz-option').forEach((option, index) => {
-                if (correctAnswers.includes(index)) {
-                    option.classList.add('correct');
-                } else if (currentSelections[questionIndex].includes(index) && !correctAnswers.includes(index)) {
-                    option.classList.add('incorrect');
-                }
-            });
-            
-            // 显示反馈
-            feedback.style.display = 'block';
-            feedback.classList.add(isCorrect ? 'correct' : 'incorrect');
-            
-            // 禁用进一步选择
-            questionElement.querySelectorAll('.quiz-option').forEach(option => {
-                option.style.pointerEvents = 'none';
-            });
-            
-            // 禁用提交按钮
-            questionElement.querySelector('.quiz-submit').disabled = true;
-        }
     </script>
 </body>
 </html>
