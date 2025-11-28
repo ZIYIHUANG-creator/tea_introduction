@@ -4030,9 +4030,10 @@ body.video-playing .video-splash ~ * {
 
 /* 丝绸之路模块样式 */
 #silk-road {
-    padding: 60px 0;
+    padding: 80px 0;
     background: linear-gradient(135deg, #f9f7f2 0%, #f0ebe0 100%);
     position: relative;
+    overflow: hidden;
 }
 
 #silk-road::before {
@@ -4048,115 +4049,171 @@ body.video-playing .video-splash ~ * {
     pointer-events: none;
 }
 
-.silk-road-intro {
+.silk-road-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
     text-align: center;
-    max-width: 800px;
-    margin: 0 auto 40px;
-    font-size: 1.1rem;
-    color: #666;
-    line-height: 1.6;
 }
 
-.silk-road-preview {
+#silk-road h2 {
+    font-size: 2.5rem;
+    color: #3A7D44;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.silk-road-subtitle {
+    font-size: 1.2rem;
+    color: #8B4513;
+    margin-bottom: 50px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.silk-road-content {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 40px;
     align-items: center;
-    justify-content: center;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
-.silk-road-map-container {
-    flex: 1;
-    min-width: 300px;
-    max-width: 600px;
-    border-radius: 12px;
+.silk-road-map-wrapper {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border: 2px solid rgba(139, 69, 19, 0.2);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    border: 3px solid rgba(139, 69, 19, 0.3);
+    transition: all 0.3s ease;
 }
 
-.silk-road-map {
+.silk-road-map-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    border-color: rgba(139, 69, 19, 0.6);
+}
+
+.map-placeholder {
     width: 100%;
     height: 400px;
-    border: none;
-    display: block;
+    background: linear-gradient(135deg, #2C1810 0%, #4A2C1A 100%);
+    position: relative;
+    overflow: hidden;
 }
 
-.silk-road-info {
-    flex: 1;
-    min-width: 300px;
-    max-width: 500px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    border-left: 4px solid #8B4513;
+.map-preview {
+    width: 100%;
+    height: 100%;
+    background-image: 
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="%238B4513" stroke-width="0.5"/><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="none" stroke="%238B4513" stroke-width="0.5"/><path d="M30,30 L70,30 L70,70 L30,70 Z" fill="none" stroke="%238B4513" stroke-width="0.5"/><circle cx="50" cy="50" r="5" fill="%233A7D44" opacity="0.7"/><circle cx="30" cy="40" r="3" fill="%233A7D44" opacity="0.5"/><circle cx="70" cy="60" r="3" fill="%233A7D44" opacity="0.5"/><circle cx="40" cy="70" r="3" fill="%233A7D44" opacity="0.5"/><circle cx="60" cy="30" r="3" fill="%233A7D44" opacity="0.5"/></svg>'),
+        radial-gradient(circle at 30% 40%, rgba(58, 125, 68, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(139, 69, 19, 0.2) 0%, transparent 50%);
+    background-size: 100px 100px, 100% 100%, 100% 100%;
+    position: relative;
 }
 
-.silk-road-info h3 {
-    color: #3A7D44;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    border-bottom: 2px solid rgba(58, 125, 68, 0.2);
-    padding-bottom: 10px;
+.map-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
 
-.silk-road-info p {
-    margin-bottom: 20px;
-    line-height: 1.6;
-    color: #555;
+.map-overlay h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
-.silk-road-info ul {
-    margin-bottom: 25px;
-    padding-left: 20px;
-}
-
-.silk-road-info li {
-    margin-bottom: 10px;
+.map-overlay p {
+    font-size: 1.1rem;
+    max-width: 400px;
     line-height: 1.5;
-    color: #666;
-}
-
-.silk-road-info strong {
-    color: #8B4513;
 }
 
 .silk-road-actions {
-    text-align: center;
-    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
 
 .silk-road-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
     background: linear-gradient(135deg, #8B4513, #3A7D44);
     color: white;
-    padding: 12px 25px;
-    border-radius: 8px;
-    font-weight: bold;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1.1rem;
     transition: all 0.3s ease;
-    display: inline-block;
     text-decoration: none;
+    box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
 }
 
 .silk-road-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(139, 69, 19, 0.3);
+    box-shadow: 0 12px 35px rgba(139, 69, 19, 0.5);
+    background: linear-gradient(135deg, #3A7D44, #8B4513);
+}
+
+.btn-icon {
+    font-size: 1.5rem;
+}
+
+.btn-text {
+    flex: 1;
+}
+
+.btn-description {
+    color: #666;
+    font-size: 0.95rem;
+    max-width: 400px;
+    line-height: 1.5;
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-    .silk-road-preview {
-        flex-direction: column;
+    #silk-road {
+        padding: 60px 0;
     }
     
-    .silk-road-map-container,
-    .silk-road-info {
-        max-width: 100%;
+    #silk-road h2 {
+        font-size: 2rem;
     }
     
-    .silk-road-map {
+    .silk-road-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 40px;
+    }
+    
+    .map-placeholder {
         height: 300px;
+    }
+    
+    .map-overlay h3 {
+        font-size: 1.5rem;
+    }
+    
+    .map-overlay p {
+        font-size: 1rem;
+    }
+    
+    .silk-road-btn {
+        padding: 12px 25px;
+        font-size: 1rem;
     }
 }
