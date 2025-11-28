@@ -149,71 +149,37 @@ function initCategoryTags() {
     });
 }
 
-// 跳转到分类页面 - 修改为平滑滚动到对应部分
+// 导航到指定分类
 function navigateToCategory(category) {
-    console.log('点击分类标签:', category);
+    // 移除所有分类的活动状态
+    document.querySelectorAll('.category-tag').forEach(tag => {
+        tag.classList.remove('active');
+    });
     
-    // 映射分类到对应的section ID
-    const sectionMap = {
-        'mountains': 'mountains',
-        'rivers': 'rivers', 
-        'regions': 'regions'
-    };
-    
-    const sectionId = sectionMap[category];
-    if (!sectionId) {
-        console.error('未知的分类:', category);
-        return;
+    // 添加当前分类的活动状态
+    const currentTag = document.querySelector(`.category-tag[data-category="${category}"]`);
+    if (currentTag) {
+        currentTag.classList.add('active');
     }
     
-    const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        // 计算导航栏高度
-        const navHeight = document.querySelector('header').offsetHeight;
-        
-        // 计算目标位置（考虑导航栏高度和额外偏移）
-        const targetPosition = targetSection.offsetTop - navHeight - 30;
-        
-        // 平滑滚动
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-        });
-        
-        // 更新URL
-        history.pushState(null, null, `#${sectionId}`);
-        
-        // 添加点击反馈动画
-        const tag = document.querySelector(`[data-category="${category}"]`);
-        if (tag) {
-            tag.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                tag.style.transform = '';
-            }, 150);
-        }
-        
-        console.log('滚动到:', sectionId, '位置:', targetPosition);
-    } else {
-        console.warn('未找到目标部分:', sectionId);
-        
-        // 备用方案：如果section不存在，显示提示
-        alert(`即将跳转到${getCategoryName(category)}页面`);
-        // 这里可以保留原来的跳转逻辑作为备用
-        const pageMap = {
-            'mountains': 'mountains.html?from=category-tags',
-            'rivers': 'rivers.html?from=category-tags',
-            'regions': 'regions.html?from=category-tags'
-        };
-        
-        const page = pageMap[category];
-        if (page) {
-            setTimeout(() => {
-                window.location.href = page;
-            }, 500);
-        }
+    // 根据分类滚动到对应区域
+    switch(category) {
+        case 'silk-road':
+            scrollToSection('silk-road');
+            break;
+        case 'mountains':
+            scrollToSection('mountains');
+            break;
+        case 'rivers':
+            scrollToSection('rivers');
+            break;
+        case 'regions':
+            scrollToSection('regions');
+            break;
+        default:
+            console.log('未知分类:', category);
     }
 }
-
 // 获取分类名称
 function getCategoryName(category) {
     const names = {
@@ -223,6 +189,7 @@ function getCategoryName(category) {
     };
     return names[category] || category;
 }
+
 // 主题切换功能 - 修复版本
 function initTheme() {
     const themeSwitch = document.getElementById('theme-checkbox');
