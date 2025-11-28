@@ -149,6 +149,22 @@ function initCategoryTags() {
     });
 }
 
+// 平滑滚动到指定区域
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        const offset = 80; // 根据导航栏高度调整
+        const elementPosition = section.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+    }
+}
+
+
 // 导航到指定分类
 function navigateToCategory(category) {
     // 移除所有分类的活动状态
@@ -179,6 +195,26 @@ function navigateToCategory(category) {
         default:
             console.log('未知分类:', category);
     }
+}
+
+// 处理导航栏链接点击
+function initNavLinks() {
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            
+            // 特殊处理丝绸之路链接
+            if (targetId === 'silk-road') {
+                navigateToCategory('silk-road');
+            } else {
+                // 其他链接的正常处理
+                scrollToSection(targetId);
+            }
+        });
+    });
 }
 // 获取分类名称
 function getCategoryName(category) {
