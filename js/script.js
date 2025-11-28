@@ -4,6 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const introVideo = document.getElementById('introVideo');
     const skipButton = document.getElementById('skipButton');
     
+    // 检查元素是否存在
+    if (!videoSplash || !introVideo || !skipButton) {
+        console.error('视频启动页面元素未找到，直接显示网站');
+        document.body.classList.remove('video-playing');
+        return;
+    }
+    
     // 添加video-playing类来隐藏主体内容
     document.body.classList.add('video-playing');
     
@@ -54,8 +61,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化时添加声音切换按钮
     const soundButton = addSoundToggleButton();
     
+    // 隐藏视频启动页面
+    function hideVideoSplash() {
+        console.log('隐藏视频启动页面');
+        videoSplash.style.opacity = '0';
+        videoSplash.style.transition = 'opacity 0.5s ease';
+        
+        setTimeout(function() {
+            videoSplash.style.display = 'none';
+            document.body.classList.remove('video-playing');
+        }, 500);
+    }
+    
     // 跳过按钮点击事件
     skipButton.addEventListener('click', function() {
+        console.log('跳过按钮被点击');
         // 跳过时强制关闭声音
         introVideo.muted = true;
         if (soundButton) {
@@ -67,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 视频播放结束事件
     introVideo.addEventListener('ended', function() {
+        console.log('视频播放结束');
         // 视频结束时强制关闭声音
         introVideo.muted = true;
         if (soundButton) {
@@ -77,25 +98,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // 视频加载失败时也显示网站
-    introVideo.addEventListener('error', function() {
-        console.log('视频加载失败，直接显示网站');
+    introVideo.addEventListener('error', function(e) {
+        console.log('视频加载失败，直接显示网站', e);
         hideVideoSplash();
     });
-    
-    // 隐藏视频启动页面
-    function hideVideoSplash() {
-        videoSplash.style.opacity = '0';
-        videoSplash.style.transition = 'opacity 0.5s ease';
-        
-        setTimeout(function() {
-            videoSplash.style.display = 'none';
-            document.body.classList.remove('video-playing');
-        }, 500);
-    }
     
     // 可选：添加键盘跳过支持（按ESC键跳过）
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
+            console.log('ESC键被按下');
             // 跳过时强制关闭声音
             introVideo.muted = true;
             if (soundButton) {
@@ -105,26 +116,14 @@ document.addEventListener('DOMContentLoaded', function() {
             hideVideoSplash();
         }
     });
-});
     
-    // 隐藏视频启动页面
-    function hideVideoSplash() {
-        videoSplash.style.opacity = '0';
-        videoSplash.style.transition = 'opacity 0.5s ease';
-        
-        setTimeout(function() {
-            videoSplash.style.display = 'none';
-            document.body.classList.remove('video-playing');
-        }, 500);
-    }
-    
-    // 可选：添加键盘跳过支持（按ESC键跳过）
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            hideVideoSplash();
-        }
-    });
+    // 调试信息
+    console.log('视频启动页面初始化完成');
+    console.log('视频元素:', introVideo);
+    console.log('跳过按钮:', skipButton);
+    console.log('视频启动页面:', videoSplash);
 });
+
 // 分类标签功能
 function initCategoryTags() {
     const categoryTags = document.querySelectorAll('.category-tag');
