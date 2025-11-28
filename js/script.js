@@ -1,4 +1,4 @@
-// 视频启动页面控制 - 静音自动播放，用户交互后开启声音
+// 视频启动页面控制 - 用户可控声音，结束时自动关闭
 document.addEventListener('DOMContentLoaded', function() {
     const videoSplash = document.getElementById('videoSplash');
     const introVideo = document.getElementById('introVideo');
@@ -7,50 +7,72 @@ document.addEventListener('DOMContentLoaded', function() {
     // 添加video-playing类来隐藏主体内容
     document.body.classList.add('video-playing');
     
-    // 添加声音开启按钮（因为视频是静音开始的）
-    function addUnmuteButton() {
-        const unmuteButton = document.createElement('button');
-        unmuteButton.className = 'unmute-button';
-        unmuteButton.innerHTML = '🔇 开启声音';
-        unmuteButton.style.cssText = `
+    // 添加声音切换按钮
+    function addSoundToggleButton() {
+        const soundButton = document.createElement('button');
+        soundButton.className = 'sound-toggle-button';
+        soundButton.innerHTML = '🔇'; // 初始状态为静音
+        soundButton.style.cssText = `
             position: absolute;
             top: 20px;
             left: 20px;
-            padding: 10px 20px;
+            padding: 10px;
             background: rgba(255, 255, 255, 0.2);
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 20px;
+            border-radius: 50%;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 16px;
             transition: all 0.3s ease;
             z-index: 10000;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         `;
         
-        unmuteButton.addEventListener('click', function() {
-            introVideo.muted = false;
-            unmuteButton.innerHTML = '🔊 声音已开启';
-            setTimeout(() => {
-                unmuteButton.style.opacity = '0';
-                setTimeout(() => unmuteButton.remove(), 500);
-            }, 1000);
+        // 声音切换逻辑
+        soundButton.addEventListener('click', function() {
+            if (introVideo.muted) {
+                // 开启声音
+                introVideo.muted = false;
+                soundButton.innerHTML = '🔊';
+                soundButton.style.background = 'rgba(100, 255, 218, 0.3)';
+            } else {
+                // 关闭声音
+                introVideo.muted = true;
+                soundButton.innerHTML = '🔇';
+                soundButton.style.background = 'rgba(255, 255, 255, 0.2)';
+            }
         });
         
-        videoSplash.appendChild(unmuteButton);
+        videoSplash.appendChild(soundButton);
+        return soundButton;
     }
     
-    // 初始化时添加声音开启按钮
-    addUnmuteButton();
+    // 初始化时添加声音切换按钮
+    const soundButton = addSoundToggleButton();
     
     // 跳过按钮点击事件
     skipButton.addEventListener('click', function() {
-        // 用户交互后开启声音
-        introVideo.muted = false;
+        // 跳过时强制关闭声音
+        introVideo.muted = true;
+        if (soundButton) {
+            soundButton.innerHTML = '🔇';
+            soundButton.style.background = 'rgba(255, 255, 255, 0.2)';
+        }
         hideVideoSplash();
     });
     
     // 视频播放结束事件
     introVideo.addEventListener('ended', function() {
+        // 视频结束时强制关闭声音
+        introVideo.muted = true;
+        if (soundButton) {
+            soundButton.innerHTML = '🔇';
+            soundButton.style.background = 'rgba(255, 255, 255, 0.2)';
+        }
         hideVideoSplash();
     });
     
@@ -59,6 +81,31 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('视频加载失败，直接显示网站');
         hideVideoSplash();
     });
+    
+    // 隐藏视频启动页面
+    function hideVideoSplash() {
+        videoSplash.style.opacity = '0';
+        videoSplash.style.transition = 'opacity 0.5s ease';
+        
+        setTimeout(function() {
+            videoSplash.style.display = 'none';
+            document.body.classList.remove('video-playing');
+        }, 500);
+    }
+    
+    // 可选：添加键盘跳过支持（按ESC键跳过）
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            // 跳过时强制关闭声音
+            introVideo.muted = true;
+            if (soundButton) {
+                soundButton.innerHTML = '🔇';
+                soundButton.style.background = 'rgba(255, 255, 255, 0.2)';
+            }
+            hideVideoSplash();
+        }
+    });
+});
     
     // 隐藏视频启动页面
     function hideVideoSplash() {
