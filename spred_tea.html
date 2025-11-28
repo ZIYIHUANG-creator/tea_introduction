@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>丝绸之路历史时间轴与交互地图</title>
+    <title>丝绸之路茶叶传播历史</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,10 +21,10 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#D4AF37',
+                        primary: '#3A7D44',  // 茶叶绿
                         secondary: '#8B4513',
-                        accent: '#FF6B35',
-                        background: '#FDF5E6',
+                        accent: '#D4AF37',
+                        background: '#F5F5F0',
                         foreground: '#2F1B14'
                     }
                 }
@@ -33,30 +33,48 @@
     </script>
     
     <style>
-        /* 丝绸长卷风格背景 */
+        /* 茶叶纹理风格背景 */
         body {
-            background: linear-gradient(135deg, #FDF5E6 0%, #F5E6D3 100%);
+            background: linear-gradient(135deg, #F5F5F0 0%, #E8E4D9 100%);
             background-image: 
-                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 20% 50%, rgba(58, 125, 68, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 40% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
             min-height: 100vh;
             font-family: 'serif', '宋体', 'SimSun', serif;
         }
         
-        /* 丝绸纹理效果 */
-        .silk-texture {
+        /* 茶叶纹理效果 */
+        .tea-texture {
             background: linear-gradient(45deg, 
-                rgba(212, 175, 55, 0.1) 25%, 
+                rgba(58, 125, 68, 0.1) 25%, 
                 transparent 25%, 
                 transparent 75%, 
-                rgba(212, 175, 55, 0.1) 75%),
+                rgba(58, 125, 68, 0.1) 75%),
                 linear-gradient(-45deg, 
-                rgba(212, 175, 55, 0.1) 25%, 
+                rgba(58, 125, 68, 0.1) 25%, 
                 transparent 25%, 
                 transparent 75%, 
-                rgba(212, 175, 55, 0.1) 75%);
+                rgba(58, 125, 68, 0.1) 75%);
             background-size: 20px 20px;
+        }
+        
+        /* 茶叶卡片样式 */
+        .tea-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(58, 125, 68, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .tea-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            border-color: rgba(58, 125, 68, 0.6);
         }
         
         /* 时间轴样式 */
@@ -72,7 +90,7 @@
             top: 0;
             bottom: 0;
             width: 4px;
-            background: linear-gradient(to bottom, #D4AF37, #8B4513);
+            background: linear-gradient(to bottom, #3A7D44, #8B4513);
             transform: translateX(-50%);
             border-radius: 2px;
         }
@@ -100,24 +118,24 @@
             top: 20px;
             width: 20px;
             height: 20px;
-            background: linear-gradient(135deg, #D4AF37, #FF6B35);
+            background: linear-gradient(135deg, #3A7D44, #8B4513);
             border-radius: 50%;
             transform: translateX(-50%);
-            border: 4px solid #FDF5E6;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            border: 4px solid #F5F5F0;
+            box-shadow: 0 0 20px rgba(58, 125, 68, 0.5);
             cursor: pointer;
             transition: all 0.3s ease;
         }
         
         .timeline-dot:hover {
             transform: translateX(-50%) scale(1.2);
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+            box-shadow: 0 0 30px rgba(58, 125, 68, 0.8);
         }
         
         .timeline-dot.active {
-            background: linear-gradient(135deg, #FF6B35, #D4AF37);
+            background: linear-gradient(135deg, #8B4513, #3A7D44);
             transform: translateX(-50%) scale(1.3);
-            box-shadow: 0 0 40px rgba(255, 107, 53, 0.8);
+            box-shadow: 0 0 40px rgba(139, 69, 19, 0.8);
         }
         
         .timeline-content {
@@ -127,14 +145,14 @@
             border-radius: 16px;
             padding: 24px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 2px solid rgba(212, 175, 55, 0.3);
+            border: 2px solid rgba(58, 125, 68, 0.3);
             transition: all 0.3s ease;
         }
         
         .timeline-content:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-            border-color: rgba(212, 175, 55, 0.6);
+            border-color: rgba(58, 125, 68, 0.6);
         }
         
         /* 地图容器样式 */
@@ -155,8 +173,8 @@
             right: 0;
             bottom: 0;
             background-image: 
-                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(58, 125, 68, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 69, 19, 0.1) 0%, transparent 50%);
             pointer-events: none;
         }
         
@@ -166,7 +184,7 @@
             height: 600px;
             border-radius: 12px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(212, 175, 55, 0.3);
+            border: 2px solid rgba(58, 125, 68, 0.3);
         }
         
         /* 朝代选择器样式 */
@@ -178,11 +196,11 @@
             padding: 16px;
             margin-bottom: 20px;
             box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
-            border: 2px solid rgba(212, 175, 55, 0.3);
+            border: 2px solid rgba(58, 125, 68, 0.3);
         }
         
         .dynasty-selector select {
-            background: linear-gradient(135deg, #D4AF37, #FF6B35);
+            background: linear-gradient(135deg, #3A7D44, #8B4513);
             color: white;
             border: none;
             padding: 8px 16px;
@@ -194,16 +212,16 @@
         
         /* 自定义标记点样式 */
         .custom-marker {
-            background: linear-gradient(135deg, #D4AF37, #FF6B35);
-            border: 3px solid #FDF5E6;
+            background: linear-gradient(135deg, #3A7D44, #8B4513);
+            border: 3px solid #F5F5F0;
             border-radius: 50%;
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 4px 12px rgba(58, 125, 68, 0.5);
             transition: all 0.3s ease;
         }
         
         .custom-marker:hover {
             transform: scale(1.2);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.8);
+            box-shadow: 0 6px 20px rgba(58, 125, 68, 0.8);
         }
         
         /* 弹窗样式 */
@@ -212,7 +230,7 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 12px;
-            border: 2px solid rgba(212, 175, 55, 0.3);
+            border: 2px solid rgba(58, 125, 68, 0.3);
         }
         
         .leaflet-popup-content {
@@ -240,7 +258,7 @@
         }
         
         .popup-tag {
-            background: linear-gradient(135deg, #D4AF37, #FF6B35);
+            background: linear-gradient(135deg, #3A7D44, #8B4513);
             color: white;
             padding: 2px 8px;
             border-radius: 12px;
@@ -256,11 +274,11 @@
             border-radius: 16px;
             padding: 24px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 2px solid rgba(212, 175, 55, 0.3);
+            border: 2px solid rgba(58, 125, 68, 0.3);
         }
         
         .period-btn {
-            background: linear-gradient(135deg, #D4AF37, #FF6B35);
+            background: linear-gradient(135deg, #3A7D44, #8B4513);
             color: white;
             border: none;
             padding: 12px 24px;
@@ -273,13 +291,13 @@
         
         .period-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 6px 20px rgba(58, 125, 68, 0.4);
         }
         
         .period-btn.active {
-            background: linear-gradient(135deg, #FF6B35, #D4AF37);
+            background: linear-gradient(135deg, #8B4513, #3A7D44);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.5);
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.5);
         }
         
         /* 信息卡片样式 */
@@ -291,7 +309,7 @@
             padding: 20px;
             margin: 16px 0;
             box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid #D4AF37;
+            border-left: 4px solid #3A7D44;
             opacity: 0;
             transform: translateX(-20px);
         }
@@ -333,7 +351,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: rgba(212, 175, 55, 0.9);
+            background: rgba(58, 125, 68, 0.9);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 50px;
@@ -358,7 +376,7 @@
             padding: 30px;
             margin: 40px 0;
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-            border: 3px solid rgba(212, 175, 55, 0.3);
+            border: 3px solid rgba(58, 125, 68, 0.3);
         }
         
         .quiz-question {
@@ -366,7 +384,7 @@
             padding: 20px;
             background: rgba(255, 255, 255, 0.8);
             border-radius: 12px;
-            border-left: 4px solid #D4AF37;
+            border-left: 4px solid #3A7D44;
         }
         
         .quiz-options {
@@ -379,20 +397,20 @@
         .quiz-option {
             padding: 12px 16px;
             background: rgba(255, 255, 255, 0.9);
-            border: 2px solid rgba(212, 175, 55, 0.3);
+            border: 2px solid rgba(58, 125, 68, 0.3);
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
         
         .quiz-option:hover {
-            background: rgba(212, 175, 55, 0.1);
-            border-color: #D4AF37;
+            background: rgba(58, 125, 68, 0.1);
+            border-color: #3A7D44;
         }
         
         .quiz-option.selected {
-            background: rgba(212, 175, 55, 0.2);
-            border-color: #D4AF37;
+            background: rgba(58, 125, 68, 0.2);
+            border-color: #3A7D44;
         }
         
         .quiz-option.correct {
@@ -406,7 +424,7 @@
         }
         
         .quiz-submit {
-            background: linear-gradient(135deg, #D4AF37, #FF6B35);
+            background: linear-gradient(135deg, #3A7D44, #8B4513);
             color: white;
             border: none;
             padding: 12px 24px;
@@ -419,15 +437,15 @@
         
         .quiz-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 6px 20px rgba(58, 125, 68, 0.4);
         }
         
         .quiz-feedback {
             margin-top: 15px;
             padding: 12px;
             border-radius: 8px;
-            background: rgba(212, 175, 55, 0.1);
-            border-left: 4px solid #D4AF37;
+            background: rgba(58, 125, 68, 0.1);
+            border-left: 4px solid #3A7D44;
         }
         
         .quiz-feedback.correct {
@@ -438,6 +456,49 @@
         .quiz-feedback.incorrect {
             background: rgba(239, 68, 68, 0.1);
             border-left-color: #dc2626;
+        }
+        
+        /* 茶叶类型展示区 */
+        .tea-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+        
+        .tea-type-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(58, 125, 68, 0.3);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .tea-type-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            border-color: rgba(58, 125, 68, 0.6);
+        }
+        
+        .tea-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .tea-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2F1B14;
+            margin-bottom: 8px;
+        }
+        
+        .tea-description {
+            color: #8B4513;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -451,52 +512,52 @@
     <!-- 音频控制按钮 -->
     <div class="audio-control" onclick="toggleAudio()">
         <span id="audioIcon">🔊</span>
-        <span class="text-white font-bold ml-2">历史解说</span>
+        <span class="text-white font-bold ml-2">茶叶传播解说</span>
     </div>
     
     <!-- 主容器 -->
     <div class="container mx-auto px-4 py-8">
         <!-- 标题区域 -->
         <header class="text-center mb-12">
-            <h1 class="text-5xl font-bold text-foreground mb-4 silk-texture">
-                丝绸之路历史时间轴
+            <h1 class="text-5xl font-bold text-foreground mb-4 tea-texture">
+                丝绸之路茶叶传播历史
             </h1>
             <p class="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
-                穿越时空，探索这条连接东西方文明的古代贸易通道，见证中华文明与世界的交流融合
+                穿越千年茶路，探索茶叶如何从中国走向世界，成为全球最受欢迎的饮品之一
             </p>
         </header>
         
         <!-- 控制面板 -->
         <div class="control-panel mb-8">
-            <h3 class="text-2xl font-bold text-foreground mb-4">选择历史时期</h3>
+            <h3 class="text-2xl font-bold text-foreground mb-4">选择茶叶传播时期</h3>
             <div class="flex flex-wrap justify-center">
-                <button class="period-btn active" onclick="showPeriod('han')" data-period="han">
-                    汉代开拓期 (前138-220年)
-                </button>
-                <button class="period-btn" onclick="showPeriod('tang')" data-period="tang">
-                    唐代鼎盛期 (618-907年)
+                <button class="period-btn active" onclick="showPeriod('tang')" data-period="tang">
+                    唐代起源期 (618-907年)
                 </button>
                 <button class="period-btn" onclick="showPeriod('song')" data-period="song">
-                    宋元繁荣期 (960-1368年)
+                    宋元发展期 (960-1368年)
                 </button>
                 <button class="period-btn" onclick="showPeriod('ming')" data-period="ming">
-                    明清衰落期 (1368-1912年)
+                    明代繁荣期 (1368-1644年)
+                </button>
+                <button class="period-btn" onclick="showPeriod('qing')" data-period="qing">
+                    清代鼎盛期 (1644-1912年)
                 </button>
             </div>
         </div>
         
         <!-- 交互地图 -->
         <div class="map-container">
-            <h3 class="text-3xl font-bold text-primary mb-6 text-center">丝绸之路交互地图</h3>
+            <h3 class="text-3xl font-bold text-primary mb-6 text-center">丝绸之路茶叶传播路线图</h3>
             
             <!-- 朝代选择器 -->
             <div class="dynasty-selector">
-                <label class="text-foreground font-bold mr-4">选择朝代：</label>
+                <label class="text-foreground font-bold mr-4">选择时期：</label>
                 <select id="dynastySelect" onchange="switchDynasty(this.value)">
-                    <option value="han">汉代 (前206-220年)</option>
                     <option value="tang">唐代 (618-907年)</option>
                     <option value="song">宋元 (960-1368年)</option>
-                    <option value="ming">明清 (1368-1912年)</option>
+                    <option value="ming">明代 (1368-1644年)</option>
+                    <option value="qing">清代 (1644-1912年)</option>
                 </select>
             </div>
             
@@ -505,94 +566,81 @@
             
             <!-- 地图说明 -->
             <div class="mt-6 text-center">
-                <p class="text-primary font-bold">点击地图标记点查看城市详细信息 | 切换朝代查看不同时期的丝绸之路发展状态</p>
+                <p class="text-primary font-bold">点击地图标记点查看茶叶贸易城市详细信息 | 切换时期查看不同阶段的茶叶传播路线</p>
             </div>
         </div>
         
         <!-- 城市信息卡片 -->
         <div id="cityInfo" class="info-card">
-            <h4 class="text-2xl font-bold text-foreground mb-3">选择城市查看详细信息</h4>
-            <p class="text-secondary">点击地图上的城市节点，了解该城市在丝绸之路上的重要作用和历史故事。</p>
+            <h4 class="text-2xl font-bold text-foreground mb-3">选择城市查看茶叶贸易信息</h4>
+            <p class="text-secondary">点击地图上的城市节点，了解该城市在茶叶传播中的重要作用和历史故事。</p>
+        </div>
+        
+        <!-- 茶叶类型展示区 -->
+        <div class="tea-types">
+            <div class="tea-type-card">
+                <div class="tea-icon">🍃</div>
+                <div class="tea-name">绿茶</div>
+                <div class="tea-description">最早通过丝绸之路传播的茶类，保留了茶叶最原始的风味和营养成分。</div>
+            </div>
+            <div class="tea-type-card">
+                <div class="tea-icon">🍂</div>
+                <div class="tea-name">红茶</div>
+                <div class="tea-description">全发酵茶，适合长途运输，成为西方最受欢迎的茶类之一。</div>
+            </div>
+            <div class="tea-type-card">
+                <div class="tea-icon">🍵</div>
+                <div class="tea-name">砖茶</div>
+                <div class="tea-description">压缩茶，便于驼队运输，是草原民族的重要饮品。</div>
+            </div>
+            <div class="tea-type-card">
+                <div class="tea-icon">🌿</div>
+                <div class="tea-name">乌龙茶</div>
+                <div class="tea-description">半发酵茶，兼具绿茶清香和红茶醇厚，深受东南亚喜爱。</div>
+            </div>
         </div>
         
         <!-- 时间轴 -->
         <div class="timeline-container mt-16">
             <div class="timeline-line"></div>
             
-            <!-- 汉代时期 -->
-            <div class="timeline-item left" data-period="han">
-                <div class="timeline-dot" onclick="focusTimelineItem(this)"></div>
-                <div class="timeline-content">
-                    <h3 class="text-2xl font-bold text-foreground mb-3">前138年 - 张骞出使西域</h3>
-                    <div class="w-full h-48 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg mb-4 flex items-center justify-center">
-                        <span class="text-foreground/60 text-lg">长安古城门示意图</span>
-                    </div>
-                    <p class="text-secondary leading-relaxed">
-                        汉武帝派遣张骞出使西域，开启了中原与西域的正式外交和贸易往来。张骞历经艰险，
-                        两次出使西域，不仅带回了关于西域各国的详细情报，更重要的是开辟了后来被称为"丝绸之路"的贸易通道。
-                    </p>
-                    <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">政治外交</span>
-                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">贸易开拓</span>
-                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">文化交流</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="timeline-item right" data-period="han">
-                <div class="timeline-dot" onclick="focusTimelineItem(this)"></div>
-                <div class="timeline-content">
-                    <h3 class="text-2xl font-bold text-foreground mb-3">前60年 - 西域都护府设立</h3>
-                    <div class="w-full h-48 bg-gradient-to-br from-accent/20 to-primary/20 rounded-lg mb-4 flex items-center justify-center">
-                        <span class="text-foreground/60 text-lg">丝绸之路商队示意图</span>
-                    </div>
-                    <p class="text-secondary leading-relaxed">
-                        汉朝在西域设立都护府，标志着丝绸之路贸易的制度化和规范化。都护府不仅负责军事防务，
-                        更重要的是保护商队安全，维护贸易秩序，使得丝绸之路成为真正意义上的国际贸易大动脉。
-                    </p>
-                    <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">制度建设</span>
-                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">贸易保护</span>
-                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">军事管理</span>
-                    </div>
-                </div>
-            </div>
-            
             <!-- 唐代时期 -->
-            <div class="timeline-item left" data-period="tang" style="display: none;">
+            <div class="timeline-item left" data-period="tang">
                 <div class="timeline-dot" onclick="focusTimelineItem(this)"></div>
                 <div class="timeline-content">
-                    <h3 class="text-2xl font-bold text-foreground mb-3">618-907年 - 唐代丝路鼎盛</h3>
-                    <div class="w-full h-48 bg-gradient-to-br from-secondary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center">
-                        <span class="text-foreground/60 text-lg">丝绸织物纹样示意图</span>
+                    <h3 class="text-2xl font-bold text-foreground mb-3">唐代 - 茶叶传播的起源</h3>
+                    <div class="w-full h-48 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-foreground/60 text-lg">《茶经》与唐代茶文化</span>
                     </div>
                     <p class="text-secondary leading-relaxed">
-                        唐朝是丝绸之路的黄金时代，国力强盛，对外开放程度极高。长安成为世界性的国际大都市，
-                        各国商人、使节、学者云集。丝绸、瓷器、茶叶等中国商品远销欧洲，同时引进了胡椒、宝石等珍贵物品。
+                        唐代是茶叶文化形成的关键时期，陆羽的《茶经》系统总结了茶叶生产与饮用方法。
+                        茶叶开始通过丝绸之路向西域传播，主要作为贵重礼品和药材，尚未形成大规模贸易。
+                        茶马古道初现雏形，为后来的茶叶贸易奠定了基础。
                     </p>
                     <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">文化繁荣</span>
-                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">贸易鼎盛</span>
-                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">国际交流</span>
+                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">文化起源</span>
+                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">茶马古道</span>
+                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">陆羽《茶经》</span>
                     </div>
                 </div>
             </div>
             
-            <div class="timeline-item right" data-period="tang" style="display: none;">
+            <div class="timeline-item right" data-period="tang">
                 <div class="timeline-dot" onclick="focusTimelineItem(this)"></div>
                 <div class="timeline-content">
-                    <h3 class="text-2xl font-bold text-foreground mb-3">玄奘西行取经</h3>
-                    <div class="w-full h-48 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center">
-                        <span class="text-foreground/60 text-lg">撒马尔罕古城示意图</span>
+                    <h3 class="text-2xl font-bold text-foreground mb-3">茶马贸易的雏形</h3>
+                    <div class="w-full h-48 bg-gradient-to-br from-accent/20 to-primary/20 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-foreground/60 text-lg">唐代茶马交易示意图</span>
                     </div>
                     <p class="text-secondary leading-relaxed">
-                        唐代高僧玄奘沿丝绸之路西行求法，历时17年，行程5万里，不仅带回了大量佛经，
-                        更重要的是促进了中印文化交流，其《大唐西域记》成为研究古代中亚、南亚历史地理的珍贵资料。
+                        唐代开始出现以茶易马的贸易形式，主要发生在中原与吐蕃、回纥等民族之间。
+                        这种贸易不仅满足了中原对马匹的需求，也为边疆民族提供了重要饮品，促进了民族融合。
+                        茶叶开始被视为战略物资，为宋代茶马司的设立奠定了基础。
                     </p>
                     <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">宗教传播</span>
-                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">文化交流</span>
-                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">学术研究</span>
+                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">茶马贸易</span>
+                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">民族融合</span>
+                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">战略物资</span>
                     </div>
                 </div>
             </div>
@@ -601,38 +649,81 @@
             <div class="timeline-item left" data-period="song" style="display: none;">
                 <div class="timeline-dot" onclick="focusTimelineItem(this)"></div>
                 <div class="timeline-content">
-                    <h3 class="text-2xl font-bold text-foreground mb-3">960-1368年 - 海陆并进</h3>
-                    <div class="w-full h-48 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-lg mb-4 flex items-center justify-center">
-                        <span class="text-foreground/60 text-lg">君士坦丁堡古城示意图</span>
+                    <h3 class="text-2xl font-bold text-foreground mb-3">宋代 - 茶叶贸易制度化</h3>
+                    <div class="w-full h-48 bg-gradient-to-br from-secondary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-foreground/60 text-lg">宋代茶马司与榷茶制度</span>
                     </div>
                     <p class="text-secondary leading-relaxed">
-                        宋代海上丝绸之路兴起，与陆上丝绸之路形成海陆并进的格局。元朝统一后，
-                        丝绸之路达到新的繁荣期，马可·波罗等欧洲商人沿此路来到中国，促进了东西方的深度交流。
+                        宋代设立了专门的茶马司，管理茶叶与马匹的贸易，形成了制度化的茶马互市。
+                        榷茶制度（茶叶专卖）使茶叶成为国家财政的重要来源。
+                        茶叶通过丝绸之路大量输往西域，并开始传入中亚和西亚地区。
                     </p>
                     <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">海上贸易</span>
-                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">技术传播</span>
-                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">商业繁荣</span>
+                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">茶马司</span>
+                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">榷茶制度</span>
+                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">财政来源</span>
                     </div>
                 </div>
             </div>
             
-            <!-- 明清时期 -->
-            <div class="timeline-item right" data-period="ming" style="display: none;">
+            <div class="timeline-item right" data-period="song" style="display: none;">
                 <div class="timeline-dot" onclick="focusTimelineItem(this)"></div>
                 <div class="timeline-content">
-                    <h3 class="text-2xl font-bold text-foreground mb-3">1368-1912年 - 逐渐衰落</h3>
-                    <div class="w-full h-48 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-lg mb-4 flex items-center justify-center">
-                        <span class="text-foreground/60 text-lg">丝绸长卷背景示意图</span>
+                    <h3 class="text-2xl font-bold text-foreground mb-3">元代 - 茶叶传播加速</h3>
+                    <div class="w-full h-48 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-foreground/60 text-lg">元代东西方交流示意图</span>
                     </div>
                     <p class="text-secondary leading-relaxed">
-                        明清时期，由于海上贸易的兴起和政治因素的影响，传统的陆上丝绸之路逐渐衰落。
-                        但其历史意义和文化价值永远不会消失，为今天的"一带一路"倡议提供了深厚的历史底蕴。
+                        蒙古帝国打通了欧亚大陆，为茶叶传播创造了有利条件。
+                        马可·波罗等欧洲旅行家记录了中国的饮茶习俗，使欧洲人对茶叶有了初步认识。
+                        砖茶技术进一步发展，更适合长途运输，成为草原民族的重要商品。
                     </p>
                     <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">历史传承</span>
-                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">文化遗产</span>
-                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">现代启示</span>
+                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">东西交流</span>
+                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">砖茶技术</span>
+                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">马可·波罗</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 明代时期 -->
+            <div class="timeline-item left" data-period="ming" style="display: none;">
+                <div class="timeline-dot" onclick="focusTimelineItem(this)"></div>
+                <div class="timeline-content">
+                    <h3 class="text-2xl font-bold text-foreground mb-3">明代 - 茶叶贸易繁荣</h3>
+                    <div class="w-full h-48 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-foreground/60 text-lg">明代万里茶路示意图</span>
+                    </div>
+                    <p class="text-secondary leading-relaxed">
+                        明代形成了以山西商人为代表的茶商集团，开辟了著名的"万里茶路"。
+                        茶叶成为中西贸易的重要商品，通过陆路和海路两条路线输往世界各地。
+                        红茶制作工艺成熟，更适合欧洲人口味，为茶叶全球化奠定了基础。
+                    </p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">万里茶路</span>
+                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">晋商</span>
+                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">红茶工艺</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 清代时期 -->
+            <div class="timeline-item right" data-period="qing" style="display: none;">
+                <div class="timeline-dot" onclick="focusTimelineItem(this)"></div>
+                <div class="timeline-content">
+                    <h3 class="text-2xl font-bold text-foreground mb-3">清代 - 茶叶贸易鼎盛</h3>
+                    <div class="w-full h-48 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-foreground/60 text-lg">清代茶叶贸易鼎盛图</span>
+                    </div>
+                    <p class="text-secondary leading-relaxed">
+                        清代茶叶贸易达到鼎盛，中国成为世界最大的茶叶出口国。
+                        中俄茶叶贸易通过恰克图口岸繁荣发展，形成了专门的茶叶贸易路线。
+                        但鸦片战争后，茶叶种植技术外流，中国逐渐失去茶叶贸易垄断地位。
+                    </p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">贸易鼎盛</span>
+                        <span class="bg-accent text-white px-3 py-1 rounded-full text-sm">中俄贸易</span>
+                        <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">技术外流</span>
                     </div>
                 </div>
             </div>
@@ -640,51 +731,50 @@
         
         <!-- 知识问答区域 -->
         <div class="quiz-section">
-            <h3 class="text-3xl font-bold text-foreground mb-6 text-center">丝绸之路知识问答</h3>
-            <p class="text-secondary text-center mb-8">通过问答加深对丝绸之路历史的理解</p>
+            <h3 class="text-3xl font-bold text-foreground mb-6 text-center">茶叶传播知识问答</h3>
+            <p class="text-secondary text-center mb-8">通过问答加深对茶叶传播历史的理解</p>
             
             <!-- 单选题 -->
             <div class="quiz-question">
-                <h4 class="text-xl font-bold text-foreground mb-4">张骞出使西域开辟丝绸之路是在哪个朝代？</h4>
+                <h4 class="text-xl font-bold text-foreground mb-4">世界上第一部茶叶专著《茶经》的作者是谁？</h4>
                 <div class="quiz-options">
-                    <div class="quiz-option" onclick="selectOption(this, 0)">秦朝</div>
-                    <div class="quiz-option" onclick="selectOption(this, 1)">汉朝</div>
-                    <div class="quiz-option" onclick="selectOption(this, 2)">唐朝</div>
-                    <div class="quiz-option" onclick="selectOption(this, 3)">宋朝</div>
+                    <div class="quiz-option" onclick="selectOption(this, 0)">李白</div>
+                    <div class="quiz-option" onclick="selectOption(this, 1)">陆羽</div>
+                    <div class="quiz-option" onclick="selectOption(this, 2)">苏轼</div>
+                    <div class="quiz-option" onclick="selectOption(this, 3)">白居易</div>
                 </div>
                 <button class="quiz-submit" onclick="checkAnswer(0, [1])">提交答案</button>
                 <div class="quiz-feedback" id="feedback-0" style="display: none;">
-                    <p><strong>解析：</strong>张骞出使西域发生在汉武帝时期（前138年），这标志着丝绸之路的正式开辟。</p>
+                    <p><strong>解析：</strong>陆羽是唐代著名的茶学家，被誉为"茶圣"，他撰写的《茶经》是世界上第一部关于茶的专著。</p>
                 </div>
             </div>
             
             <!-- 多选题 -->
             <div class="quiz-question">
-                <h4 class="text-xl font-bold text-foreground mb-4">丝绸之路上的主要贸易商品包括哪些？（多选）</h4>
+                <h4 class="text-xl font-bold text-foreground mb-4">下列哪些是茶叶通过丝绸之路传播的主要形式？（多选）</h4>
                 <div class="quiz-options">
-                    <div class="quiz-option" onclick="toggleMultiOption(this, 0)">丝绸</div>
-                    <div class="quiz-option" onclick="toggleMultiOption(this, 1)">瓷器</div>
-                    <div class="quiz-option" onclick="toggleMultiOption(this, 2)">茶叶</div>
-                    <div class="quiz-option" onclick="toggleMultiOption(this, 3)">火药</div>
-                    <div class="quiz-option" onclick="toggleMultiOption(this, 4)">香料</div>
-                    <div class="quiz-option" onclick="toggleMultiOption(this, 5)">石油</div>
+                    <div class="quiz-option" onclick="toggleMultiOption(this, 0)">散茶</div>
+                    <div class="quiz-option" onclick="toggleMultiOption(this, 1)">砖茶</div>
+                    <div class="quiz-option" onclick="toggleMultiOption(this, 2)">饼茶</div>
+                    <div class="quiz-option" onclick="toggleMultiOption(this, 3)">茶粉</div>
+                    <div class="quiz-option" onclick="toggleMultiOption(this, 4)">茶膏</div>
                 </div>
-                <button class="quiz-submit" onclick="checkMultiAnswer(1, [0,1,2,4])">提交答案</button>
+                <button class="quiz-submit" onclick="checkMultiAnswer(1, [1,2,4])">提交答案</button>
                 <div class="quiz-feedback" id="feedback-1" style="display: none;">
-                    <p><strong>解析：</strong>丝绸之路上的主要贸易商品包括中国的丝绸、瓷器、茶叶，以及西方的香料等。火药虽然是中国发明，但主要用于军事，不是主要贸易商品。</p>
+                    <p><strong>解析：</strong>为了便于长途运输和保存，丝绸之路上的茶叶主要以砖茶、饼茶和茶膏等压缩形式进行贸易，散茶和茶粉容易受潮变质。</p>
                 </div>
             </div>
             
             <!-- 判断题 -->
             <div class="quiz-question">
-                <h4 class="text-xl font-bold text-foreground mb-4">丝绸之路不仅是贸易通道，也是文化交流的桥梁。</h4>
+                <h4 class="text-xl font-bold text-foreground mb-4">茶马古道是专门用于茶叶与马匹交易的贸易路线。</h4>
                 <div class="quiz-options">
                     <div class="quiz-option" onclick="selectOption(this, 0)">正确</div>
                     <div class="quiz-option" onclick="selectOption(this, 1)">错误</div>
                 </div>
                 <button class="quiz-submit" onclick="checkAnswer(2, [0])">提交答案</button>
                 <div class="quiz-feedback" id="feedback-2" style="display: none;">
-                    <p><strong>解析：</strong>丝绸之路确实不仅仅是贸易通道，更是促进东西方文化、宗教、技术交流的重要桥梁，对人类文明发展产生了深远影响。</p>
+                    <p><strong>解析：</strong>茶马古道确实是中国西南地区以茶马互市为主要内容的商业通道，起源于唐宋，兴盛于明清，是连接中原与西藏、云南与东南亚的重要贸易网络。</p>
                 </div>
             </div>
         </div>
@@ -698,135 +788,174 @@
         
         // 城市地理坐标数据
         const cityCoordinates = {
+            'fujian': [26.4837, 117.9249], // 福建武夷山
+            'anxi': [25.0561, 118.1689], // 安溪
             'chang-an': [34.3416, 108.9398], // 西安
-            'dunhuang': [40.1424, 94.6624],
-            'loulan': [40.5, 89.8],
+            'chengdu': [30.5728, 104.0668], // 成都
+            'dali': [25.6065, 100.2676], // 大理
+            'lhasa': [29.6469, 91.1409], // 拉萨
+            'dunhuang': [40.1424, 94.6624], // 敦煌
             'kashi': [39.4704, 75.9896], // 喀什
             'samarkand': [39.6270, 66.9750], // 撒马尔罕
-            'baghdad': [33.3152, 44.3661], // 巴格达
-            'constantinople': [41.0082, 28.9784], // 伊斯坦布尔
-            'bukhara': [39.7747, 64.4286], // 布哈拉
-            'merv': [37.6667, 62.1833], // 梅尔夫
-            'herat': [34.3482, 62.1997], // 赫拉特
-            'balkh': [36.7581, 66.8957], // 巴尔赫
-            'tashkent': [41.2995, 69.2401], // 塔什干
-            'almaty': [43.2220, 76.8512], // 阿拉木图
-            'turpan': [42.9513, 89.1898], // 吐鲁番
-            'yarkand': [38.4183, 77.2667], // 叶尔羌
-            'khotan': [37.1167, 79.9167] // 和田
+            'tehran': [35.6892, 51.3890], // 德黑兰
+            'istanbul': [41.0082, 28.9784], // 伊斯坦布尔
+            'moscow': [55.7558, 37.6173], // 莫斯科
+            'kyakhta': [50.3464, 106.4475] // 恰克图
         };
         
         // 朝代路线数据
         const dynastyRoutes = {
-            han: {
-                cities: ['chang-an', 'dunhuang', 'loulan', 'kashi', 'samarkand'],
-                routes: [
-                    ['chang-an', 'dunhuang', 'loulan', 'kashi', 'samarkand']
-                ],
-                policies: {
-                    'chang-an': ['张骞出使西域', '设立西域都护府', '开辟丝绸之路'],
-                    'dunhuang': ['河西走廊要塞', '佛教传播中心'],
-                    'kashi': ['西域门户', '贸易集散地']
-                }
-            },
             tang: {
-                cities: ['chang-an', 'dunhuang', 'turpan', 'kashi', 'samarkand', 'bukhara', 'merv', 'baghdad'],
+                cities: ['fujian', 'chang-an', 'chengdu', 'dali', 'lhasa', 'dunhuang', 'kashi'],
                 routes: [
-                    ['chang-an', 'dunhuang', 'turpan', 'kashi', 'samarkand', 'bukhara', 'merv', 'baghdad'],
-                    ['chang-an', 'dunhuang', 'khotan', 'yarkand', 'kashi', 'samarkand']
+                    ['fujian', 'chang-an', 'dunhuang', 'kashi'],
+                    ['chengdu', 'dali', 'lhasa']
                 ],
                 policies: {
-                    'chang-an': ['安西都护府', '北庭都护府', '国际贸易中心'],
-                    'samarkand': ['粟特商人网络', '文化交流枢纽'],
-                    'baghdad': ['阿拉伯帝国都城', '学术文化中心']
+                    'fujian': ['武夷岩茶产地', '唐代贡茶'],
+                    'chang-an': ['茶叶消费中心', '茶文化形成'],
+                    'lhasa': ['茶马贸易', '藏茶文化']
                 }
             },
             song: {
-                cities: ['chang-an', 'dunhuang', 'kashi', 'samarkand', 'bukhara', 'baghdad', 'constantinople'],
+                cities: ['fujian', 'anxi', 'chang-an', 'chengdu', 'dali', 'lhasa', 'dunhuang', 'kashi', 'samarkand'],
                 routes: [
-                    ['chang-an', 'dunhuang', 'kashi', 'samarkand', 'bukhara', 'baghdad', 'constantinople']
+                    ['fujian', 'chang-an', 'dunhuang', 'kashi', 'samarkand'],
+                    ['anxi', 'chang-an', 'dunhuang', 'kashi'],
+                    ['chengdu', 'dali', 'lhasa']
                 ],
                 policies: {
-                    'chang-an': ['市舶司制度', '海陆并进贸易'],
-                    'constantinople': ['拜占庭贸易', '东西方交汇点'],
-                    'samarkand': ['帖木儿帝国', '建筑艺术中心']
+                    'fujian': ['北苑贡茶', '建窑黑盏'],
+                    'anxi': ['铁观音发源地'],
+                    'chang-an': ['茶马司设立', '榷茶制度']
                 }
             },
             ming: {
-                cities: ['chang-an', 'dunhuang', 'kashi', 'samarkand'],
+                cities: ['fujian', 'anxi', 'chang-an', 'chengdu', 'dali', 'lhasa', 'dunhuang', 'kashi', 'samarkand', 'tehran'],
                 routes: [
-                    ['chang-an', 'dunhuang', 'kashi', 'samarkand']
+                    ['fujian', 'chang-an', 'dunhuang', 'kashi', 'samarkand', 'tehran'],
+                    ['anxi', 'chang-an', 'dunhuang', 'kashi'],
+                    ['chengdu', 'dali', 'lhasa']
                 ],
                 policies: {
-                    'chang-an': ['海禁政策', '朝贡贸易'],
-                    'dunhuang': ['边防要塞', '文化遗存保护'],
-                    'kashi': ['边境贸易', '民族融合']
+                    'fujian': ['红茶起源', '正山小种'],
+                    'chang-an': ['晋商茶路', '万里茶道'],
+                    'samarkand': ['中亚茶叶集散地']
+                }
+            },
+            qing: {
+                cities: ['fujian', 'anxi', 'chang-an', 'chengdu', 'dali', 'lhasa', 'dunhuang', 'kashi', 'samarkand', 'tehran', 'istanbul', 'moscow', 'kyakhta'],
+                routes: [
+                    ['fujian', 'chang-an', 'dunhuang', 'kashi', 'samarkand', 'tehran', 'istanbul'],
+                    ['fujian', 'chang-an', 'kyakhta', 'moscow'],
+                    ['chengdu', 'dali', 'lhasa']
+                ],
+                policies: {
+                    'fujian': ['茶叶出口基地', '武夷红茶'],
+                    'kyakhta': ['中俄茶叶贸易', '恰克图口岸'],
+                    'moscow': ['欧洲茶叶消费中心']
                 }
             }
         };
         
         // 城市信息数据
         const cityData = {
+            'fujian': {
+                name: '福建武夷山',
+                description: '中国著名的茶叶产区，武夷岩茶和正山小种红茶的原产地。自唐代以来就是贡茶产区，通过丝绸之路将茶叶传播到世界各地。',
+                importance: '茶叶原产地、贡茶产区、红茶发源地',
+                period: '唐代至今'
+            },
+            'anxi': {
+                name: '福建安溪',
+                description: '中国乌龙茶之乡，铁观音的发源地。宋代开始茶叶生产，明清时期成为重要的茶叶出口基地。',
+                importance: '乌龙茶产区、铁观音发源地',
+                period: '宋代至今'
+            },
             'chang-an': {
                 name: '长安（今西安）',
-                description: '丝绸之路的起点，唐朝都城，当时世界上最大的城市之一。人口超过百万，汇聚了来自世界各地的商人、使节和学者。',
-                importance: '政治中心、贸易起点、文化枢纽',
-                period: '汉唐时期最为繁荣'
+                description: '丝绸之路起点，唐代茶叶消费和文化中心。陆羽在此撰写《茶经》，茶文化在此形成并传播。',
+                importance: '茶文化中心、茶叶贸易枢纽',
+                period: '唐代最为繁荣'
+            },
+            'chengdu': {
+                name: '成都',
+                description: '西南地区茶叶集散中心，茶马古道的重要起点。宋代设立茶马司，管理茶叶与藏区的马匹贸易。',
+                importance: '茶马贸易中心、西南茶叶集散地',
+                period: '唐宋时期最为重要'
+            },
+            'dali': {
+                name: '大理',
+                description: '茶马古道上的重要节点，连接云南与西藏的贸易枢纽。普洱茶等云南茶叶通过此地运往藏区。',
+                importance: '茶马古道枢纽、民族贸易中心',
+                period: '唐宋至明清'
+            },
+            'lhasa': {
+                name: '拉萨',
+                description: '西藏政治经济中心，茶叶消费的重要市场。藏民"宁可三日无粮，不可一日无茶"，形成了独特的酥油茶文化。',
+                importance: '茶叶消费市场、藏茶文化中心',
+                period: '唐宋至今'
             },
             'dunhuang': {
                 name: '敦煌',
-                description: '河西走廊的重要节点，以莫高窟闻名。是丝绸之路上的重要补给站和文化交流中心，保存了大量珍贵的文物和壁画。',
-                importance: '文化艺术中心、宗教传播地、商队补给站',
-                period: '魏晋南北朝至唐代最为繁荣'
-            },
-            'loulan': {
-                name: '楼兰',
-                description: '古代西域重要城邦，位于塔里木盆地。曾是丝绸之路南道的重要中转站，后因环境变化而衰落，成为神秘的古城遗址。',
-                importance: '贸易中转站、军事要地',
-                period: '汉晋时期繁荣，后逐渐衰落'
+                description: '丝绸之路上的重要关口，茶叶向西传播的必经之地。莫高窟壁画中有饮茶场景的描绘。',
+                importance: '丝绸之路关口、文化交汇点',
+                period: '汉唐时期'
             },
             'kashi': {
                 name: '喀什',
-                description: '位于帕米尔高原东麓，是丝绸之路上的重要枢纽。连接中亚、南亚和中国内地的交通要道，至今仍是重要的商贸城市。',
-                importance: '交通枢纽、商贸中心、文化交汇点',
-                period: '各个历史时期都很重要'
+                description: '丝绸之路上的重要贸易城市，茶叶向中亚传播的关键节点。当地形成了独特的饮茶习俗。',
+                importance: '中亚贸易枢纽、茶叶传播节点',
+                period: '各个历史时期'
             },
             'samarkand': {
                 name: '撒马尔罕',
-                description: '中亚古城，丝绸之路上的璀璨明珠。曾是多个帝国的都城，以其精美的建筑和繁荣的商业而闻名于世。',
-                importance: '政治中心、商业枢纽、建筑艺术中心',
-                period: '各个历史时期都很重要，特别是帖木儿时期'
+                description: '中亚古城，丝绸之路上的重要中转站。茶叶在此集散并继续向西传播到波斯和阿拉伯地区。',
+                importance: '中亚茶叶集散地、文化交流中心',
+                period: '唐宋至元代'
             },
-            'baghdad': {
-                name: '巴格达',
-                description: '阿拉伯帝国的都城，伊斯兰文明的中心。在丝绸之路贸易中扮演重要角色，是东西方商品的重要集散地。',
-                importance: '政治中心、学术中心、贸易枢纽',
-                period: '阿拔斯王朝时期最为繁荣'
+            'tehran': {
+                name: '德黑兰',
+                description: '波斯地区的重要城市，茶叶传播到中东地区的关键节点。波斯人发展出了独特的茶文化。',
+                importance: '中东茶叶集散地、波斯茶文化',
+                period: '明清时期'
             },
-            'constantinople': {
-                name: '君士坦丁堡（今伊斯坦布尔）',
-                description: '拜占庭帝国的都城，丝绸之路的西端终点之一。连接欧亚两洲，是东西方贸易的重要门户。',
-                importance: '贸易终点、文化交汇点、政治中心',
-                period: '拜占庭帝国和奥斯曼帝国时期'
+            'istanbul': {
+                name: '伊斯坦布尔',
+                description: '欧亚交汇点，茶叶传播到欧洲的重要门户。土耳其茶文化深受波斯和中国影响。',
+                importance: '欧洲茶叶门户、东西方交汇点',
+                period: '明清时期'
+            },
+            'moscow': {
+                name: '莫斯科',
+                description: '俄罗斯茶叶消费中心，通过恰克图贸易从中国进口大量茶叶。俄罗斯形成了独特的茶炊文化。',
+                importance: '欧洲茶叶消费中心、茶炊文化',
+                period: '清代'
+            },
+            'kyakhta': {
+                name: '恰克图',
+                description: '中俄边境贸易口岸，清代茶叶贸易的重要通道。晋商通过此地向俄罗斯出口大量茶叶。',
+                importance: '中俄茶叶贸易口岸、晋商贸易点',
+                period: '清代'
             }
         };
         
-        let currentPeriod = 'han';
-        let currentDynasty = 'han';
+        let currentPeriod = 'tang';
+        let currentDynasty = 'tang';
         let audioPlaying = false;
         
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
             initializeTimeline();
             initializeMap();
-            showPeriod('han');
-            switchDynasty('han');
+            showPeriod('tang');
+            switchDynasty('tang');
         });
         
         // 初始化Leaflet地图
         function initializeMap() {
-            // 创建地图实例，中心点设在中亚
-            map = L.map('realMap').setView([40.0, 70.0], 4);
+            // 创建地图实例，中心点设在中国
+            map = L.map('realMap').setView([35.0, 105.0], 4);
             
             // 使用高德地图瓦片
             L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
@@ -858,7 +987,7 @@
                     // 创建自定义图标
                     const customIcon = L.divIcon({
                         className: 'custom-marker',
-                        html: `<div style="width: 20px; height: 20px; background: linear-gradient(135deg, #D4AF37, #FF6B35); border: 3px solid #FDF5E6; border-radius: 50%; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);"></div>`,
+                        html: `<div style="width: 20px; height: 20px; background: linear-gradient(135deg, #3A7D44, #8B4513); border: 3px solid #F5F5F0; border-radius: 50%; box-shadow: 0 4px 12px rgba(58, 125, 68, 0.5);"></div>`,
                         iconSize: [20, 20],
                         iconAnchor: [10, 10]
                     });
@@ -873,9 +1002,9 @@
                         </div>
                         ${policies.length > 0 ? `
                         <div style="margin-top: 12px;">
-                            <strong>相关政策：</strong>
+                            <strong>茶叶相关：</strong>
                             <div class="popup-tags">
-                                ${policies.map(policy => `<span class="popup-tag" onclick="showPolicyDetail('${policy}')">${policy}</span>`).join('')}
+                                ${policies.map(policy => `<span class="popup-tag">${policy}</span>`).join('')}
                             </div>
                         </div>
                         ` : ''}
@@ -888,6 +1017,10 @@
                         })
                         .addTo(map);
                     
+                    marker.on('click', function() {
+                        showCityInfo(cityId);
+                    });
+                    
                     currentMarkers.push(marker);
                 }
             });
@@ -898,10 +1031,10 @@
                 
                 if (routeCoords.length > 1) {
                     const polyline = L.polyline(routeCoords, {
-                        color: index === 0 ? '#D4AF37' : '#FF6B35',
+                        color: index === 0 ? '#3A7D44' : '#8B4513',
                         weight: 4,
                         opacity: 0.8,
-                        dashArray: '10, 5'
+                        dashArray: index === 0 ? null : '10, 5'
                     }).addTo(map);
                     
                     currentPolylines.push(polyline);
@@ -913,54 +1046,6 @@
                 const group = new L.featureGroup(currentMarkers);
                 map.fitBounds(group.getBounds().pad(0.1));
             }
-        }
-        
-        // 显示政策详情
-        function showPolicyDetail(policy) {
-            const policyDetails = {
-                '张骞出使西域': '汉武帝时期，张骞两次出使西域，开辟了中原与西域的外交和贸易通道，为丝绸之路的形成奠定了基础。',
-                '设立西域都护府': '汉朝在西域设立都护府，加强对西域的管理，保护商队安全，促进丝绸之路贸易的发展。',
-                '开辟丝绸之路': '通过张骞出使和后续的外交努力，正式开辟了连接东西方的丝绸之路贸易通道。',
-                '河西走廊要塞': '敦煌位于河西走廊西端，是中原通往西域的重要门户和军事要塞。',
-                '佛教传播中心': '敦煌莫高窟是佛教艺术的宝库，见证了佛教沿丝绸之路的传播过程。',
-                '西域门户': '喀什地处帕米尔高原东麓，是进入中亚的重要门户。',
-                '贸易集散地': '作为丝绸之路上的重要节点，各种商品在此集散交易。',
-                '安西都护府': '唐朝在西域设立的军政机构，管辖天山南路各国。',
-                '北庭都护府': '唐朝在西域设立的另一个都护府，管辖天山北路。',
-                '国际贸易中心': '唐代长安是当时世界上最大的国际贸易中心之一。',
-                '粟特商人网络': '粟特商人建立了横跨欧亚的商业网络，促进了丝绸之路贸易。',
-                '文化交流枢纽': '撒马尔罕是重要的文化交流中心，各种文明在此交汇。',
-                '阿拉伯帝国都城': '巴格达是阿拔斯王朝的都城，伊斯兰文明的中心。',
-                '学术文化中心': '巴格达的智慧宫是当时重要的学术研究中心。',
-                '市舶司制度': '宋代建立的管理海外贸易的机构。',
-                '海陆并进贸易': '宋代形成了陆上丝绸之路与海上丝绸之路并行发展的格局。',
-                '拜占庭贸易': '君士坦丁堡是拜占庭帝国的都城，是重要的贸易中心。',
-                '东西方交汇点': '君士坦丁堡连接欧亚两洲，是东西方贸易的重要枢纽。',
-                '帖木儿帝国': '14-15世纪撒马尔罕是帖木儿帝国的都城。',
-                '建筑艺术中心': '撒马尔罕以其精美的伊斯兰建筑艺术而闻名。',
-                '海禁政策': '明朝实行的限制海外贸易的政策。',
-                '朝贡贸易': '明朝与周边国家进行的以朝贡为形式的贸易。',
-                '边防要塞': '明代敦煌主要作为边防要塞存在。',
-                '文化遗存保护': '敦煌保存了大量珍贵的文化遗产。',
-                '边境贸易': '明代喀什地区的边境贸易活动。',
-                '民族融合': '多民族在丝绸之路上的交流与融合。'
-            };
-            
-            const detail = policyDetails[policy] || '暂无详细信息';
-            
-            // 创建详情弹窗
-            const detailPopup = L.popup({
-                maxWidth: 400,
-                className: 'policy-detail-popup'
-            })
-            .setLatLng(map.getCenter())
-            .setContent(`
-                <div style="padding: 16px;">
-                    <h3 style="color: #2F1B14; margin-bottom: 12px; font-size: 18px; font-weight: bold;">${policy}</h3>
-                    <p style="color: #8B4513; line-height: 1.6; margin: 0;">${detail}</p>
-                </div>
-            `)
-            .openOn(map);
         }
         
         // 时间轴动画初始化
