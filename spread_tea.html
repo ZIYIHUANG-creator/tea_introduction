@@ -605,10 +605,13 @@
                 }
             }
 
-            // 2. Text Info
-            const displayYear = year < 0 ? `前${Math.abs(year)}` : year;
+            // 2. Text Info - 年份显示为整数
+            const displayYear = year < 0 ? `前${Math.abs(Math.floor(year))}` : Math.floor(year);
             document.getElementById('display-year').innerText = displayYear;
-            document.getElementById('timeline').value = year;
+            
+            // 确保时间轴滑块位置与当前年份一致
+            document.getElementById('timeline').value = Math.floor(year);
+            
             document.getElementById('distance-display').innerText = Math.floor(dist);
 
             const statusBadge = document.getElementById('status-badge');
