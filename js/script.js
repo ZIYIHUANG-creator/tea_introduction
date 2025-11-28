@@ -1,4 +1,47 @@
-﻿// 分类标签功能
+// 视频启动页面控制
+document.addEventListener('DOMContentLoaded', function() {
+    const videoSplash = document.getElementById('videoSplash');
+    const introVideo = document.getElementById('introVideo');
+    const skipButton = document.getElementById('skipButton');
+    
+    // 添加video-playing类来隐藏主体内容
+    document.body.classList.add('video-playing');
+    
+    // 跳过按钮点击事件
+    skipButton.addEventListener('click', function() {
+        hideVideoSplash();
+    });
+    
+    // 视频播放结束事件
+    introVideo.addEventListener('ended', function() {
+        hideVideoSplash();
+    });
+    
+    // 视频加载失败时也显示网站
+    introVideo.addEventListener('error', function() {
+        console.log('视频加载失败，直接显示网站');
+        hideVideoSplash();
+    });
+    
+    // 隐藏视频启动页面
+    function hideVideoSplash() {
+        videoSplash.style.opacity = '0';
+        videoSplash.style.transition = 'opacity 0.5s ease';
+        
+        setTimeout(function() {
+            videoSplash.style.display = 'none';
+            document.body.classList.remove('video-playing');
+        }, 500);
+    }
+    
+    // 可选：添加键盘跳过支持（按ESC键跳过）
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            hideVideoSplash();
+        }
+    });
+});
+// 分类标签功能
 function initCategoryTags() {
     const categoryTags = document.querySelectorAll('.category-tag');
     
