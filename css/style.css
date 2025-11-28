@@ -4027,3 +4027,136 @@ canvas {
 body.video-playing .video-splash ~ * {
     display: none;
 }
+
+/* 丝绸之路模块样式 */
+#silk-road {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #f9f7f2 0%, #f0ebe0 100%);
+    position: relative;
+}
+
+#silk-road::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(139, 69, 19, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(58, 125, 68, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.silk-road-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px;
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+.silk-road-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.silk-road-map-container {
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(139, 69, 19, 0.2);
+}
+
+.silk-road-map {
+    width: 100%;
+    height: 400px;
+    border: none;
+    display: block;
+}
+
+.silk-road-info {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #8B4513;
+}
+
+.silk-road-info h3 {
+    color: #3A7D44;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-bottom: 2px solid rgba(58, 125, 68, 0.2);
+    padding-bottom: 10px;
+}
+
+.silk-road-info p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.silk-road-info ul {
+    margin-bottom: 25px;
+    padding-left: 20px;
+}
+
+.silk-road-info li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.silk-road-info strong {
+    color: #8B4513;
+}
+
+.silk-road-actions {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.silk-road-btn {
+    background: linear-gradient(135deg, #8B4513, #3A7D44);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.silk-road-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(139, 69, 19, 0.3);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .silk-road-preview {
+        flex-direction: column;
+    }
+    
+    .silk-road-map-container,
+    .silk-road-info {
+        max-width: 100%;
+    }
+    
+    .silk-road-map {
+        height: 300px;
+    }
+}
