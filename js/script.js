@@ -1,4 +1,4 @@
-// 视频启动页面控制
+// 视频启动页面控制 - 静音自动播放，用户交互后开启声音
 document.addEventListener('DOMContentLoaded', function() {
     const videoSplash = document.getElementById('videoSplash');
     const introVideo = document.getElementById('introVideo');
@@ -7,8 +7,45 @@ document.addEventListener('DOMContentLoaded', function() {
     // 添加video-playing类来隐藏主体内容
     document.body.classList.add('video-playing');
     
+    // 添加声音开启按钮（因为视频是静音开始的）
+    function addUnmuteButton() {
+        const unmuteButton = document.createElement('button');
+        unmuteButton.className = 'unmute-button';
+        unmuteButton.innerHTML = '🔇 开启声音';
+        unmuteButton.style.cssText = `
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            z-index: 10000;
+        `;
+        
+        unmuteButton.addEventListener('click', function() {
+            introVideo.muted = false;
+            unmuteButton.innerHTML = '🔊 声音已开启';
+            setTimeout(() => {
+                unmuteButton.style.opacity = '0';
+                setTimeout(() => unmuteButton.remove(), 500);
+            }, 1000);
+        });
+        
+        videoSplash.appendChild(unmuteButton);
+    }
+    
+    // 初始化时添加声音开启按钮
+    addUnmuteButton();
+    
     // 跳过按钮点击事件
     skipButton.addEventListener('click', function() {
+        // 用户交互后开启声音
+        introVideo.muted = false;
         hideVideoSplash();
     });
     
